@@ -1,0 +1,6 @@
+framework module Pods_MoneySplit {
+  umbrella header "Pods-MoneySplit-umbrella.h"
+
+  export *
+  module * { export * }
+}
