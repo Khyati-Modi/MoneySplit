@@ -10,23 +10,20 @@ import UIKit
 
 class ListTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var amountButtonOutlet: UIButton!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var amountOutlet: UIButton!
-    
+    @IBOutlet weak var profileImage: UIImageView!
     @IBAction func amountButton(_ sender: UIButton) {
-        
         
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        profileImage.clipsToBounds = true
+        profileImage.layer.cornerRadius = 35
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

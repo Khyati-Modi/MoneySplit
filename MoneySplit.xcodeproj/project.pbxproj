@@ -10,6 +10,7 @@
 		4213218022D4758F00E0C47B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213217E22D4758E00E0C47B /* TableViewCell.swift */; };
 		4213218122D4758F00E0C47B /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4213217F22D4758E00E0C47B /* TableViewCell.xib */; };
 		4213218322D49B9F00E0C47B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213218222D49B9F00E0C47B /* User.swift */; };
+		4213D68F22D7193100F8BA7F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */; };
 		426F186722D617210053F26B /* FriendsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F186622D617210053F26B /* FriendsPageViewController.swift */; };
 		4276BC0022D32C1B00FAD007 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */; };
 		4276BC0622D3420700FAD007 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BC0522D3420700FAD007 /* TabBarViewController.swift */; };
@@ -31,6 +32,7 @@
 		4213217E22D4758E00E0C47B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		4213217F22D4758E00E0C47B /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		4213218222D49B9F00E0C47B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		426F186622D617210053F26B /* FriendsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPageViewController.swift; sourceTree = "<group>"; };
 		4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4276BC0522D3420700FAD007 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				4295E9F522D46C6200B6385E /* ProfileViewController.swift */,
 				42BBDD3B22D378CB00BF25D4 /* ListTableViewCell.swift */,
 				426F186622D617210053F26B /* FriendsPageViewController.swift */,
+				4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				42DFD41A22D31BBA00275B98 /* LoginPageController.swift in Sources */,
 				42DFD41822D31BBA00275B98 /* AppDelegate.swift in Sources */,
 				4295E9F622D46C6200B6385E /* ProfileViewController.swift in Sources */,
+				4213D68F22D7193100F8BA7F /* EditProfileViewController.swift in Sources */,
 				4295E9EE22D439CB00B6385E /* HomeViewController.swift in Sources */,
 				4213218322D49B9F00E0C47B /* User.swift in Sources */,
 				42BBDD3D22D378CB00BF25D4 /* ListTableViewCell.swift in Sources */,

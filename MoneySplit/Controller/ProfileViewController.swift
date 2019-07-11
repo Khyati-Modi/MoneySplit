@@ -28,7 +28,15 @@ class ProfileViewController: UIViewController {
         getData()
     }
     
-   
+    @IBAction func editProfile(_ sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as!  EditProfileViewController
+        vc.username = userNameLabel.text!
+        vc.userfullname = fullNameLabel.text!
+        navigationController?.pushViewController(vc, animated:true)
+    }
+    
     @IBAction func Logoput(_ sender: UIBarButtonItem) {
         let firebaseAuth = Auth.auth()
         do {
@@ -51,7 +59,7 @@ class ProfileViewController: UIViewController {
             }
             else  {
                 for document in QuerySnapshot!.documents {
-                    if Auth.auth().currentUser?.email! == document.documentID{
+                    if Auth.auth().currentUser?.email! == document.documentID {
                         self.fullNameLabel.text = document.data()["fullName"] as? String
                         self.emailIdLabel.text = document.data()["email"] as? String
                         self.userNameLabel.text = document.data()["userName"] as? String

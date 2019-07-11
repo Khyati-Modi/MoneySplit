@@ -17,13 +17,12 @@ class AddBillViewController: UIViewController {
     
     var userPickerView : UIPickerView!
     var selectedGroup : Int!
-    let groupArray = ["Khyati & Saheb","Khyati & Dharmik","Dharmik & Saheb"]
-    
-    let groupArray0 = ["Khyati","Saheb"]
+    let groupArray = ["Saheb & Khyati","Khyati & Dharmik","Saheb & Dharmik"]
+    let groupArray0 = ["Saheb","Khyati"]
     let groupArray1 = ["Khyati","Dharmik"]
-    let groupArray2 = ["Dharmik","Saheb"]
+    let groupArray2 = ["Saheb","Dharmik"]
     var selectedGroupRow : Int = 0
-    
+
     var prizeArray = ["",""]
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,7 +41,7 @@ class AddBillViewController: UIViewController {
         currencyImageView.image = currencyImage
         totalAmountOfBill.leftView = currencyImageView
         totalAmountOfBill.leftViewMode = UITextField.ViewMode.always
-        
+        paidByTextField.text = Auth.auth().currentUser?.email
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
@@ -55,7 +54,7 @@ class AddBillViewController: UIViewController {
     @IBAction func upArrow(_ sender: UIButton) {
         splitManually.text = "Split Equally"
         if totalAmountOfBill.text != "" {
-            let amount = Double(totalAmountOfBill.text!)! / 2
+            let amount = Double(totalAmountOfBill.text!)! / 3
             prizeArray = ["\(amount)","\(amount)"]
             tableView.reloadData()
         }
@@ -72,9 +71,14 @@ class AddBillViewController: UIViewController {
         splitManually.text = "Split Uneually"
          if totalAmountOfBill.text != "" {
             let number = Int.random(in: 3 ..< 10)
-            let amount = (Double(totalAmountOfBill.text!)!    / Double(number) )
+            let amount = (Double(totalAmountOfBill.text!)! / Double(number) )
+            
             let secondAmount = Double(totalAmountOfBill.text!)!  - amount
-            prizeArray = ["\(String(format:"%.2f", amount))","\(String(format:"%.2f", secondAmount))"]
+            let randomNumber = Int.random(in: 3 ..< 10)
+            let secondValue = (Double(secondAmount) / Double(randomNumber))
+//            let thirdAmount = secondAmount - secondValue
+            
+            prizeArray = ["\(String(format:"%.2f", amount))","\(String(format:"%.2f", secondValue))"]
             tableView.reloadData()
         }
     
@@ -98,7 +102,8 @@ class AddBillViewController: UIViewController {
     }
     
     @IBAction func saveBill(_ sender: UIBarButtonItem) {
-       addBill()
+        addBill()
+        addPeopleWhoOweYou()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as!  TabBarViewController
         navigationController?.pushViewController(vc, animated:true)
@@ -120,7 +125,45 @@ class AddBillViewController: UIViewController {
             }
         }
     }
+    func addPeopleWhoOweYou(){
+        let pickTheUser = Auth.auth().currentUser?.email
+
+        switch pickTheUser {
+        case "khyati.modi.sa@gmail.com" :
+            callTheUser(userOne: "sahebsingh.tuleja.sa@gmail.com", userTwo: "dharmik.dalwadi.sa@gmail.com")
+        case "dharmik.dalwadi.sa@gmail.com" :
+            callTheUser(userOne: "sahebsingh.tuleja.sa@gmail.com", userTwo: "khyati.modi.sa@gmail.com")
+        case "sahebsingh.tuleja.sa@gmail.com" :
+            callTheUser(userOne: "khyati.modi.sa@gmail.com", userTwo: "dharmik.dalwadi.sa@gmail.com")
+        default:
+            print("Oooopsss!")
+        }
+    }
+    func callTheUser (userOne : String, userTwo : String){
+        let docData: [String: Any] = ["name": userOne ,"money": "\(prizeArray[0])","paidBy": "\(paidByTextField.text!)"]
+        
+        db.collection("PeopleWhoOweYou").document().setData(docData) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            }
+            else {
+                print("Document successfully written!")
+            }
+        }
+        
+        let secondDocData: [String: Any] = ["name": userTwo ,"money": "\(self.prizeArray[1])","paidBy": "\(paidByTextField.text!)"]
+    
+        self.db.collection("PeopleWhoOweYou").document().setData(secondDocData) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            }
+            else {
+                print("Document successfully written!")
+            }
+        }
+    }
 }
+    
 extension AddBillViewController : UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

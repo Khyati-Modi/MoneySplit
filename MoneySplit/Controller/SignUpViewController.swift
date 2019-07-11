@@ -20,8 +20,17 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
-    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var conditionView: UIImageView!
+    
+    @IBAction func tAcButtonClick(_ sender: UIButton) {
+        if  conditionView.image == UIImage(named: "Ellipse") {
+             conditionView.image = UIImage(named: "tick")
+        }
+        else{
+            conditionView.image = UIImage(named: "Ellipse")
+        }
+    }
     
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
@@ -34,30 +43,70 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
             imagePickerController.allowsEditing = true
             self.present(imagePickerController, animated: true, completion: nil)
     }
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            imageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-            picker.dismiss(animated: true, completion: nil)
+
+    @IBAction func SignUpClick(_ sender: UIButton) {
+        if usernameTextField.text != "" && fullnameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != "" && conditionView.image != UIImage(named: "tick") {
+            addUser()
+            addImage()
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+                if user != nil{
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            
         }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            self.dismiss(animated: true, completion: nil)
+        else {
+            let alert = UIAlertController(title: "Oops!", message: "Please enter data properly", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            self.present (alert, animated: true)
         }
-        
-    
+      
+    }
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       setBackground()
+        setBackground()
         //Do firebase setting
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
-      
+        
         actionCodeSettings.url = URL(string: "https://khyatimodi.page.link")
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-    
     }
+    
+    func addUser() {
+        let email = emailTextField.text!
+        let docData: [String: Any] = ["fullName": "\(fullnameTextField.text!)","email": "\(emailTextField.text!)","userName": "\(usernameTextField.text!)"]
+        db.collection("UserSignUp").document("\(email)").setData(docData) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    func addImage(){
+        let imageID = emailTextField.text!
+        let uploadRef = Storage.storage().reference(withPath: "uploads/\(imageID).jpg")
+        guard let imageData = imageView.image?.jpegData(compressionQuality: 0.75) else { return }
+        let uploadMetadata = StorageMetadata.init()
+        uploadMetadata.contentType = "uploads/jpeg"
+        uploadRef.putData(imageData, metadata: uploadMetadata) { (uploadedMetadata, error) in
+            if let error = error{
+                print(error.localizedDescription)
+            }
+            else
+            {
+                print(uploadedMetadata!)
+            }
+        }
+    }
+    
     func setBackground(){
         // Background Image and input text field style
         let background = UIImage(named: "SignUpBg")
@@ -68,6 +117,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         navigationController?.navigationBar.isHidden = true
         signUpButton.layer.cornerRadius = 25
         
+        conditionView.image = UIImage(named: "Ellipse")
+        conditionView.contentMode = .scaleAspectFit
         
         let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
         let userImage = UIImage(named: "User")
@@ -129,68 +180,13 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(btmLine)
     }
-    
-    @IBAction func SignUpClick(_ sender: UIButton) {
-        addUser()
-        addImage()
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            if user != nil{
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-    }
-    func addUser() {
-        let email = emailTextField.text!
-        
-        let docData: [String: Any] = ["fullName": "\(fullnameTextField.text!)","email": "\(emailTextField.text!)","userName": "\(usernameTextField.text!)"]
-        
-        db.collection("UserSignUp").document("\(email)").setData(docData) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        imageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        picker.dismiss(animated: true, completion: nil)
     }
     
-    func addImage(){
-        let imageID = usernameTextField.text!
-        let uploadRef = Storage.storage().reference(withPath: "uploads/\(imageID).jpg")
-        guard let imageData = imageView.image?.jpegData(compressionQuality: 0.75) else { return }
-        let uploadMetadata = StorageMetadata.init()
-        uploadMetadata.contentType = "uploads/jpeg"
-        uploadRef.putData(imageData, metadata: uploadMetadata) { (uploadedMetadata, error) in
-            if let error = error{
-                print(error.localizedDescription)
-            }
-            else
-            {
-                print(uploadedMetadata!)
-            }
-        }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
-   
-    
-    
-    
-//    func addCaption() {
-//        let text = postText.text!
-//        var ref: DocumentReference? = nil
-//        let newItem = UserInfo()
-//        ref = db.collection("createPost").addDocument( data: ["Caption": "\(text)"]) { err in
-//            if let err = err {
-//                print("Error adding document: \(err)")
-//            } else {
-//                print("Document added with ID: \(ref!.documentID)")
-//            }
-//        }
-//        newItem.postId = ref!.documentID
-//        newItem.postCaption = text
-//
-//        self.setId = ref!.documentID
-//        print("Document added with ID: \(ref!.documentID)")
-//        print(self.setId)
-//    }
-//
     
 }

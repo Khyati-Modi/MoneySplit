@@ -7,6 +7,11 @@
 //
 
 import Foundation
-class User {
+import UIKit
+
+class User  {
+    var userFullname : String!
     var userName : String!
+    var userImage : UIImage?
+    var userEmailId : String!
 }

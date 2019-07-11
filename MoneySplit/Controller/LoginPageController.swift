@@ -44,6 +44,8 @@ class LoginPageController: UIViewController {
     
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         navigationController?.pushViewController(vc, animated: true)
+        userNameTextField.text = ""
+        passwordTextField.text = ""
     }
     
     @IBAction func signInClick(_ sender: UIButton) {
@@ -70,6 +72,8 @@ class LoginPageController: UIViewController {
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
                                 self.navigationController?.pushViewController(vc, animated: true)
+                                self.userNameTextField.text = ""
+                                self.passwordTextField.text = ""
                             }
                         }
                     }
