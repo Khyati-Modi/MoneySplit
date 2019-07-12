@@ -11,7 +11,13 @@
 		4213218122D4758F00E0C47B /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4213217F22D4758E00E0C47B /* TableViewCell.xib */; };
 		4213218322D49B9F00E0C47B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213218222D49B9F00E0C47B /* User.swift */; };
 		4213D68F22D7193100F8BA7F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */; };
+		4259C4A122D8A492003D8158 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259C49F22D8A492003D8158 /* FriendTableViewCell.swift */; };
+		4259C4A222D8A492003D8158 /* FriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4259C4A022D8A492003D8158 /* FriendTableViewCell.xib */; };
+		4259C4A422D8A7D3003D8158 /* BillHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259C4A322D8A7D3003D8158 /* BillHistory.swift */; };
 		426F186722D617210053F26B /* FriendsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F186622D617210053F26B /* FriendsPageViewController.swift */; };
+		426FCC7122D8BDD300BE8E04 /* PeopleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FCC7022D8BDD300BE8E04 /* PeopleData.swift */; };
+		426FCC7622D8C26F00BE8E04 /* SecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FCC7422D8C26F00BE8E04 /* SecondTableViewCell.swift */; };
+		426FCC7722D8C26F00BE8E04 /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 426FCC7522D8C26F00BE8E04 /* SecondTableViewCell.xib */; };
 		4276BC0022D32C1B00FAD007 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */; };
 		4276BC0622D3420700FAD007 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BC0522D3420700FAD007 /* TabBarViewController.swift */; };
 		4295E9EE22D439CB00B6385E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9ED22D439CB00B6385E /* HomeViewController.swift */; };
@@ -33,7 +39,13 @@
 		4213217F22D4758E00E0C47B /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		4213218222D49B9F00E0C47B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		4259C49F22D8A492003D8158 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		4259C4A022D8A492003D8158 /* FriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendTableViewCell.xib; sourceTree = "<group>"; };
+		4259C4A322D8A7D3003D8158 /* BillHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistory.swift; sourceTree = "<group>"; };
 		426F186622D617210053F26B /* FriendsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPageViewController.swift; sourceTree = "<group>"; };
+		426FCC7022D8BDD300BE8E04 /* PeopleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleData.swift; sourceTree = "<group>"; };
+		426FCC7422D8C26F00BE8E04 /* SecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTableViewCell.swift; sourceTree = "<group>"; };
+		426FCC7522D8C26F00BE8E04 /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
 		4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4276BC0522D3420700FAD007 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4295E9ED22D439CB00B6385E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				4213218222D49B9F00E0C47B /* User.swift */,
+				4259C4A322D8A7D3003D8158 /* BillHistory.swift */,
+				426FCC7022D8BDD300BE8E04 /* PeopleData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -80,6 +94,8 @@
 				42DFD41B22D31BBA00275B98 /* Main.storyboard */,
 				42BBDD3C22D378CB00BF25D4 /* ListTableViewCell.xib */,
 				4213217F22D4758E00E0C47B /* TableViewCell.xib */,
+				4259C4A022D8A492003D8158 /* FriendTableViewCell.xib */,
+				426FCC7522D8C26F00BE8E04 /* SecondTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -97,6 +113,8 @@
 				42BBDD3B22D378CB00BF25D4 /* ListTableViewCell.swift */,
 				426F186622D617210053F26B /* FriendsPageViewController.swift */,
 				4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */,
+				4259C49F22D8A492003D8158 /* FriendTableViewCell.swift */,
+				426FCC7422D8C26F00BE8E04 /* SecondTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,9 +240,11 @@
 				42DFD42222D31BBA00275B98 /* LaunchScreen.storyboard in Resources */,
 				4213218122D4758F00E0C47B /* TableViewCell.xib in Resources */,
 				42BBDD3822D355B400BF25D4 /* GoogleService-Info.plist in Resources */,
+				4259C4A222D8A492003D8158 /* FriendTableViewCell.xib in Resources */,
 				42DFD41F22D31BBA00275B98 /* Assets.xcassets in Resources */,
 				42DFD41D22D31BBA00275B98 /* Main.storyboard in Resources */,
 				42BBDD3E22D378CB00BF25D4 /* ListTableViewCell.xib in Resources */,
+				426FCC7722D8C26F00BE8E04 /* SecondTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +300,15 @@
 				4276BC0622D3420700FAD007 /* TabBarViewController.swift in Sources */,
 				4295E9F022D4466200B6385E /* AddBillViewController.swift in Sources */,
 				4276BC0022D32C1B00FAD007 /* SignUpViewController.swift in Sources */,
+				426FCC7622D8C26F00BE8E04 /* SecondTableViewCell.swift in Sources */,
 				426F186722D617210053F26B /* FriendsPageViewController.swift in Sources */,
 				4213218022D4758F00E0C47B /* TableViewCell.swift in Sources */,
 				42DFD41A22D31BBA00275B98 /* LoginPageController.swift in Sources */,
 				42DFD41822D31BBA00275B98 /* AppDelegate.swift in Sources */,
+				4259C4A122D8A492003D8158 /* FriendTableViewCell.swift in Sources */,
 				4295E9F622D46C6200B6385E /* ProfileViewController.swift in Sources */,
+				4259C4A422D8A7D3003D8158 /* BillHistory.swift in Sources */,
+				426FCC7122D8BDD300BE8E04 /* PeopleData.swift in Sources */,
 				4213D68F22D7193100F8BA7F /* EditProfileViewController.swift in Sources */,
 				4295E9EE22D439CB00B6385E /* HomeViewController.swift in Sources */,
 				4213218322D49B9F00E0C47B /* User.swift in Sources */,

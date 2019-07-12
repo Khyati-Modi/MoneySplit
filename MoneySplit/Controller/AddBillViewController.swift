@@ -68,7 +68,7 @@ class AddBillViewController: UIViewController {
     }
     
     @IBAction func downArrow(_ sender: UIButton) {
-        splitManually.text = "Split Uneually"
+        splitManually.text = "Split Unequally"
          if totalAmountOfBill.text != "" {
             let number = Int.random(in: 3 ..< 10)
             let amount = (Double(totalAmountOfBill.text!)! / Double(number) )
@@ -112,7 +112,7 @@ class AddBillViewController: UIViewController {
     func addBill() {
         let user = Auth.auth().currentUser!.email!
         
-        let docData: [String: Any] = ["subjectOfBill": "\( subjectOfBill.text!)","totalAmountOfBill": "\(totalAmountOfBill.text!)","paidBy": "\(paidByTextField.text!)",
+        let docData: [String: Any] = ["subjectOfBill": "\(subjectOfBill.text!)","totalAmountOfBill": "\(totalAmountOfBill.text!)","paidBy": "\(paidByTextField.text!)",
             "paidFor": "\(fortextField.text!)","currentUser": "\(user)","splitManner":"\(splitManually.text!)","ShareWith1": "\(prizeArray[0])","ShareWith2": "\(prizeArray[1])"]
         
         
@@ -140,7 +140,7 @@ class AddBillViewController: UIViewController {
         }
     }
     func callTheUser (userOne : String, userTwo : String){
-        let docData: [String: Any] = ["name": userOne ,"money": "\(prizeArray[0])","paidBy": "\(paidByTextField.text!)"]
+        let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userOne ,"money": "\(prizeArray[0])","paidBy": "\(paidByTextField.text!)"]
         
         db.collection("PeopleWhoOweYou").document().setData(docData) { err in
             if let err = err {
@@ -151,7 +151,7 @@ class AddBillViewController: UIViewController {
             }
         }
         
-        let secondDocData: [String: Any] = ["name": userTwo ,"money": "\(self.prizeArray[1])","paidBy": "\(paidByTextField.text!)"]
+        let secondDocData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userTwo ,"money": "\(self.prizeArray[1])","paidBy": "\(paidByTextField.text!)"]
     
         self.db.collection("PeopleWhoOweYou").document().setData(secondDocData) { err in
             if let err = err {

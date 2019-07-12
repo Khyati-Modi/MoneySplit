@@ -13,6 +13,7 @@ class ListTableViewCell: UITableViewCell {
     @IBOutlet weak var amountButtonOutlet: UIButton!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
+    
     @IBAction func amountButton(_ sender: UIButton) {
         
     }

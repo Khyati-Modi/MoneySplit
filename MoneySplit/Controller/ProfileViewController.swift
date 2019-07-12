@@ -44,8 +44,9 @@ class ProfileViewController: UIViewController {
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
-        UserDefaults.standard.set("false", forKey: "LogIn")
         navigationController?.popViewController(animated: true)
+        UserDefaults.standard.set("false", forKey: "LogIn")
+
     }
     
     func getData(){

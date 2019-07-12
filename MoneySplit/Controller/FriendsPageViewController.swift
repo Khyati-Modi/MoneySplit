@@ -9,12 +9,21 @@
 import UIKit
 import Firebase
 
-class FriendsPageViewController: UIViewController {
+class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    
     var db : Firestore!
     var selectedUserName : String!
     var userImage : UIImage?
+    var amount : Double!
+    
+    var billArray = [BillHistory]()
+
+    var infoArray = ["Khyati","Dharmik","Saheb"]
     
     
+    @IBOutlet weak var myTable: UITableView!
+    @IBOutlet weak var profileAmountLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userFullName: UILabel!
 
@@ -24,7 +33,51 @@ class FriendsPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userFullName.text = selectedUserName
-            profileImage.image = userImage
+        profileImage.image = userImage
+        myTable.delegate = self
+        myTable.dataSource = self
+        
+        myTable.register(UINib(nibName: "FriendTableViewCell", bundle: nil), forCellReuseIdentifier: "FriendTableViewCell")
+
+        getdata()
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return billArray.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(billArray.count)
+        print(billArray[0].subjectOfBill)
+        let cell = myTable.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as! FriendTableViewCell
+     
+        cell.subjectLabel.text = (billArray[indexPath.row].subjectOfBill)
+        cell.paidByLabel.text = (billArray[indexPath.row].paidBy!)
+        print(cell.subjectLabel)
+        return cell
+    }
+    
+    
+    func getdata(){
+        self.billArray.removeAll()
+        let settings = FirestoreSettings()
+        Firestore.firestore().settings = settings
+        db = Firestore.firestore()
+        db.collection("PeopleWhoOweYou").getDocuments(completion: { (QuerySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            }
+            else{
+                let billInfo = BillHistory()
+                for document in QuerySnapshot!.documents {
+                    billInfo.subjectOfBill = document.data()["Subject"] as? String
+                    billInfo.paidBy = document.data()["paidBy"] as? String
+                    self.billArray.append(billInfo)
+                    self.myTable.reloadData()
+                }
+            }
+            self.myTable.reloadData()
+        })
+    }
 }

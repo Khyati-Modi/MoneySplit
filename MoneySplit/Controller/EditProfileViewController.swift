@@ -15,6 +15,7 @@ class EditProfileViewController: UIViewController {
     var username = ""
     var userfullname = ""
     let CurrentUser =  Auth.auth().currentUser!.email!
+    var email = ""
     
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userFullName: UITextField!
@@ -36,19 +37,16 @@ class EditProfileViewController: UIViewController {
         languageText.text = "English"
         print(userFullName.text!)
     }
-    func update (){
-        db.collection("UserSignUp").document(CurrentUser).updateData([
-            "fullName": userFullName.text!,
-            "email": EmailIdText.text!,
-            "userName": usernameText.text!
-        ]) { err in
-            if let err = err {
-                print("Error updating document: \(err)")
-            } else {
-                print("Document successfully updated")
-            }
-        }
     
+    func update (){
+ 
+        Auth.auth().currentUser?.updateEmail(to: "\(String(describing: EmailIdText.text))" , completion: { (error) in
+            if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated")
+                }
             
+        })
     }
 }
