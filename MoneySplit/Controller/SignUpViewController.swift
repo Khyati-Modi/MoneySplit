@@ -45,23 +45,56 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     }
 
     @IBAction func SignUpClick(_ sender: UIButton) {
-        if usernameTextField.text != "" && fullnameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != "" && conditionView.image != UIImage(named: "tick") {
-            addUser()
-            addImage()
+        if usernameTextField.text == ""{
+            let alert = UIAlertController(title: "", message: "Enter Your UserName", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true , completion: nil)
+            
+        }
+        if fullnameTextField.text == ""{
+            let alert = UIAlertController(title: "", message: "Enter Your Full Name", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true , completion: nil)
+        }
+        if emailTextField.text == ""{
+            let alert = UIAlertController(title: "", message: "Enter Your EmailId", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true , completion: nil)
+        }
+        if passwordTextField.text == ""{
+            let alert = UIAlertController(title: "", message: "Enter Your Password", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true , completion: nil)
+        }
+        if conditionView.image == UIImage(named: "Ellipse"){
+            let alert = UIAlertController(title: "", message: "Please agree with our terms and conditions", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true , completion: nil)
+        }
+
+        if usernameTextField.text != "" && fullnameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != "" && conditionView.image == UIImage(named: "tick") {
+            
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+               
+                if let error = error {
+                    let alert = UIAlertController(title: "Oops!", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+                    alert.addAction(action)
+                    self.present(alert, animated: true , completion: nil)
+                }
+                
                 if user != nil{
+                    self.addUser()
+                    self.addImage()
                     self.navigationController?.popViewController(animated: true)
                 }
             }
-            
         }
-        else {
-            let alert = UIAlertController(title: "Oops!", message: "Please enter data properly", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-            alert.addAction(action)
-            self.present (alert, animated: true)
-        }
-      
     }
   
     override func viewDidLoad() {

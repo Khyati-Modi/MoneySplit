@@ -46,13 +46,19 @@ class LoginPageController: UIViewController {
     
     @IBAction func signUpClick(_ sender: UIButton) {
     
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+        navigationController?.pushViewController(vc, animated: true)
+        userNameTextField.text = ""
+        passwordTextField.text = ""
+    }
+    
+    @IBAction func signInClick(_ sender: UIButton) {
         if userNameTextField.text == "" {
             
-            let alert = UIAlertController(title: "Oops!", message: "Please enter registered Email ID", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Oops!", message: "Please enter registered Username", preferredStyle: .alert)
             let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
             alert.addAction(action)
             present(alert, animated: true , completion: nil)
-            
         }
         else if passwordTextField.text == ""{
             let alert = UIAlertController(title: "Oops!", message: "Please enter Password", preferredStyle: .alert)
@@ -61,45 +67,43 @@ class LoginPageController: UIViewController {
             present(alert, animated: true , completion: nil)
         }
         
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-        navigationController?.pushViewController(vc, animated: true)
-        userNameTextField.text = ""
-        passwordTextField.text = ""
-    }
-    
-    @IBAction func signInClick(_ sender: UIButton) {
-        
-        db.collection("UserSignUp").getDocuments() { (QuerySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            }
-            else  {
-                for document in QuerySnapshot!.documents {
-                    if self.userNameTextField.text == document.data()["userName"] as? String{
-                        print(document.documentID)
-                          let email = document.documentID
-                        
-                        Auth.auth().signIn(withEmail: "\(String(describing: email))", password: self.passwordTextField.text!) { (user, error) in
-                            if let error = error {
-                                print(error.localizedDescription)
-                                return
-                            }
+        if userNameTextField.text != "" && passwordTextField.text != ""{
+            db.collection("UserSignUp").getDocuments() { (QuerySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                }
+                else  {
+                    for document in QuerySnapshot!.documents {
+                        if self.userNameTextField.text == document.data()["userName"] as? String{
+                            print(document.documentID)
+                            let email = document.documentID
                             
-                            if user != nil{
-                                print("user is logged in")
-                                UserDefaults.standard.set(true, forKey: "LogIn")
-                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-                                self.navigationController?.pushViewController(vc, animated: true)
-                                self.userNameTextField.text = ""
-                                self.passwordTextField.text = ""
+                            Auth.auth().signIn(withEmail: "\(String(describing: email))", password: self.passwordTextField.text!) { (user, error) in
+                                if let error = error {
+                                    let alert = UIAlertController(title: "Oops!", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                                    let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+                                    alert.addAction(action)
+                                    self.present(alert, animated: true , completion: nil)
+                                    print(error.localizedDescription)
+                                    return
+                                }
+                                
+                                if user != nil{
+                                    print("user is logged in")
+                                    UserDefaults.standard.set(true, forKey: "LogIn")
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                    self.userNameTextField.text = ""
+                                    self.passwordTextField.text = ""
+                                }
                             }
                         }
                     }
                 }
             }
         }
+       
     }
   
    

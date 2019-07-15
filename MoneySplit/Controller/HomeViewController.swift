@@ -22,6 +22,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var currentUser : String!
     var currentUser2 : String!
     var totalOweAmount = 0.0
+    
+    let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
+    let pinkColour = UIColor(red:0.98, green:0.30, blue:0.38, alpha:1.0)
 
     @IBOutlet weak var leftLabel: UILabel!
     @IBOutlet weak var rightView: UIView!
@@ -46,12 +49,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListTableViewCell")
         
         leftLabel.clipsToBounds = true
-        rightView.clipsToBounds = true
+        rightLabel.clipsToBounds = true
         
-        leftLabel.backgroundColor = UIColor(red: 246, green: 76, blue: 97, alpha: 1)
+        leftLabel.backgroundColor = pinkColour
+        rightLabel.backgroundColor =  greenColour
         
         leftLabel.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
-        rightView.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
+        rightLabel.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
     }
     
     
@@ -61,9 +65,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        
         if peopleArray.count != 0{
-                if section == 0 {
-                    SecCount = peopleArray.count
+            if section == 0 {
+                SecCount = peopleArray.count
             }
         }
        if section == 1 {
@@ -76,33 +82,52 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
-
         print(peopleArray.count)
+       
         if peopleArray.count != 0{
             if indexPath.section == 0 {
+              
+                var  amount = 0.0
+                var totalAmount = 0.0
+                
                 cell.userName.text =  peopleArray[indexPath.row].peopleFullName
                 cell.profileImage.image = peopleArray[indexPath.row].peopleProfileImage
-            cell.amountButtonOutlet.setTitle("\(peopleArray[indexPath.row].peopleCount!)$", for: .normal)
-                cell.amountButtonOutlet.tintColor = UIColor.red
+                cell.amountButtonOutlet.setTitle("\(peopleArray[indexPath.row].peopleCount!)$", for: .normal)
+                cell.amountButtonOutlet.tintColor = pinkColour
+                
+                for i in 0..<peopleArray.count {
+                    amount = peopleArray[i].peopleCount!
+                }
+                totalAmount = totalAmount + amount
+                leftLabel.text = "YOU OWE      \(totalAmount)$"
+                
                 return cell
             }
         }
         
-
         if indexPath.section == 1{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
             if userArray.count != 0 {
+                
+                var  amount = 0.0
+                var totalAmount = 0.0
+
                 cell.userName.text = userArray[indexPath.row].userFullname
                 cell.profileImage.image = userArray[indexPath.row].userImage
                 cell.amountButtonOutlet.setTitle("\(userArray[indexPath.row].userCount!)$", for: .normal)
-                cell.amountButtonOutlet.tintColor = UIColor.green
+                cell.amountButtonOutlet.tintColor = greenColour
+                
+                for i in 0..<userArray.count {
+                    amount = userArray[i].userCount!
+                    totalAmount = totalAmount + amount
+                 }
+                rightLabel.text = "OWE YOU \(totalAmount)$"
                 return cell
             }
              return UITableViewCell()
         }
+            
         else{
-                return UITableViewCell()
-
+            return UITableViewCell()
             }
     }
 
@@ -119,13 +144,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         headerLabel.text = "People who owe you"
         }
-        
         let bottomLine2 = CALayer()
-        bottomLine2.frame = CGRect(x: 0, y: headerLabel.frame.height - 1 , width: headerLabel.bounds.size.width, height: 1)
+        bottomLine2.frame = CGRect(x: 0, y: 28  , width: headerLabel.bounds.size.width, height: 1)
         bottomLine2.backgroundColor = UIColor.black.cgColor
         headerLabel.layer.addSublayer(bottomLine2)
-        
-         return headerLabel
+        return headerLabel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -172,9 +195,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                             self.currentUser2 = (document.data()["name"] as! String)
                             self.tableView.reloadData()
                         }
-//                        print(self.userArray[0].userName)
-//                        print(self.userArray[0].userFullname)
-//                        print(self.userArray[0].userEmailId)
                     }
                 }
                 self.getData()
@@ -251,7 +271,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else{
                 var countTwo : String!
-             let peopleInfo = PeopleData()
+//             let peopleInfo = PeopleData()
                 for document in QuerySnapshot!.documents {
                     let paidByUser = document.data()["paidBy"]  as! String
                     let nameOfUser = document.data()["name"] as! String
@@ -260,7 +280,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         if Auth.auth().currentUser?.email == nameOfUser {
                             self.peopleArray.removeAll()
 
-                            countTwo = document.data()["money"] as! String
+                            countTwo = (document.data()["money"] as! String)
                             self.totalValue = self.totalValue + (countTwo as NSString).doubleValue
                             self.currentUser = paidByUser
                             self.getDatatOfPeople()
