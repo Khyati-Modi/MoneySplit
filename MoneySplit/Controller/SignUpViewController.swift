@@ -114,18 +114,18 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         imageView.image = background
         self.view.sendSubviewToBack(imageView)
         
-        navigationController?.navigationBar.isHidden = true
         signUpButton.layer.cornerRadius = 25
         
         conditionView.image = UIImage(named: "Ellipse")
         conditionView.contentMode = .scaleAspectFit
         
         let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
-        let userImage = UIImage(named: "User")
+        let userImage = UIImage(named: "userName")
         userImageView.contentMode = .scaleAspectFit
         userImageView.image = userImage
         usernameTextField.leftView = userImageView
         usernameTextField.leftViewMode = UITextField.ViewMode.always
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         
         usernameTextField.autocorrectionType = .no
         usernameTextField.borderStyle = .none
@@ -137,10 +137,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         
         let fullNameIamgeView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
         fullNameIamgeView.contentMode = .scaleAspectFit
-        let fullNameImage = UIImage(named: "User")
+        let fullNameImage = UIImage(named: "userName")
         fullNameIamgeView.image = fullNameImage
         fullnameTextField.leftView = fullNameIamgeView
         fullnameTextField.leftViewMode = UITextField.ViewMode.always
+        fullnameTextField.attributedPlaceholder = NSAttributedString(string: "Full name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+
         
         fullnameTextField.autocorrectionType = .no
         fullnameTextField.borderStyle = .none
@@ -156,6 +158,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         emailImageView.image = emailImage
         emailTextField.leftView = emailImageView
         emailTextField.leftViewMode = UITextField.ViewMode.always
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+
         
         emailTextField.autocorrectionType = .no
         emailTextField.borderStyle = .none
@@ -171,6 +175,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         passwordImageView.image = passwordImage
         passwordTextField.leftView = passwordImageView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+
         
         passwordTextField.autocorrectionType = .no
         passwordTextField.borderStyle = .none

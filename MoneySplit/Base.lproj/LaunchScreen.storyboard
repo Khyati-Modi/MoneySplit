@@ -24,37 +24,35 @@
                                     <constraint firstAttribute="width" secondItem="nMO-NJ-Jnq" secondAttribute="height" multiplier="375:128" id="rQ1-WQ-8kW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="split" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyE-8k-B25">
-                                <rect key="frame" x="196" y="364" width="172" height="71"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tj6-jG-dPt">
+                                <rect key="frame" x="87.5" y="382.5" width="200" height="35"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vF-Lc-xkY">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="35"/>
+                                        <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="35"/>
+                                        <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="split" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPc-cy-UPC">
+                                        <rect key="frame" x="125" y="0.0" width="75" height="35"/>
+                                        <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="35"/>
+                                        <color key="textColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="LyE-8k-B25" secondAttribute="height" multiplier="172:71" id="6TN-Rj-byT"/>
-                                    <constraint firstAttribute="height" constant="71" id="rOP-rM-ycl"/>
+                                    <constraint firstAttribute="height" constant="35" id="CQb-Mo-ewK"/>
+                                    <constraint firstAttribute="width" constant="200" id="qBM-Ck-p7Y"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Money" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqB-OJ-un1">
-                                <rect key="frame" x="85" y="364" width="103" height="71"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="aqB-OJ-un1" secondAttribute="height" multiplier="103:71" id="pdb-RN-bqM"/>
-                                    <constraint firstAttribute="height" constant="71" id="vKK-sI-v43"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <color key="textColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LyE-8k-B25" secondAttribute="trailing" constant="7" id="BuZ-Qa-9yj"/>
-                            <constraint firstItem="LyE-8k-B25" firstAttribute="leading" secondItem="aqB-OJ-un1" secondAttribute="trailing" id="KCc-eA-soO"/>
+                            <constraint firstItem="tj6-jG-dPt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="1.2" id="LbA-cg-VqE"/>
                             <constraint firstItem="nMO-NJ-Jnq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="RUj-UM-CIy"/>
-                            <constraint firstItem="LyE-8k-B25" firstAttribute="top" secondItem="nMO-NJ-Jnq" secondAttribute="bottom" constant="66.5" id="aY1-LI-5cJ"/>
                             <constraint firstItem="nMO-NJ-Jnq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="caK-RA-PIx"/>
-                            <constraint firstItem="LyE-8k-B25" firstAttribute="leading" secondItem="aqB-OJ-un1" secondAttribute="trailing" id="nCn-6g-wGe"/>
+                            <constraint firstItem="tj6-jG-dPt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gaT-oO-Jia"/>
                             <constraint firstItem="nMO-NJ-Jnq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.7" id="qIO-Uf-zCE"/>
-                            <constraint firstItem="aqB-OJ-un1" firstAttribute="top" secondItem="nMO-NJ-Jnq" secondAttribute="bottom" constant="66.5" id="r9O-12-0ph"/>
                             <constraint firstItem="nMO-NJ-Jnq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uOh-fQ-UZS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

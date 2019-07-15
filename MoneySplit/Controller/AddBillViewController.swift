@@ -17,10 +17,13 @@ class AddBillViewController: UIViewController {
     
     var userPickerView : UIPickerView!
     var selectedGroup : Int!
-    let groupArray = ["Saheb & Khyati","Khyati & Dharmik","Saheb & Dharmik"]
-    let groupArray0 = ["Saheb","Khyati"]
-    let groupArray1 = ["Khyati","Dharmik"]
-    let groupArray2 = ["Saheb","Dharmik"]
+    let groupArray = ["Saheb","Dharmik","Saheb & Khyati","Khyati & Dharmik","Saheb & Dharmik"]
+    
+    let groupArray0 = ["Saheb"]
+    let groupArray1 = ["Dharmik"]
+    let groupArray2 = ["Saheb","Khyati"]
+    let groupArray3 = ["Khyati","Dharmik"]
+    let groupArray4 = ["Saheb","Dharmik"]
     var selectedGroupRow : Int = 0
 
     var prizeArray = ["",""]
@@ -76,7 +79,6 @@ class AddBillViewController: UIViewController {
             let secondAmount = Double(totalAmountOfBill.text!)!  - amount
             let randomNumber = Int.random(in: 3 ..< 10)
             let secondValue = (Double(secondAmount) / Double(randomNumber))
-//            let thirdAmount = secondAmount - secondValue
             
             prizeArray = ["\(String(format:"%.2f", amount))","\(String(format:"%.2f", secondValue))"]
             tableView.reloadData()
@@ -88,7 +90,6 @@ class AddBillViewController: UIViewController {
             alert.addAction(action)
             present(alert, animated: true , completion: nil)
         }
-    
     }
     
     @IBAction func selectGroup(_ sender: UIButton) {
@@ -98,12 +99,20 @@ class AddBillViewController: UIViewController {
         self.userPickerView.backgroundColor = UIColor.white
         self.userPickerView.selectRow(selectedGroupRow, inComponent: 0, animated: true)
         self.view.addSubview(userPickerView)
-        
     }
     
     @IBAction func saveBill(_ sender: UIBarButtonItem) {
         addBill()
         addPeopleWhoOweYou()
+        
+        
+        if subjectOfBill.text ==  "" || totalAmountOfBill.text == "" || fortextField.text == "" {
+            let alert = UIAlertController(title: "Oops!", message: "Please enter total amount of bill", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true , completion: nil)
+        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as!  TabBarViewController
         navigationController?.pushViewController(vc, animated:true)
@@ -167,20 +176,33 @@ class AddBillViewController: UIViewController {
 extension AddBillViewController : UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return 2
+       return groupArray2.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         if selectedGroup == 0 {
           cell.userLabel.text = groupArray0[indexPath.row]
+          cell.prizeLabel.text = "$ \(prizeArray[indexPath.row])"
         }
         else  if selectedGroup == 1 {
             cell.userLabel.text = groupArray1[indexPath.row]
+            cell.prizeLabel.text = "$ \(prizeArray[indexPath.row])"
         }
         else  if selectedGroup == 2 {
             cell.userLabel.text = groupArray2[indexPath.row]
+            cell.prizeLabel.text = "$ \(prizeArray[indexPath.row])"
         }
-        cell.prizeLabel.text = prizeArray[indexPath.row]
+        else  if selectedGroup == 3 {
+            cell.userLabel.text = groupArray3[indexPath.row]
+            cell.prizeLabel.text = "$ \(prizeArray[indexPath.row])"
+        }
+        else  if selectedGroup == 4 {
+            cell.userLabel.text = groupArray4[indexPath.row]
+            cell.prizeLabel.text = "$ \(prizeArray[indexPath.row])"
+        }
+        
+//        cell.prizeLabel.text = "$ \(prizeArray[indexPath.row])"
         return cell
     }
 }
@@ -201,6 +223,7 @@ extension AddBillViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         selectedGroupRow = row
         fortextField.text = groupArray[row]
         selectedGroup = row

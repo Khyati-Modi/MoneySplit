@@ -18,7 +18,10 @@ class LoginPageController: UIViewController {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButtonOutlet: UIButton!
-    @IBOutlet weak var forgotPasswordOutlet: UITextField!
+
+    @IBAction func forgetPassword(_ sender: UIButton) {
+    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,7 @@ class LoginPageController: UIViewController {
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
+        
         //Checking for userSession
         if UserDefaults.standard.bool(forKey: "LogIn") == true {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -42,6 +46,22 @@ class LoginPageController: UIViewController {
     
     @IBAction func signUpClick(_ sender: UIButton) {
     
+        if userNameTextField.text == "" {
+            
+            let alert = UIAlertController(title: "Oops!", message: "Please enter registered Email ID", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true , completion: nil)
+            
+        }
+        else if passwordTextField.text == ""{
+            let alert = UIAlertController(title: "Oops!", message: "Please enter Password", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true , completion: nil)
+        }
+        
+        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         navigationController?.pushViewController(vc, animated: true)
         userNameTextField.text = ""
@@ -82,9 +102,7 @@ class LoginPageController: UIViewController {
         }
     }
   
-    @IBAction func forgotPassword(_ sender: UITextField) {
-        
-    }
+   
     
     
     func assignbackground(){
@@ -100,12 +118,14 @@ class LoginPageController: UIViewController {
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
         
-        let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
-        let userImage = UIImage(named: "User")
+        let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+        let userImage = UIImage(named: "whiteUser")
         userImageView.contentMode = .scaleAspectFit
         userImageView.image = userImage
         userNameTextField.leftView = userImageView
         userNameTextField.leftViewMode = UITextField.ViewMode.always
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+
         
         userNameTextField.autocorrectionType = .no
         userNameTextField.borderStyle = .none
@@ -115,12 +135,14 @@ class LoginPageController: UIViewController {
         userNameTextField.borderStyle = UITextField.BorderStyle.none
         userNameTextField.layer.addSublayer(bottomLine)
         
-        let passwordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+        let passwordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
         passwordImageView.contentMode = .scaleAspectFit
-        let passwordImage = UIImage(named: "Password")
+        let passwordImage = UIImage(named: "whitePassword")
         passwordImageView.image = passwordImage
         passwordTextField.leftView = passwordImageView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+
         
         passwordTextField.borderStyle = .none
         passwordTextField.isSecureTextEntry = true
@@ -131,10 +153,10 @@ class LoginPageController: UIViewController {
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(bottomLine2)
         
-        forgotPasswordOutlet.borderStyle = .none
+//        for.borderStyle = .none
         
         signInButtonOutlet.layer.backgroundColor = UIColor.white.cgColor
-        signInButtonOutlet.layer.cornerRadius = 20
+        signInButtonOutlet.layer.cornerRadius = 35
     }
     
 }

@@ -22,7 +22,9 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     var infoArray = ["Khyati","Dharmik","Saheb"]
     
     
-    @IBOutlet weak var myTable: UITableView!
+    
+    @IBOutlet weak var historyTable: UITableView!
+    
     @IBOutlet weak var profileAmountLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userFullName: UILabel!
@@ -30,14 +32,15 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func Backbutton(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         userFullName.text = selectedUserName
         profileImage.image = userImage
-        myTable.delegate = self
-        myTable.dataSource = self
+        historyTable.delegate = self
+        historyTable.dataSource = self
         
-        myTable.register(UINib(nibName: "FriendTableViewCell", bundle: nil), forCellReuseIdentifier: "FriendTableViewCell")
+        historyTable.register(UINib(nibName: "FriendTableViewCell", bundle: nil), forCellReuseIdentifier: "FriendTableViewCell")
 
         getdata()
     }
@@ -50,7 +53,9 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(billArray.count)
         print(billArray[0].subjectOfBill)
-        let cell = myTable.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as! FriendTableViewCell
+        
+
+        let cell = historyTable.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as! FriendTableViewCell
      
         cell.subjectLabel.text = (billArray[indexPath.row].subjectOfBill)
         cell.paidByLabel.text = (billArray[indexPath.row].paidBy!)
@@ -74,10 +79,10 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
                     billInfo.subjectOfBill = document.data()["Subject"] as? String
                     billInfo.paidBy = document.data()["paidBy"] as? String
                     self.billArray.append(billInfo)
-                    self.myTable.reloadData()
+                    self.historyTable.reloadData()
                 }
             }
-            self.myTable.reloadData()
+            self.historyTable.reloadData()
         })
     }
 }

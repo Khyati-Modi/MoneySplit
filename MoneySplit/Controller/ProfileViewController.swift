@@ -12,12 +12,11 @@ import Firebase
 class ProfileViewController: UIViewController {
     var db: Firestore!
 
-    
-    
     @IBOutlet weak var emailIdLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     
@@ -46,7 +45,6 @@ class ProfileViewController: UIViewController {
         }
         navigationController?.popViewController(animated: true)
         UserDefaults.standard.set("false", forKey: "LogIn")
-
     }
     
     func getData(){
@@ -66,7 +64,7 @@ class ProfileViewController: UIViewController {
                         self.userNameLabel.text = document.data()["userName"] as? String
                         self.currencyLabel.text = "USD"
                         self.languageLabel.text = "English"
-                        
+
                         let imageFileName = document.data()["userName"] as! String
                         
                         let storageRef = Storage.storage().reference(withPath: "uploads/\(imageFileName).jpg")
@@ -77,13 +75,10 @@ class ProfileViewController: UIViewController {
                             }
                             if let data = data {
                                 self.profileImageView.image = UIImage(data: data)!
-
                                 print("File Downloaded")
                             }
                         }
-                        
                     }
-                    
                 }
             }
         }

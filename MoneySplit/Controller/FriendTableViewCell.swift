@@ -10,7 +10,6 @@ import UIKit
 
 class FriendTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var subjectLabel: UILabel!
     @IBOutlet weak var paidByLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!

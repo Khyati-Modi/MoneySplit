@@ -24,13 +24,13 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var languageText: UITextField!
 
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
-        update()
-        navigationController?.popViewController(animated: true)
+//        update()
+//        navigationController?.popViewController(animated: true)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      print(CurrentUser)
+        print(CurrentUser)
         userFullName.text = userfullname
         usernameText.text = username
         EmailIdText.text = CurrentUser

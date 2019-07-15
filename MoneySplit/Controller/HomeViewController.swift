@@ -17,16 +17,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var count = 0.0
     var sum = 0.0
     var totalValue = 0.0
-    
-    
+    var SecCount = 0
+
     var currentUser : String!
     var currentUser2 : String!
     var totalOweAmount = 0.0
 
     @IBOutlet weak var leftLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var rightView: UIView!
-    @IBOutlet weak var myTable: UITableView!
+    @IBOutlet weak var rightLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,85 +36,101 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
-        
+       
+        peopleYouOwe()
         peopleWhoOweYou()
+//        tableView.reloadData()
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListTableViewCell")
-
+        
         leftLabel.clipsToBounds = true
         rightView.clipsToBounds = true
         
+        leftLabel.backgroundColor = UIColor(red: 246, green: 76, blue: 97, alpha: 1)
+        
         leftLabel.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
         rightView.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
-      
-        peopleYouOwe()
-        myTable.delegate = self
-        myTable.dataSource = self
-        myTable.register(UINib(nibName: "SecondTableViewCell", bundle: nil), forCellReuseIdentifier: "SecondTableViewCell")
-        
-       
-    }
-   
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count = 0
-        
-        if tableView.tag  == 1{
-             count = userArray.count
-           
-        }
-       else if myTable.tag  == 2 {
-            count = peopleArray.count
-        }
-        return count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
-        for i in indexPath{
-            let amount  = userArray[i].userCount!
-            totalOweAmount = totalOweAmount + amount
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if peopleArray.count != 0{
+                if section == 0 {
+                    SecCount = peopleArray.count
+            }
         }
-        if tableView.tag  == 1 {
-            cell.userName.text = userArray[indexPath.row].userFullname
-            cell.profileImage.image = userArray[indexPath.row].userImage
-            cell.amountButtonOutlet.setTitle("\(userArray[indexPath.row].userCount!)$", for: .normal)
-            cell.amountButtonOutlet.tintColor = UIColor.green
-           
-            leftLabel.text = "Owe You:\(totalOweAmount)$"
-            return cell
+       if section == 1 {
+            SecCount =  userArray.count
+        }
+        return SecCount
+    }
+   
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
+
+        print(peopleArray.count)
+        if peopleArray.count != 0{
+            if indexPath.section == 0 {
+                cell.userName.text =  peopleArray[indexPath.row].peopleFullName
+                cell.profileImage.image = peopleArray[indexPath.row].peopleProfileImage
+            cell.amountButtonOutlet.setTitle("\(peopleArray[indexPath.row].peopleCount!)$", for: .normal)
+                cell.amountButtonOutlet.tintColor = UIColor.red
+                return cell
+            }
         }
         
-       else if myTable.tag  == 2 {
-            let cell = myTable.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
 
-            cell.peopleNameLabel.text  = peopleArray[indexPath.row].peopleUserName
-            cell.profileImage.image = peopleArray[indexPath.row].peopleProfileImage
-            cell.prizeLabel.setTitle("\(String(describing: peopleArray[indexPath.row].peopleCount))", for: .normal)
-            return cell
+        if indexPath.section == 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
+            if userArray.count != 0 {
+                cell.userName.text = userArray[indexPath.row].userFullname
+                cell.profileImage.image = userArray[indexPath.row].userImage
+                cell.amountButtonOutlet.setTitle("\(userArray[indexPath.row].userCount!)$", for: .normal)
+                cell.amountButtonOutlet.tintColor = UIColor.green
+                return cell
+            }
+             return UITableViewCell()
         }
-        return UITableViewCell()
+        else{
+                return UITableViewCell()
 
+            }
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       var title = ""
-        if tableView.tag  == 1{
-            title = "People who owe you"
-
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerLabel = UILabel(frame: CGRect(x: 00, y: 28, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.font = UIFont(name: "Poppins", size: 24)
+        headerLabel.textColor = UIColor.black
+        
+        if section == 0{
+            headerLabel.text = "People you owe"
+        }
+        if section == 1{
             
+        headerLabel.text = "People who owe you"
         }
-        else if myTable.tag  == 2 {
-            title = "People you owe"
-
-        }
-        return title
+        
+        let bottomLine2 = CALayer()
+        bottomLine2.frame = CGRect(x: 0, y: headerLabel.frame.height - 1 , width: headerLabel.bounds.size.width, height: 1)
+        bottomLine2.backgroundColor = UIColor.black.cgColor
+        headerLabel.layer.addSublayer(bottomLine2)
+        
+         return headerLabel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "FriendsPageViewController") as! FriendsPageViewController
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendsPageViewController") as! FriendsPageViewController
         
         vc.selectedUserName = userArray[indexPath.row].userFullname
         vc.userImage = userArray[indexPath.row].userImage
@@ -129,7 +147,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else{
                 for document in QuerySnapshot!.documents {
-                    print("hello")
+                    
                     let paidByUser = document.data()["paidBy"]  as! String
                     var userEmail = ""
                     if paidByUser == "khyati.modi.sa@gmail.com"{
@@ -154,10 +172,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                             self.currentUser2 = (document.data()["name"] as! String)
                             self.tableView.reloadData()
                         }
+//                        print(self.userArray[0].userName)
+//                        print(self.userArray[0].userFullname)
+//                        print(self.userArray[0].userEmailId)
                     }
                 }
+                self.getData()
             }
-            self.getData()
         })
     }
         func getData(){
@@ -184,6 +205,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 self.tableView.reloadData()
                             }
                         }
+                        print(userInfo)
                         self.userArray.append(userInfo)
                         self.tableView.reloadData()
                     }
@@ -216,62 +238,69 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     
+    
+    
+    
     func peopleYouOwe(){
+        
+        self.peopleArray.removeAll()
+
         self.db.collection("PeopleWhoOweYou").getDocuments(completion: { (QuerySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             }
             else{
+                var countTwo : String!
              let peopleInfo = PeopleData()
                 for document in QuerySnapshot!.documents {
                     let paidByUser = document.data()["paidBy"]  as! String
-                    let nameOfUSer = document.data()["name"] as! String
+                    let nameOfUser = document.data()["name"] as! String
+                    
                     if Auth.auth().currentUser?.email != paidByUser {
-                        if Auth.auth().currentUser?.email == nameOfUSer {
-                            let countTwo = document.data()["money"] as! String
-                            self.currentUser = paidByUser
+                        if Auth.auth().currentUser?.email == nameOfUser {
+                            self.peopleArray.removeAll()
+
+                            countTwo = document.data()["money"] as! String
                             self.totalValue = self.totalValue + (countTwo as NSString).doubleValue
+                            self.currentUser = paidByUser
+                            self.getDatatOfPeople()
                         }
                     }
                 }
-                print(peopleInfo.peopleCount)
-                self.peopleArray.append(peopleInfo)
-                
+               
                 self.tableView.reloadData()
             }
-            self.getDatatOfPeople()
         })
     }
     func getDatatOfPeople(){
-            self.db.collection("UserSignUp").getDocuments { (query, error) in
-                
-                for document in (query?.documents)!{
+        self.db.collection("UserSignUp").getDocuments { (query, error) in
+            
+            for document in (query?.documents)!{
+
+                if document.documentID == self.currentUser{
+                    let peopleInfo = PeopleData()
                     
-                    if document.documentID == self.currentUser{
-                        let peopleInfo = PeopleData()
-                        
-                        peopleInfo.peopleFullName = (document.data()["fullName"] as! String)
-                        peopleInfo.peopleUserName = (document.data()["userName"] as! String)
-                        peopleInfo.peopleCount = self.count
-                        
-                        let imageName = peopleInfo.peopleUserName!
-                        
-                        let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
-                        storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
-                            if let error = error {
-                                print("\(error)")
-                                return
-                            }
-                            if let data = data {
-                                peopleInfo.peopleProfileImage = UIImage(data: data)!
-                                print("File Downloaded")
-                                self.tableView.reloadData()
-                            }
+                    peopleInfo.peopleFullName = (document.data()["fullName"] as! String)
+                    peopleInfo.peopleUserName = (document.data()["userName"] as! String)
+                    peopleInfo.peopleCount = self.totalValue
+                    
+                    let imageName = peopleInfo.peopleUserName!
+                    
+                    let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
+                    storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
+                        if let error = error {
+                            print("\(error)")
+                            return
                         }
-                        self.peopleArray.append(peopleInfo)
-                        self.tableView.reloadData()
+                        if let data = data {
+                            peopleInfo.peopleProfileImage = UIImage(data: data)!
+                        }
                     }
+                    print(peopleInfo.peopleCount)
+                    self.peopleArray.append(peopleInfo)
+                    self.tableView.reloadData()
                 }
             }
         }
+    }
 }
