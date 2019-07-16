@@ -22,31 +22,50 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var EmailIdText: UITextField!
     @IBOutlet weak var languageText: UITextField!
+    
+
 
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
-//        update()
-//        navigationController?.popViewController(animated: true)
+        update()
+        navigationController?.popViewController(animated: true)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print(CurrentUser)
+        
+
         userFullName.text = userfullname
         usernameText.text = username
         EmailIdText.text = CurrentUser
         languageText.text = "English"
         print(userFullName.text!)
+        
+        
     }
     
     func update (){
- 
-        Auth.auth().currentUser?.updateEmail(to: "\(String(describing: EmailIdText.text))" , completion: { (error) in
-            if let error = error {
-                    print("Error updating document: \(error)")
-                } else {
-                    print("Document successfully updated")
-                }
-            
-        })
+        let settings = FirestoreSettings()
+        Firestore.firestore().settings = settings
+        db = Firestore.firestore()
+        
+        
+        // Create an initial document to update.
+//        let frankDocRef = db.collection("users").document("frank")
+//        frankDocRef.setData([
+//            "name": "Frank",
+//            "favorites": [ "food": "Pizza", "color": "Blue", "subject": "recess" ],
+//            "age": 12
+//            ])
+        let user = Auth.auth().currentUser?.email!
+
+        // To update age and favorite color:
+        db.collection("UserSignUp").document("\(String(describing: user))").updateData(["fullName": userFullName.text!,"email": EmailIdText.text!,"userName": usernameText.text!]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
     }
 }

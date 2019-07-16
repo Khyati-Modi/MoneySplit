@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoneySplit/Controller/HomeViewController.swift"
-            timestampString = "584892418.079499"
+            timestampString = "584978121.148242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "peopleYouOwe()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

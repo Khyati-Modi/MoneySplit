@@ -19,9 +19,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var conditionView: UIImageView!
+    @IBOutlet weak var signUpOutlet: UIButton!
+    
+    let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
+
     
     @IBAction func tAcButtonClick(_ sender: UIButton) {
         if  conditionView.image == UIImage(named: "Ellipse") {
@@ -106,6 +109,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
         
+        self.navigationController?.navigationBar.isHidden = true
+        
         actionCodeSettings.url = URL(string: "https://khyatimodi.page.link")
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
@@ -147,7 +152,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         imageView.image = background
         self.view.sendSubviewToBack(imageView)
         
-        signUpButton.layer.cornerRadius = 25
+        signUpOutlet.layer.cornerRadius = 25
         
         conditionView.image = UIImage(named: "Ellipse")
         conditionView.contentMode = .scaleAspectFit
@@ -164,7 +169,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         usernameTextField.borderStyle = .none
         let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0, y: usernameTextField.frame.height - 1, width: usernameTextField.frame.width, height: 1)
-        bottomLine.backgroundColor = UIColor.black.cgColor
+        bottomLine.backgroundColor = UIColor.gray.cgColor
         usernameTextField.borderStyle = UITextField.BorderStyle.none
         usernameTextField.layer.addSublayer(bottomLine)
         
@@ -174,14 +179,14 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         fullNameIamgeView.image = fullNameImage
         fullnameTextField.leftView = fullNameIamgeView
         fullnameTextField.leftViewMode = UITextField.ViewMode.always
-        fullnameTextField.attributedPlaceholder = NSAttributedString(string: "Full name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        fullnameTextField.attributedPlaceholder = NSAttributedString(string: "Full Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
 
         
         fullnameTextField.autocorrectionType = .no
         fullnameTextField.borderStyle = .none
         let bsLine = CALayer()
         bsLine.frame = CGRect(x: 0, y: fullnameTextField.frame.height - 1, width: fullnameTextField.frame.width, height: 1)
-        bsLine.backgroundColor = UIColor.black.cgColor
+        bsLine.backgroundColor = UIColor.gray.cgColor
         fullnameTextField.borderStyle = UITextField.BorderStyle.none
         fullnameTextField.layer.addSublayer(bsLine)
         
@@ -198,7 +203,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         emailTextField.borderStyle = .none
         let bLine = CALayer()
         bLine.frame = CGRect(x: 0, y: emailTextField.frame.height - 1, width: emailTextField.frame.width, height: 1)
-        bLine.backgroundColor = UIColor.black.cgColor
+        bLine.backgroundColor = UIColor.gray.cgColor
         emailTextField.borderStyle = UITextField.BorderStyle.none
         emailTextField.layer.addSublayer(bLine)
         
@@ -215,9 +220,11 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         passwordTextField.borderStyle = .none
         let btmLine = CALayer()
         btmLine.frame = CGRect(x: 0, y: passwordTextField.frame.height - 1, width: passwordTextField.frame.width, height: 1)
-        btmLine.backgroundColor = UIColor.black.cgColor
+        btmLine.backgroundColor = UIColor.gray.cgColor
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(btmLine)
+        
+        signUpOutlet.backgroundColor = greenColour
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage

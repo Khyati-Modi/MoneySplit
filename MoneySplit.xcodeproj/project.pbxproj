@@ -16,10 +16,13 @@
 		4259C4A422D8A7D3003D8158 /* BillHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259C4A322D8A7D3003D8158 /* BillHistory.swift */; };
 		426F186722D617210053F26B /* FriendsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F186622D617210053F26B /* FriendsPageViewController.swift */; };
 		426FCC7122D8BDD300BE8E04 /* PeopleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FCC7022D8BDD300BE8E04 /* PeopleData.swift */; };
-		426FCC7622D8C26F00BE8E04 /* SecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FCC7422D8C26F00BE8E04 /* SecondTableViewCell.swift */; };
-		426FCC7722D8C26F00BE8E04 /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 426FCC7522D8C26F00BE8E04 /* SecondTableViewCell.xib */; };
 		4276BC0022D32C1B00FAD007 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */; };
 		4276BC0622D3420700FAD007 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BC0522D3420700FAD007 /* TabBarViewController.swift */; };
+		4290B5C022DD91320041D789 /* BillDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290B5BF22DD91320041D789 /* BillDataViewController.swift */; };
+		4290B5C422DD93EF0041D789 /* Poppins-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */; };
+		4290B5C722DD95740041D789 /* Poppins-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C622DD95740041D789 /* Poppins-Regular.otf */; };
+		4290B5C922DD966C0041D789 /* Poppins-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C822DD966C0041D789 /* Poppins-Medium.otf */; };
+		4290B5CB22DDA4680041D789 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290B5CA22DDA4680041D789 /* GroupData.swift */; };
 		4295E9EE22D439CB00B6385E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9ED22D439CB00B6385E /* HomeViewController.swift */; };
 		4295E9F022D4466200B6385E /* AddBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9EF22D4466200B6385E /* AddBillViewController.swift */; };
 		4295E9F622D46C6200B6385E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9F522D46C6200B6385E /* ProfileViewController.swift */; };
@@ -44,10 +47,14 @@
 		4259C4A322D8A7D3003D8158 /* BillHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistory.swift; sourceTree = "<group>"; };
 		426F186622D617210053F26B /* FriendsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPageViewController.swift; sourceTree = "<group>"; };
 		426FCC7022D8BDD300BE8E04 /* PeopleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleData.swift; sourceTree = "<group>"; };
-		426FCC7422D8C26F00BE8E04 /* SecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTableViewCell.swift; sourceTree = "<group>"; };
-		426FCC7522D8C26F00BE8E04 /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
 		4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4276BC0522D3420700FAD007 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		4290B5BF22DD91320041D789 /* BillDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDataViewController.swift; sourceTree = "<group>"; };
+		4290B5C222DD93AA0041D789 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.otf"; path = "../../../Downloads/poppins/Poppins-SemiBold.otf"; sourceTree = "<group>"; };
+		4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.otf"; sourceTree = "<group>"; };
+		4290B5C622DD95740041D789 /* Poppins-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.otf"; path = "../../../../Downloads/poppins/Poppins-Regular.otf"; sourceTree = "<group>"; };
+		4290B5C822DD966C0041D789 /* Poppins-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Medium.otf"; path = "../../../../Downloads/poppins/Poppins-Medium.otf"; sourceTree = "<group>"; };
+		4290B5CA22DDA4680041D789 /* GroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupData.swift; sourceTree = "<group>"; };
 		4295E9ED22D439CB00B6385E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4295E9EF22D4466200B6385E /* AddBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillViewController.swift; sourceTree = "<group>"; };
 		4295E9F522D46C6200B6385E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +91,7 @@
 				4213218222D49B9F00E0C47B /* User.swift */,
 				4259C4A322D8A7D3003D8158 /* BillHistory.swift */,
 				426FCC7022D8BDD300BE8E04 /* PeopleData.swift */,
+				4290B5CA22DDA4680041D789 /* GroupData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -95,7 +103,6 @@
 				42BBDD3C22D378CB00BF25D4 /* ListTableViewCell.xib */,
 				4213217F22D4758E00E0C47B /* TableViewCell.xib */,
 				4259C4A022D8A492003D8158 /* FriendTableViewCell.xib */,
-				426FCC7522D8C26F00BE8E04 /* SecondTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -112,9 +119,9 @@
 				4295E9F522D46C6200B6385E /* ProfileViewController.swift */,
 				42BBDD3B22D378CB00BF25D4 /* ListTableViewCell.swift */,
 				426F186622D617210053F26B /* FriendsPageViewController.swift */,
+				4290B5BF22DD91320041D789 /* BillDataViewController.swift */,
 				4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */,
 				4259C49F22D8A492003D8158 /* FriendTableViewCell.swift */,
-				426FCC7422D8C26F00BE8E04 /* SecondTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -124,6 +131,16 @@
 			children = (
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4290B5C122DD93990041D789 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4290B5C822DD966C0041D789 /* Poppins-Medium.otf */,
+				4290B5C622DD95740041D789 /* Poppins-Regular.otf */,
+				4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		42DFD40B22D31BBA00275B98 = {
@@ -148,6 +165,8 @@
 		42DFD41622D31BBA00275B98 /* MoneySplit */ = {
 			isa = PBXGroup;
 			children = (
+				4290B5C222DD93AA0041D789 /* Poppins-SemiBold.otf */,
+				4290B5C122DD93990041D789 /* fonts */,
 				4276BC0422D32C3900FAD007 /* Resources */,
 				4276BC0322D32C3100FAD007 /* Controller */,
 				4276BC0222D32C2A00FAD007 /* View */,
@@ -239,12 +258,14 @@
 			files = (
 				42DFD42222D31BBA00275B98 /* LaunchScreen.storyboard in Resources */,
 				4213218122D4758F00E0C47B /* TableViewCell.xib in Resources */,
+				4290B5C422DD93EF0041D789 /* Poppins-SemiBold.otf in Resources */,
 				42BBDD3822D355B400BF25D4 /* GoogleService-Info.plist in Resources */,
 				4259C4A222D8A492003D8158 /* FriendTableViewCell.xib in Resources */,
 				42DFD41F22D31BBA00275B98 /* Assets.xcassets in Resources */,
 				42DFD41D22D31BBA00275B98 /* Main.storyboard in Resources */,
 				42BBDD3E22D378CB00BF25D4 /* ListTableViewCell.xib in Resources */,
-				426FCC7722D8C26F00BE8E04 /* SecondTableViewCell.xib in Resources */,
+				4290B5C922DD966C0041D789 /* Poppins-Medium.otf in Resources */,
+				4290B5C722DD95740041D789 /* Poppins-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,16 +318,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4290B5C022DD91320041D789 /* BillDataViewController.swift in Sources */,
 				4276BC0622D3420700FAD007 /* TabBarViewController.swift in Sources */,
 				4295E9F022D4466200B6385E /* AddBillViewController.swift in Sources */,
 				4276BC0022D32C1B00FAD007 /* SignUpViewController.swift in Sources */,
-				426FCC7622D8C26F00BE8E04 /* SecondTableViewCell.swift in Sources */,
 				426F186722D617210053F26B /* FriendsPageViewController.swift in Sources */,
 				4213218022D4758F00E0C47B /* TableViewCell.swift in Sources */,
 				42DFD41A22D31BBA00275B98 /* LoginPageController.swift in Sources */,
 				42DFD41822D31BBA00275B98 /* AppDelegate.swift in Sources */,
 				4259C4A122D8A492003D8158 /* FriendTableViewCell.swift in Sources */,
 				4295E9F622D46C6200B6385E /* ProfileViewController.swift in Sources */,
+				4290B5CB22DDA4680041D789 /* GroupData.swift in Sources */,
 				4259C4A422D8A7D3003D8158 /* BillHistory.swift in Sources */,
 				426FCC7122D8BDD300BE8E04 /* PeopleData.swift in Sources */,
 				4213D68F22D7193100F8BA7F /* EditProfileViewController.swift in Sources */,

@@ -40,7 +40,6 @@ class LoginPageController: UIViewController {
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as!  TabBarViewController
             navigationController?.pushViewController(vc, animated:false)
         }
-        
     }
     
     
@@ -139,9 +138,9 @@ class LoginPageController: UIViewController {
         userNameTextField.borderStyle = UITextField.BorderStyle.none
         userNameTextField.layer.addSublayer(bottomLine)
         
-        let passwordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 25))
+        let passwordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
         passwordImageView.contentMode = .scaleAspectFit
-        let passwordImage = UIImage(named: "whitePassword")
+        let passwordImage = UIImage(named: "whitePAssword-1")
         passwordImageView.image = passwordImage
         passwordTextField.leftView = passwordImageView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
