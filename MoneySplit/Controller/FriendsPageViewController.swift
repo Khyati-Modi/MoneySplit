@@ -18,6 +18,8 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     var amount : Double!
     var colour : String!
     
+    var array : [String] = []
+    
     var billArray = [BillHistory]()
     
     let greenColor = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
@@ -33,12 +35,11 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(colour)
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
         
-        getdata()
+        getUserEmailID()
         
         profileImage.image = userImage
         profileImage.clipsToBounds = true
@@ -71,73 +72,95 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
         historyTable.register(UINib(nibName: "FriendTableViewCell", bundle: nil), forCellReuseIdentifier: "FriendTableViewCell")
 
     }
-  
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return billArray.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(billArray.count)
-        print(billArray[0].subjectOfBill)
         
         let FriendTableViewCell = historyTable.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as! FriendTableViewCell
      
         FriendTableViewCell.subjectLabel.text = (billArray[indexPath.row].subjectOfBill)
         FriendTableViewCell.paidByLabel.text = ("\(billArray[indexPath.row].paidBy!) paid  \(billArray[indexPath.row].totalAmount!)$")
-        print(FriendTableViewCell.subjectLabel)
+        
+        FriendTableViewCell.amountLabel.text = ("\(billArray[indexPath.row].money!)$")
         return FriendTableViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "BillDataViewController") as! BillDataViewController
         vc.selectedItem = (billArray[indexPath.row].subjectOfBill)
-        vc.paidByUser = (billArray[indexPath.row].paidBy!)
+
+        if (billArray[indexPath.row].paidBy!) == "You" {
+            vc.paidByUser = (Auth.auth().currentUser?.email)
+            vc.sender = "owner"
+        }
+        else{
+            vc.paidByUser = (billArray[indexPath.row].paidBy!)
+            vc.sender = "user"
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    
-    
-    
+    func getUserEmailID(){
+        let user = (Auth.auth().currentUser!.email!)
+        
+        self.db.collection("UserSignUp").getDocuments{ (QuerySnapshot, err) in
+            for document in QuerySnapshot!.documents {
+                if self.selectedUserName == (document.data()["fullName"] as? String) {
+                    self.array.append(user)
+                   let paidByEmail = document.documentID
+                    self.array.append(paidByEmail)
+                    self.getdata()
+                }
+            }
+        }
+    }
     func getdata() {
         DispatchQueue.main.async {
             self.billArray.removeAll()
-            
-            
+
             self.db.collection("PeopleWhoOweYou").getDocuments{ (QuerySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 }
                 else {
-                    let billInfo = BillHistory()
+                    let emailId = self.array[0]
+                    let name = self.array[1]
+                    
                     for document in QuerySnapshot!.documents {
+                        let billInfo = BillHistory()
 
-                        billInfo.subjectOfBill = document.data()["Subject"] as? String
-                        
-                        let emailId = document.data()["paidBy"] as! String
-                        
-                        self.db.collection("UserSignUp").getDocuments(completion: { (QuerySnapshot, err) in
-                            if let err = err {
-                                print("Error getting documents: \(err)")
+                        if emailId == document.data()["paidBy"] as! String && name == document.data()["name"] as! String {
+                            billInfo.subjectOfBill = document.data()["Subject"] as? String
+                            if (document.data()["paidBy"] as! String) == Auth.auth().currentUser?.email{
+                                billInfo.paidBy = "You"
                             }
-                            else {
-                                var fullName = ""
-                                
-                                for document in QuerySnapshot!.documents {
-                                    if emailId == document.documentID {
-                                        fullName = (document.data()["userName"] as? String)!
-                                        self.historyTable.reloadData()
-                                    }
-                                }
-                                billInfo.paidBy = fullName
-                                let countTwo = (document.data()["totalAmount"] as! String)
-                                billInfo.totalAmount = (countTwo as NSString).doubleValue
-                               
+                            else{
+                                billInfo.paidBy = self.selectedUserName
                             }
+                            let countTwo = (document.data()["totalAmount"] as! String)
+                            billInfo.totalAmount = (countTwo as NSString).doubleValue
+                            billInfo.money = Int(document.data()["money"] as! String)
+                            self.billArray.append(billInfo)
                             self.historyTable.reloadData()
-                        })
+                        }
+                            
+                        else if emailId == document.data()["name"] as! String && name == document.data()["paidBy"] as! String {
+                            billInfo.subjectOfBill = document.data()["Subject"] as? String
+                            if (document.data()["paidBy"] as! String) == Auth.auth().currentUser?.email{
+                                billInfo.paidBy = "You"
+                            }
+                            else{
+                                billInfo.paidBy = self.selectedUserName
+                            }
+                            let countTwo = (document.data()["totalAmount"] as! String)
+                            billInfo.totalAmount = (countTwo as NSString).doubleValue
+                            billInfo.money = Int(document.data()["money"] as! String)
+                            self.billArray.append(billInfo)
+                        }
+                        self.historyTable.reloadData()
+
                     }
-                    self.billArray.append(billInfo)
                 }
             }
         }

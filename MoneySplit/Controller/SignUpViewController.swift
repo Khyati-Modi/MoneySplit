@@ -35,7 +35,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         }
     }
     
-    @IBAction func backButton(_ sender: UIBarButtonItem) {
+    @IBAction func backButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -111,7 +111,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         
         self.navigationController?.navigationBar.isHidden = true
         
-        actionCodeSettings.url = URL(string: "https://khyatimodi.page.link")
+        actionCodeSettings.url = URL(string: "https://moneySplit.page.link")
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
     }
@@ -129,7 +129,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     }
     
     func addImage(){
-        let imageID = emailTextField.text!
+        let imageID = usernameTextField.text!
         let uploadRef = Storage.storage().reference(withPath: "uploads/\(imageID).jpg")
         guard let imageData = imageView.image?.jpegData(compressionQuality: 0.75) else { return }
         let uploadMetadata = StorageMetadata.init()
@@ -152,18 +152,20 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         imageView.image = background
         self.view.sendSubviewToBack(imageView)
         
-        signUpOutlet.layer.cornerRadius = 25
+        signUpOutlet.layer.cornerRadius = 26
+        signUpOutlet.backgroundColor = greenColour
+
         
         conditionView.image = UIImage(named: "Ellipse")
         conditionView.contentMode = .scaleAspectFit
         
-        let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
-        let userImage = UIImage(named: "userName")
+        let userImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
+        let userImage = UIImage(named: "signUser")
         userImageView.contentMode = .scaleAspectFit
         userImageView.image = userImage
         usernameTextField.leftView = userImageView
         usernameTextField.leftViewMode = UITextField.ViewMode.always
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "userName", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         
         usernameTextField.autocorrectionType = .no
         usernameTextField.borderStyle = .none
@@ -173,9 +175,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         usernameTextField.borderStyle = UITextField.BorderStyle.none
         usernameTextField.layer.addSublayer(bottomLine)
         
-        let fullNameIamgeView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+        let fullNameIamgeView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
         fullNameIamgeView.contentMode = .scaleAspectFit
-        let fullNameImage = UIImage(named: "userName")
+        let fullNameImage = UIImage(named: "signUser")
         fullNameIamgeView.image = fullNameImage
         fullnameTextField.leftView = fullNameIamgeView
         fullnameTextField.leftViewMode = UITextField.ViewMode.always
@@ -190,7 +192,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         fullnameTextField.borderStyle = UITextField.BorderStyle.none
         fullnameTextField.layer.addSublayer(bsLine)
         
-        let emailImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+        let emailImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
         emailImageView.contentMode = .scaleAspectFit
         let emailImage = UIImage(named: "Email")
         emailImageView.image = emailImage
@@ -207,9 +209,9 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         emailTextField.borderStyle = UITextField.BorderStyle.none
         emailTextField.layer.addSublayer(bLine)
         
-        let passwordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+        let passwordImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
         passwordImageView.contentMode = .scaleAspectFit
-        let passwordImage = UIImage(named: "Password")
+        let passwordImage = UIImage(named: "signPassword")
         passwordImageView.image = passwordImage
         passwordTextField.leftView = passwordImageView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
@@ -224,7 +226,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(btmLine)
         
-        signUpOutlet.backgroundColor = greenColour
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage

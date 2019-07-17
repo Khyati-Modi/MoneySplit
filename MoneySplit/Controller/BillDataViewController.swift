@@ -14,8 +14,9 @@ class BillDataViewController: UIViewController {
     var selectedItem : String!
     var paidByUser : String!
     var db : Firestore!
-    
-   
+    var sender = ""
+    var paidby = ""
+
     
     @IBOutlet weak var subjectOfBill: UILabel!
     @IBOutlet weak var amountOfBill: UILabel!
@@ -31,20 +32,44 @@ class BillDataViewController: UIViewController {
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
         
-        db.collection("userInfo").getDocuments { (QuerySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            }
-            else  {
-                for document in QuerySnapshot!.documents {
-                    if self.paidByUser == document.documentID {
-                        self.subjectOfBill.text = (document.data()["subjectOfBill"] as! String)
-                        self.amountOfBill.text = (document.data()["totalAmountOfBill"] as! String)
-                        self.addedByDate.text = (document.data()["Time"] as! String)
-                        self.paidBy.text = (document.data()["paidBy"] as! String)
-                        self.paidFor.text = (document.data()["paidFor"] as! String)
-                        self.splittedType.text = (document.data()["splitManner"] as! String)
+        if sender == "user" {
+            print( self.paidByUser!)
+
+            db.collection("UserSignUp").getDocuments { (QuerySnap, Error) in
+
+                print("inside database")
+                if let Error = Error {
+                    print(Error.localizedDescription)
+                }
+                else{
+                    print("Inside Else")
+                    for document in (QuerySnap!.documents) {
+                        if (document.data()["fullName"] as! String) == self.paidByUser! {
+                            
+                            self.paidby = document.documentID
+                        }
                     }
+                }
+            }
+        }
+        else {
+             paidby = paidByUser
+        }
+        
+        print("here paidby = \(paidby)")
+        
+        db.collection("userInfo").document(paidby).collection("billInfo").getDocuments { (QuerySnapShot, err) in
+            if let err = err{
+                print(err.localizedDescription)
+            }
+            else{
+                for document in (QuerySnapShot!.documents) {
+                    self.subjectOfBill.text = (document.data()["subjectOfBill"] as! String)
+                    self.amountOfBill.text = ("\(document.data()["totalAmountOfBill"] as! String) $")
+                    self.addedByDate.text = String(document.data()["Time"] as! Int)
+                    self.paidBy.text = (document.data()["paidBy"] as! String)
+                    self.paidFor.text = (document.data()["paidFor"] as! String)
+                    self.splittedType.text = (document.data()["splitManner"] as! String)
                 }
             }
         }

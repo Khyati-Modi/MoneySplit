@@ -27,12 +27,18 @@ class ProfileViewController: UIViewController {
         getData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getData()
+
+    }
+    
     @IBAction func editProfile(_ sender: UIBarButtonItem) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as!  EditProfileViewController
-        vc.username = userNameLabel.text!
         vc.userfullname = fullNameLabel.text!
+        vc.imageData = profileImageView.image!
+        vc.username = userNameLabel.text!
         navigationController?.pushViewController(vc, animated:true)
     }
     

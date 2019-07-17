@@ -9,7 +9,11 @@
 import Foundation
 
 class BillHistory {
+    
     var paidBy: String!
     var subjectOfBill : String!
     var totalAmount : Double!
+    var nameEmail : String!
+
+    var money : Int!
 }

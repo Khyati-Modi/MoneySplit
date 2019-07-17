@@ -20,7 +20,8 @@ class LoginPageController: UIViewController {
     @IBOutlet weak var signInButtonOutlet: UIButton!
 
     @IBAction func forgetPassword(_ sender: UIButton) {
-    
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLoad() {
@@ -74,7 +75,6 @@ class LoginPageController: UIViewController {
                 else  {
                     for document in QuerySnapshot!.documents {
                         if self.userNameTextField.text == document.data()["userName"] as? String{
-                            print(document.documentID)
                             let email = document.documentID
                             
                             Auth.auth().signIn(withEmail: "\(String(describing: email))", password: self.passwordTextField.text!) { (user, error) in
@@ -88,7 +88,7 @@ class LoginPageController: UIViewController {
                                 }
                                 
                                 if user != nil{
-                                    print("user is logged in")
+                                    print("User is logged in")
                                     UserDefaults.standard.set(true, forKey: "LogIn")
                                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                     let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
@@ -102,12 +102,8 @@ class LoginPageController: UIViewController {
                 }
             }
         }
-       
     }
-  
-   
-    
-    
+
     func assignbackground(){
         //background and input text field style
         let background = UIImage(named: "bg")
@@ -121,8 +117,8 @@ class LoginPageController: UIViewController {
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
         
-        let userImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
-        let userImage = UIImage(named: "whiteUser")
+        let userImageView = UIImageView(frame: CGRect(x: 05, y: 0, width: 60, height: 22))
+        let userImage = UIImage(named: "name")
         userImageView.contentMode = .scaleAspectFit
         userImageView.image = userImage
         userNameTextField.leftView = userImageView
@@ -138,7 +134,7 @@ class LoginPageController: UIViewController {
         userNameTextField.borderStyle = UITextField.BorderStyle.none
         userNameTextField.layer.addSublayer(bottomLine)
         
-        let passwordImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+        let passwordImageView = UIImageView(frame: CGRect(x: 05, y: 0, width: 60, height: 22))
         passwordImageView.contentMode = .scaleAspectFit
         let passwordImage = UIImage(named: "whitePAssword-1")
         passwordImageView.image = passwordImage
@@ -156,10 +152,8 @@ class LoginPageController: UIViewController {
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(bottomLine2)
         
-//        for.borderStyle = .none
-        
         signInButtonOutlet.layer.backgroundColor = UIColor.white.cgColor
-        signInButtonOutlet.layer.cornerRadius = 35
+        signInButtonOutlet.layer.cornerRadius = 30
     }
     
 }

@@ -23,6 +23,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var currentUser : String!
     var currentUser2 : String!
     var totalOweAmount = 0.0
+    var array : [String] = []
+   var prize : [Double] = []
+
     
     let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
     let pinkColour = UIColor(red:0.98, green:0.30, blue:0.38, alpha:1.0)
@@ -119,10 +122,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             }
         }
-        
-        if indexPath.section == 1{
-            if userArray.count != 0 {
-                
+         if userArray.count != 0 {
+            if indexPath.section == 1{
+           
                 var  amount = 0.0
                 var totalAmount = 0.0
 
@@ -188,29 +190,32 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         print("Error getting documents: \(err)")
                     }
                     else{
-                        
+                        var value = 0
                         for document in QuerySnapshot!.documents {
                             
                             let paidByUser = document.data()["paidBy"]  as! String
                             let userEmail = self.emailOfUser[0]
 
                             if Auth.auth().currentUser?.email == paidByUser {
-                                
                                 if userEmail == document.data()["name"] as! String {
                                     let countTwo = document.data()["money"] as! String
                                     self.count = (self.count + (countTwo as NSString).doubleValue)
                                     self.currentUser = (document.data()["name"] as! String)
+                                    value = 1
                                     self.tableView.reloadData()
                                 }
                                 else{
                                     let sumTwo = (document.data()["money"] as! String)
                                     self.sum = (self.sum + (sumTwo as NSString).doubleValue)
                                     self.currentUser2 = (document.data()["name"] as! String)
+                                    value = 1
                                     self.tableView.reloadData()
                                 }
                             }
                         }
-                        self.getData()
+                        if value == 1 {
+                            self.getData()
+                        }
                     }
                 })
             }
@@ -269,7 +274,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
         }
-    
+
     func peopleYouOwe(){
 
         self.peopleArray.removeAll()
@@ -279,62 +284,64 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 print("Error getting documents: \(err)")
             }
             else{
+                var increase = 0
                 var countTwo : String!
                 for document in QuerySnapshot!.documents {
                     let paidByUser = document.data()["paidBy"]  as! String
                     let nameOfUser = document.data()["name"] as! String
                     
-                    print("\(paidByUser)")
-
-                    
                     if Auth.auth().currentUser?.email != paidByUser {
                         if Auth.auth().currentUser?.email == nameOfUser {
+                            self.totalValue = 0.0
                             self.peopleArray.removeAll()
 
                             countTwo = (document.data()["money"] as! String)
                             self.totalValue = self.totalValue + (countTwo as NSString).doubleValue
                             self.currentUser = paidByUser
-                            
-                            self.db.collection("UserSignUp").getDocuments { (query, error) in
-                                
-                                for document in (query?.documents)!{
-                                    
-                                    if document.documentID == self.currentUser{
-                                        let peopleInfo = PeopleData()
-                                        
-                                        peopleInfo.peopleFullName = (document.data()["fullName"] as! String)
-                                        peopleInfo.peopleUserName = (document.data()["userName"] as! String)
-                                        peopleInfo.peopleCount = self.totalValue
-                                        self.tableView.reloadData()
-                                        
-                                        let imageName = peopleInfo.peopleUserName!
-                                        
-                                        let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
-                                        storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
-                                            if let error = error {
-                                                print("\(error)")
-                                                return
-                                            }
-                                            if let data = data {
-                                                peopleInfo.peopleProfileImage = UIImage(data: data)!
-                                            }
-                                            self.tableView.reloadData()
-                                        }
-                                        self.peopleArray.append(peopleInfo)
-                                        self.tableView.reloadData()
-                                    }
-                                    self.tableView.reloadData()
-                                }
-                                self.tableView.reloadData()
-                            }
-                            self.getDatatOfPeople()
+                            self.array.append(self.currentUser!)
+                            self.prize.append(self.totalValue)
+                            increase = 1
                         }
                     }
                 }
-                self.tableView.reloadData()
+                if increase == 1{
+                    self.setUser()
+                }
             }
         })
     }
-    func getDatatOfPeople(){
+    func setUser(){
+        self.db.collection("UserSignUp").getDocuments { (query, error) in
+
+            for document in (query!.documents){
+                for i in 0..<self.array.count{
+                    if document.documentID == self.array[i] {
+                        
+                        let peopleInfo = PeopleData()
+                        
+                        peopleInfo.peopleFullName = (document.data()["fullName"] as! String)
+                        peopleInfo.peopleUserName = (document.data()["userName"] as! String)
+                        peopleInfo.peopleCount = self.prize[i]
+                        self.tableView.reloadData()
+                        
+                        let imageName = peopleInfo.peopleUserName!
+                        
+                        let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
+                        storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
+                            if let error = error {
+                                print("\(error)")
+                                return
+                            }
+                            if let data = data {
+                                peopleInfo.peopleProfileImage = UIImage(data: data)!
+                            }
+                        }
+                        self.peopleArray.append(peopleInfo)
+                        self.tableView.reloadData()
+                    }
+                }
+        
+            }
+        }
     }
 }

@@ -23,6 +23,8 @@ class AddBillViewController: UIViewController {
     
     var numberOfUser = 0
     var selectedGroupRow : Int = 0
+    var userPickerArray : [String : String] = [:]
+
 
     
     @IBOutlet weak var tableView: UITableView!
@@ -41,6 +43,7 @@ class AddBillViewController: UIViewController {
         currencyImageView.image = currencyImage
         totalAmountOfBill.leftView = currencyImageView
         totalAmountOfBill.leftViewMode = UITextField.ViewMode.always
+        
         paidByTextField.text = Auth.auth().currentUser?.email
         tableView.delegate = self
         tableView.dataSource = self
@@ -91,20 +94,21 @@ class AddBillViewController: UIViewController {
             }
             self.getUserName()
         }
-        print("HELLO")
     }
     func getUserName(){
         db.collection("selectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
             
             for document in QuerySnapShot!.documents {
                 if self.fortextField.text! ==  document.documentID {
-                    self.numberOfUser = 2
-                    for i in 1...self.numberOfUser {
+                    self.numberOfUser = Int(document.data()["totalMember"] as! Int)
+                    for i in 1..<self.numberOfUser {
                         let groupInfo = GroupData()
                         let username = "userName\(i)"
-                        print(username)
+                        let email = "email\(i)"
                         groupInfo.groupUserName = (document.data()["\(username)"] as! String)
-                        
+                        let usrEmail = (document.data()["\(email)"] as! String)
+                        self.userPickerArray["\(email)"] = usrEmail
+
                         if self.totalAmountOfBill.text != "" {
                             let amount = Int(self.totalAmountOfBill.text!)! / self.numberOfUser
                                 groupInfo.moneyArray = String(amount)
@@ -155,6 +159,7 @@ class AddBillViewController: UIViewController {
                             let groupInfo = GroupData()
 
                             groupInfo.groupUserName = (document.data()["userName\(i)"] as! String)
+                            self.userPickerArray["email\(i)"] = (document.data()["email\(i)"] as! String)
                             
                                 let amount = Int(self.totalAmountOfBill.text!)! / self.numberOfUser
                             
@@ -190,8 +195,8 @@ class AddBillViewController: UIViewController {
     }
     
     @IBAction func saveBill(_ sender: UIBarButtonItem) {
-        addBill()
-        addPeopleWhoOweYou()
+        userInfo()
+        callTheUser(users: userPickerArray)
         
         if subjectOfBill.text ==  "" || totalAmountOfBill.text == "" || fortextField.text == "" {
             let alert = UIAlertController(title: "Oops!", message: "Please enter total amount of bill", preferredStyle: .alert)
@@ -205,7 +210,7 @@ class AddBillViewController: UIViewController {
         navigationController?.pushViewController(vc, animated:true)
     }
     
-    func addBill() {
+    func userInfo() {
         let user = Auth.auth().currentUser!.email!
         
        let currentDate = Calendar.current.dateComponents([.month,.year], from: Date.init())
@@ -225,46 +230,24 @@ class AddBillViewController: UIViewController {
         }
     }
     
-    func addPeopleWhoOweYou(){
-        let pickTheUser = Auth.auth().currentUser?.email
-
-        switch pickTheUser {
-        case "khyati.modi.sa@gmail.com" :
-            callTheUser(userOne: "sahebsingh.tuleja.sa@gmail.com", userTwo: "dharmik.dalwadi.sa@gmail.com")
-        case "dharmik.dalwadi.sa@gmail.com" :
-            callTheUser(userOne: "sahebsingh.tuleja.sa@gmail.com", userTwo: "khyati.modi.sa@gmail.com")
-        case "sahebsingh.tuleja.sa@gmail.com" :
-            callTheUser(userOne: "khyati.modi.sa@gmail.com", userTwo: "dharmik.dalwadi.sa@gmail.com")
-        default:
-            print("Oooopsss!")
-        }
-    }
-    func callTheUser (userOne : String, userTwo : String){
-        let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userOne ,"money":  groupInfoArray[0].moneyArray,"paidBy": "\(paidByTextField.text!)",
-            "totalAmount": totalAmountOfBill.text!]
-        
-        db.collection("PeopleWhoOweYou").document().setData(docData) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            }
-            else {
-                print("Document successfully written!")
-            }
-        }
-        
-        let secondDocData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userTwo ,"money": groupInfoArray[1].moneyArray,"paidBy": "\(paidByTextField.text!)",  "totalAmount": totalAmountOfBill.text!]
-    
-        self.db.collection("PeopleWhoOweYou").document().setData(secondDocData) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            }
-            else {
-                print("Document successfully written!")
+    func callTheUser (users: [String:String]){
+        for i in 1...userPickerArray.count {
+            let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userPickerArray["email\(i)"]! ,"money":  groupInfoArray[0].moneyArray,"paidBy": "\(paidByTextField.text!)",
+                "totalAmount": totalAmountOfBill.text!]
+            
+            db.collection("PeopleWhoOweYou").document().setData(docData) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                }
+                else {
+                    print("Document successfully written!")
+                }
             }
         }
     }
 }
-    
+     
+
 extension AddBillViewController : UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
