@@ -12,7 +12,7 @@ class BillHistory {
     
     var paidBy: String!
     var subjectOfBill : String!
-    var totalAmount : Double!
+    var totalAmount : Int!
     var nameEmail : String!
 
     var money : Int!

@@ -14,5 +14,5 @@ class User  {
     var userName : String!
     var userImage : UIImage?
     var userEmailId : String!
-    var userCount : Double!
+    var userCount : Int!
 }

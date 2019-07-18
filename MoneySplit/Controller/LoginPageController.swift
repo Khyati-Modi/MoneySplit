@@ -86,7 +86,6 @@ class LoginPageController: UIViewController {
                                     print(error.localizedDescription)
                                     return
                                 }
-                                
                                 if user != nil{
                                     print("User is logged in")
                                     UserDefaults.standard.set(true, forKey: "LogIn")
@@ -125,7 +124,6 @@ class LoginPageController: UIViewController {
         userNameTextField.leftViewMode = UITextField.ViewMode.always
         userNameTextField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
 
-        
         userNameTextField.autocorrectionType = .no
         userNameTextField.borderStyle = .none
         let bottomLine = CALayer()

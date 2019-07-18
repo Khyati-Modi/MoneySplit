@@ -14,5 +14,5 @@ class PeopleData {
     var peopleUserName: String!
     var peopleEmailId : String!
     var peopleProfileImage : UIImage?
-    var  peopleCount : Double!
+    var  peopleCount : Int!
 }

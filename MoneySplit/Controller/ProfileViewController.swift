@@ -11,25 +11,29 @@ import Firebase
 
 class ProfileViewController: UIViewController {
     var db: Firestore!
+    var activityIndicator  = UIActivityIndicatorView()
+
 
     @IBOutlet weak var emailIdLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
-    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currencyLabel.text = UserDefaults.standard.string(forKey: "currency")
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = min(self.profileImageView.frame.width, self.profileImageView.frame.height) / 2.0
         getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        currencyLabel.text = UserDefaults.standard.string(forKey: "currency")
         getData()
-
     }
     
     @IBAction func editProfile(_ sender: UIBarButtonItem) {
@@ -49,11 +53,18 @@ class ProfileViewController: UIViewController {
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
         UserDefaults.standard.set("false", forKey: "LogIn")
     }
     
     func getData(){
+        
+        activityIndicator.center = self.profileImageView.center
+        activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = UIActivityIndicatorView.Style.gray
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
@@ -68,7 +79,7 @@ class ProfileViewController: UIViewController {
                         self.fullNameLabel.text = document.data()["fullName"] as? String
                         self.emailIdLabel.text = document.data()["email"] as? String
                         self.userNameLabel.text = document.data()["userName"] as? String
-                        self.currencyLabel.text = "USD"
+                        self.currencyLabel.text = UserDefaults.standard.string(forKey: "currency")
                         self.languageLabel.text = "English"
 
                         let imageFileName = document.data()["userName"] as! String
@@ -82,6 +93,7 @@ class ProfileViewController: UIViewController {
                             if let data = data {
                                 self.profileImageView.image = UIImage(data: data)!
                                 print("File Downloaded")
+                                self.activityIndicator.stopAnimating()
                             }
                         }
                     }

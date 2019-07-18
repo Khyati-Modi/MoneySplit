@@ -24,7 +24,10 @@ class AddBillViewController: UIViewController {
     var numberOfUser = 0
     var selectedGroupRow : Int = 0
     var userPickerArray : [String : String] = [:]
-
+    
+    var totalAmount : Int!
+    var rupeeArray : [Int] = []
+    var dolarArray : [Int] = []
 
     
     @IBOutlet weak var tableView: UITableView!
@@ -36,9 +39,21 @@ class AddBillViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        subjectOfBill.text = ""
+        totalAmountOfBill.text = ""
+        paidByTextField.text = ""
+        fortextField.text = ""
         
         let currencyImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
-        let currencyImage = UIImage(named: "Currency")
+        var currencyImage : UIImage!
+
+        if UserDefaults.standard.string(forKey: "currency") == "USD" {
+             currencyImage = UIImage(named: "Currency")
+        }
+        else if UserDefaults.standard.string(forKey: "currency") == "INR" {
+             currencyImage = UIImage(named: "rupee")
+        }
+
         currencyImageView.contentMode = .scaleAspectFill
         currencyImageView.image = currencyImage
         totalAmountOfBill.leftView = currencyImageView
@@ -77,7 +92,7 @@ class AddBillViewController: UIViewController {
         }
     }
     
-    func fechGroupMember(){
+    func fetchGroupMember(){
         let docName = fortextField.text!
         db.collection("selectYourGroup").document("\(docName)!").getDocument { (querySnapshot, err) in
             if let err = err
@@ -97,6 +112,7 @@ class AddBillViewController: UIViewController {
     }
     func getUserName(){
         db.collection("selectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
+            self.groupInfoArray.removeAll()
             
             for document in QuerySnapShot!.documents {
                 if self.fortextField.text! ==  document.documentID {
@@ -111,7 +127,9 @@ class AddBillViewController: UIViewController {
 
                         if self.totalAmountOfBill.text != "" {
                             let amount = Int(self.totalAmountOfBill.text!)! / self.numberOfUser
-                                groupInfo.moneyArray = String(amount)
+                            groupInfo.moneyArray = String(amount)
+                            
+                                self.rupeeArray.append(amount)
                                 self.groupInfoArray.append(groupInfo)
                             }
                             else {
@@ -151,26 +169,34 @@ class AddBillViewController: UIViewController {
             self.groupInfoArray.removeAll()
             
             db.collection("selectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
+                var Amt = Int(self.totalAmountOfBill.text!)!
+
                 
                 for document in QuerySnapShot!.documents {
                     if self.fortextField.text! ==  document.documentID {
 
-                        for i in 1...self.numberOfUser {
+                        for i in 1..<self.numberOfUser {
                             let groupInfo = GroupData()
+                            
 
                             groupInfo.groupUserName = (document.data()["userName\(i)"] as! String)
                             self.userPickerArray["email\(i)"] = (document.data()["email\(i)"] as! String)
+                            print(Amt)
+                            let  n = self.numberOfUser + 2
+                            let  m = self.numberOfUser + 6
                             
-                                let amount = Int(self.totalAmountOfBill.text!)! / self.numberOfUser
+                            let number = Int.random(in: n...m)
+                            let amount = Amt / number
+                    
+                            groupInfo.moneyArray = String(amount)
                             
-                                groupInfo.moneyArray = String(amount)
-                                self.groupInfoArray.append(groupInfo)
-                      
-                                let alert = UIAlertController(title: "Oops!", message: "Please enter total amount of bill", preferredStyle: .alert)
-                                let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-                                alert.addAction(action)
-                                self.present(alert, animated: true , completion: nil)
+                            let totalValue =  Amt - amount
+                            print(Amt)
+                            Amt = totalValue
+                            print(Amt)
+                            self.groupInfoArray.append(groupInfo)
                         }
+
                         self.tableView.reloadData()
                     }
                 }
@@ -186,7 +212,7 @@ class AddBillViewController: UIViewController {
     }
     
     @IBAction func selectGroup(_ sender: UIButton) {
-        self.userPickerView = UIPickerView(frame:CGRect(x: 180, y: 253, width: 200 , height: 150))
+        self.userPickerView = UIPickerView(frame:CGRect(x: 100, y: 280, width: 250 , height: 150))
         self.userPickerView.delegate = self
         self.userPickerView.dataSource = self
         self.userPickerView.backgroundColor = UIColor.white
@@ -195,30 +221,58 @@ class AddBillViewController: UIViewController {
     }
     
     @IBAction func saveBill(_ sender: UIBarButtonItem) {
-        userInfo()
-        callTheUser(users: userPickerArray)
-        
+      
         if subjectOfBill.text ==  "" || totalAmountOfBill.text == "" || fortextField.text == "" {
             let alert = UIAlertController(title: "Oops!", message: "Please enter total amount of bill", preferredStyle: .alert)
             let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
             alert.addAction(action)
             present(alert, animated: true , completion: nil)
         }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as!  TabBarViewController
-        navigationController?.pushViewController(vc, animated:true)
+        else {
+            if UserDefaults.standard.string(forKey: "currency") == "INR" {
+                totalAmount = Int(totalAmountOfBill.text!)! / 70
+                
+                for i in 0..<rupeeArray.count{
+                    let rupeeValue = rupeeArray[i]
+                    let dolarValue = Int(rupeeValue) / 70
+                    dolarArray.append(dolarValue)
+                    print(dolarArray)
+                }
+            }
+            else if UserDefaults.standard.string(forKey: "currency") == "USD" {
+                totalAmount = Int(totalAmountOfBill.text!)!
+                
+                for i in 0..<rupeeArray.count{
+                    let dolarValue = rupeeArray[i]
+                    
+                    dolarArray.append(dolarValue)
+                    print(dolarArray)
+                }
+            }
+            userInfo()
+            saveTheBill(users: userPickerArray)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as!  TabBarViewController
+            navigationController?.pushViewController(vc, animated:true)
+        }
     }
     
     func userInfo() {
         let user = Auth.auth().currentUser!.email!
+     
+        let now = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "LLLL"
         
-       let currentDate = Calendar.current.dateComponents([.month,.year], from: Date.init())
-        let temp : Int = currentDate.month!
+        let currentTime = Calendar.current.dateComponents([.day,.year], from: Date.init())
+        let date : Int = currentTime.day!
+        let month = dateFormatter.string(from: now)
+        let year : Int = currentTime.year!
+        let timeData = "\(date) \(month), \(year)"
         
-        let docData: [String: Any] = ["subjectOfBill": "\(subjectOfBill.text!)","totalAmountOfBill": "\(totalAmountOfBill.text!)","paidBy": "\(paidByTextField.text!)",
-                    "paidFor": "\(fortextField.text!)","currentUser": "\(user)","splitManner":"\(splitManually.text!)","ShareWith1": groupInfoArray[0].groupUserName,
-                    "ShareWith2": groupInfoArray[1].groupUserName ,"Time": temp]
+        
+        let docData: [String: Any] = ["subjectOfBill": "\(subjectOfBill.text!)","totalAmountOfBill":  totalAmount ,"paidBy": "\(paidByTextField.text!)",
+                    "paidFor": "\(fortextField.text!)","currentUser": "\(user)","splitManner":"\(splitManually.text!)","Time": timeData]
         
         db.collection("userInfo").document("\(user)").collection("billInfo").document().setData(docData) { err in
             if let err = err {
@@ -230,10 +284,19 @@ class AddBillViewController: UIViewController {
         }
     }
     
-    func callTheUser (users: [String:String]){
-        for i in 1...userPickerArray.count {
-            let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userPickerArray["email\(i)"]! ,"money":  groupInfoArray[0].moneyArray,"paidBy": "\(paidByTextField.text!)",
-                "totalAmount": totalAmountOfBill.text!]
+    func saveTheBill (users: [String:String]){
+        for i in 0..<userPickerArray.count {
+            
+            print(subjectOfBill.text!)
+            let m = i + 1
+            print(userPickerArray["email\(m)"]!)
+            print(dolarArray[i])
+            print(paidByTextField.text!)
+            print(totalAmount!)
+
+            
+            let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userPickerArray["email\(m)"]!, "money" :  dolarArray[i],
+                                          "paidBy": "\(paidByTextField.text!)","totalAmount": totalAmount!]
             
             db.collection("PeopleWhoOweYou").document().setData(docData) { err in
                 if let err = err {
@@ -262,7 +325,7 @@ extension AddBillViewController : UITableViewDelegate, UITableViewDataSource  {
     }
 }
 
-
+//MARK: Select Your Group
 extension AddBillViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -281,7 +344,7 @@ extension AddBillViewController : UIPickerViewDelegate, UIPickerViewDataSource {
         selectedGroupRow = row
         fortextField.text = groupArray[row]
         selectedGroup = row
-        fechGroupMember()
+        fetchGroupMember()
         userPickerView.isHidden = true
         tableView.reloadData()
     }

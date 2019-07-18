@@ -15,21 +15,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var userArray = [User]()
     var peopleArray = [PeopleData]()
     var emailOfUser  : [String] = []
-    var count = 0.0
+    var currentUserArray  : [String] = []
+    var count = 0
     var sum = 0.0
-    var totalValue = 0.0
+    var totalValue = 0
     var SecCount = 0
-
     var currentUser : String!
-    var currentUser2 : String!
     var totalOweAmount = 0.0
     var array : [String] = []
-   var prize : [Double] = []
-
-    
+    var prize : [Int] = []
     let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
     let pinkColour = UIColor(red:0.98, green:0.30, blue:0.38, alpha:1.0)
 
+    @IBOutlet weak var leftView: UIView!
     @IBOutlet weak var leftLabel: UILabel!
     @IBOutlet weak var rightView: UIView!
     @IBOutlet weak var rightLabel: UILabel!
@@ -38,6 +36,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UserDefaults.standard.string(forKey: "currency") == "INR"{
+            let amt = Conversion.shared.convertCurrency(dollarAmount: 0)
+            leftLabel.text = "\(amt)"
+            rightLabel.text = "\(amt)"
+        }
+        else{
+            leftLabel.text = "0$"
+            rightLabel.text = "0$"
+        }
+
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
@@ -49,15 +57,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListTableViewCell")
         
-        leftLabel.clipsToBounds = true
-        rightLabel.clipsToBounds = true
+        leftView.clipsToBounds = true
+        rightView.clipsToBounds = true
         
-        leftLabel.backgroundColor = pinkColour
-        rightLabel.backgroundColor =  greenColour
+        leftView.backgroundColor = pinkColour
+        rightView.backgroundColor =  greenColour
         
-        leftLabel.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
-        rightLabel.layer.cornerRadius = min(self.leftLabel.frame.width, self.leftLabel.frame.height) / 2.0
+        leftView.layer.cornerRadius = min(self.leftView.frame.width, self.leftView.frame.height) / 2.0
+        rightView.layer.cornerRadius = min(self.rightView.frame.width, self.rightView.frame.height) / 2.0
     }
+    
+   
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -85,7 +95,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
         if peopleArray.count != 0{
             if section == 0 {
                 SecCount = peopleArray.count
@@ -101,23 +110,47 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
+        
        
+        
+        if peopleArray.count == 0 {
+            if indexPath.section == 0{
+                cell.userName.text = "Hurray! Nothing to Pay"
+            }
+        }
         if peopleArray.count != 0{
             if indexPath.section == 0 {
               
-                var  amount = 0.0
-                var totalAmount = 0.0
+                var  amount = 0
+                var totalAmount = 0
                 
+                var amt = ""
+                var totalamt = ""
+                
+                if UserDefaults.standard.string(forKey: "currency") == "INR"{
+                    amt = Conversion.shared.convertCurrency(dollarAmount: peopleArray[indexPath.row].peopleCount)
+                    
+                    for i in 0..<peopleArray.count {
+                        amount = peopleArray[i].peopleCount!
+                        totalAmount = totalAmount + amount
+                    }
+                    totalamt = Conversion.shared.convertCurrency(dollarAmount: totalAmount)
+                    leftLabel.text = " \(totalamt)"
+                    
+                }
+                else {
+                    amt =  "\(userArray[indexPath.row].userCount!)$ "
+                    
+                    for i in 0..<userArray.count {
+                        amount = userArray[i].userCount!
+                        totalAmount = totalAmount + amount
+                    }
+                    leftLabel.text = " \(totalAmount)$"
+                }
                 cell.userName.text =  peopleArray[indexPath.row].peopleFullName
                 cell.profileImage.image = peopleArray[indexPath.row].peopleProfileImage
-                cell.amountButtonOutlet.setTitle("\(peopleArray[indexPath.row].peopleCount!)$", for: .normal)
+                cell.amountButtonOutlet.setTitle("\(amt)", for: .normal)
                 cell.amountButtonOutlet.tintColor = pinkColour
-                
-                for i in 0..<peopleArray.count {
-                    amount = peopleArray[i].peopleCount!
-                }
-                totalAmount = totalAmount + amount
-                leftLabel.text = "YOU OWE      \(totalAmount)$"
                 
                 return cell
             }
@@ -125,27 +158,45 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
          if userArray.count != 0 {
             if indexPath.section == 1{
            
-                var  amount = 0.0
-                var totalAmount = 0.0
-
+                var  amount = 0
+                var totalAmount = 0
+                
+                var amt = ""
+                var totalamt = ""
+                
+                if UserDefaults.standard.string(forKey: "currency") == "INR"{
+                    amt = Conversion.shared.convertCurrency(dollarAmount: userArray[indexPath.row].userCount )
+                    
+                    for i in 0..<userArray.count {
+                        amount = userArray[i].userCount!
+                        totalAmount = totalAmount + amount
+                    }
+                    totalamt = Conversion.shared.convertCurrency(dollarAmount: totalAmount)
+                    rightLabel.text = " \(totalamt)"
+                    
+                }
+                else {
+                    amt =  "\(userArray[indexPath.row].userCount!)$ "
+                    
+                    for i in 0..<userArray.count {
+                        amount = userArray[i].userCount!
+                        totalAmount = totalAmount + amount
+                    }
+                    rightLabel.text = " \(totalAmount)$"
+                }
+                
                 cell.userName.text = userArray[indexPath.row].userFullname
                 cell.profileImage.image = userArray[indexPath.row].userImage
-                cell.amountButtonOutlet.setTitle("\(userArray[indexPath.row].userCount!)$", for: .normal)
+                cell.amountButtonOutlet.setTitle("\(amt)", for: .normal)
                 cell.amountButtonOutlet.tintColor = greenColour
                 
-                for i in 0..<userArray.count {
-                    amount = userArray[i].userCount!
-                    totalAmount = totalAmount + amount
-                 }
-                rightLabel.text = "OWE YOU \(totalAmount)$"
                 return cell
             }
              return UITableViewCell()
         }
-            
         else{
             return UITableViewCell()
-            }
+        }
     }
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -168,6 +219,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    //MARK: peopleWhoOweYou Function
     func peopleWhoOweYou(){
         self.userArray.removeAll()
         
@@ -194,23 +246,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         for document in QuerySnapshot!.documents {
                             
                             let paidByUser = document.data()["paidBy"]  as! String
-                            let userEmail = self.emailOfUser[0]
+                            
+                            for i in 0..<self.emailOfUser.count {
+                                 let userEmail = self.emailOfUser[i]
+                                if Auth.auth().currentUser?.email == paidByUser {
+                                    if userEmail == document.data()["name"] as! String {
+                                        self.count = 0
 
-                            if Auth.auth().currentUser?.email == paidByUser {
-                                if userEmail == document.data()["name"] as! String {
-                                    let countTwo = document.data()["money"] as! String
-                                    self.count = (self.count + (countTwo as NSString).doubleValue)
-                                    self.currentUser = (document.data()["name"] as! String)
-                                    value = 1
-                                    self.tableView.reloadData()
+                                        let countTwo = document.data()["money"] as! Int
+                                        self.count = self.count + countTwo
+                                        self.currentUser = (document.data()["name"] as! String)
+                                        self.currentUserArray.append(self.currentUser)
+                                        value = 1
+                                        self.tableView.reloadData()
+                                    }
                                 }
-                                else{
-                                    let sumTwo = (document.data()["money"] as! String)
-                                    self.sum = (self.sum + (sumTwo as NSString).doubleValue)
-                                    self.currentUser2 = (document.data()["name"] as! String)
-                                    value = 1
-                                    self.tableView.reloadData()
-                                }
+                                
                             }
                         }
                         if value == 1 {
@@ -225,56 +276,34 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.db.collection("UserSignUp").getDocuments { (query, error) in
                 
                 for document in (query?.documents)!{
-
-                    if document.documentID == self.currentUser{
-                        let userInfo = User()
-
-                        userInfo.userFullname = (document.data()["fullName"] as! String)
-                        userInfo.userName = (document.data()["userName"] as! String)
-                        userInfo.userCount = self.count
-                        let imageName =  userInfo.userName!
-                        let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
-                        storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
-                            if let error = error {
-                                print("\(error)")
-                                return
+                    for i in 0..<self.currentUserArray.count {
+                        if document.documentID == self.currentUserArray[i] {
+                            let userInfo = User()
+                            
+                            userInfo.userFullname = (document.data()["fullName"] as! String)
+                            userInfo.userName = (document.data()["userName"] as! String)
+                            userInfo.userCount = self.count
+                            let imageName =  userInfo.userName!
+                            let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
+                            storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
+                                if let error = error {
+                                    print("\(error)")
+                                    return
+                                }
+                                if let data = data {
+                                    userInfo.userImage = UIImage(data: data)!
+                                    self.tableView.reloadData()
+                                }
                             }
-                            if let data = data {
-                                userInfo.userImage = UIImage(data: data)!
-                                self.tableView.reloadData()
-                            }
+                            self.userArray.append(userInfo)
+                            self.tableView.reloadData()
                         }
-                        self.userArray.append(userInfo)
-                        self.tableView.reloadData()
-                    }
-                  else  if document.documentID == self.currentUser2 {
-                        let userInfo = User()
-
-                        userInfo.userFullname = (document.data()["fullName"] as! String)
-                        userInfo.userName = (document.data()["userName"] as! String)
-                        userInfo.userCount = self.sum
-                        
-                        let imageFileName = document.data()["userName"] as! String
-                        
-                        let storageRef = Storage.storage().reference(withPath: "uploads/\(imageFileName).jpg")
-                        storageRef.getData(maxSize: 4 * 1024 * 1024){(data, error) in
-                        
-                            if let error = error {
-                                print("\(error)")
-                                return
-                            }
-                            if let data = data {
-                                userInfo.userImage = UIImage(data: data)!
-                                self.tableView.reloadData()
-                            }
-                        }
-                        self.userArray.append(userInfo)
-                        self.tableView.reloadData()
                     }
                 }
             }
         }
-
+    
+    //MARK: peopleYouOwe
     func peopleYouOwe(){
 
         self.peopleArray.removeAll()
@@ -285,18 +314,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             else{
                 var increase = 0
-                var countTwo : String!
+                var countTwo : Int!
                 for document in QuerySnapshot!.documents {
                     let paidByUser = document.data()["paidBy"]  as! String
                     let nameOfUser = document.data()["name"] as! String
                     
                     if Auth.auth().currentUser?.email != paidByUser {
                         if Auth.auth().currentUser?.email == nameOfUser {
-                            self.totalValue = 0.0
+                            self.totalValue = 0
                             self.peopleArray.removeAll()
 
-                            countTwo = (document.data()["money"] as! String)
-                            self.totalValue = self.totalValue + (countTwo as NSString).doubleValue
+                            countTwo = (document.data()["money"] as! Int)
+                            self.totalValue = self.totalValue + countTwo
                             self.currentUser = paidByUser
                             self.array.append(self.currentUser!)
                             self.prize.append(self.totalValue)

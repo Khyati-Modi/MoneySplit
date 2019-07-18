@@ -1,0 +1,162 @@
+
+/* Class = "UILabel"; text = "Default currency"; ObjectID = "1Sc-Wm-Adh"; */
+"1Sc-Wm-Adh.text" = "डिफ़ॉल्ट मुद्रा";
+
+/* Class = "UILabel"; text = "Splitted equally"; ObjectID = "1wm-oz-HHz"; */
+"1wm-oz-HHz.text" = "समान रूप से विभाजित";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "2BM-lM-CK1"; */
+"2BM-lM-CK1.title" = "बचाना";
+
+/* Class = "UILabel"; text = "Owe"; ObjectID = "2Pb-ao-fCe"; */
+"2Pb-ao-fCe.text" = "देना है";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "3Uo-Kr-DHv"; */
+"3Uo-Kr-DHv.text" = "उपयोगकर्ता नाम";
+
+/* Class = "UILabel"; text = "Owe "; ObjectID = "3qr-Wb-2XF"; */
+"3qr-Wb-2XF.text" = "देना है ";
+
+/* Class = "UINavigationItem"; title = "Add bill"; ObjectID = "4Sd-Y3-7k4"; */
+"4Sd-Y3-7k4.title" = "बिल जोड़ें";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4U3-1o-Kil"; */
+"4U3-1o-Kil.text" = "लेबल";
+
+/* Class = "UIButton"; normalTitle = "ResetPassword"; ObjectID = "4b1-Eu-EQC"; */
+"4b1-Eu-EQC.normalTitle" = "पासवर्ड रीसेट";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "5Sn-V2-lg1"; */
+"5Sn-V2-lg1.placeholder" = "उपयोगकर्ता नाम";
+
+/* Class = "UILabel"; text = "pablostanley"; ObjectID = "6XW-B2-WaU"; */
+"6XW-B2-WaU.text" = "pablostanley";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "7aa-sj-hEp"; */
+"7aa-sj-hEp.placeholder" = "उपयोगकर्ता नाम";
+
+/* Class = "UILabel"; text = "Added by you on June 15, 2019"; ObjectID = "9EJ-5x-5aQ"; */
+"9EJ-5x-5aQ.text" = "आपके द्वारा 15 जून, 2019 को जोड़ा गया";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "CII-hg-YE6"; */
+"CII-hg-YE6.normalTitle" = "वापस";
+
+/* Class = "UILabel"; text = "Create Account"; ObjectID = "DU6-hl-hjG"; */
+"DU6-hl-hjG.text" = "खाता बनाएं";
+
+/* Class = "UILabel"; text = "Not set up yet?"; ObjectID = "DzX-93-gPV"; */
+"DzX-93-gPV.text" = "अभी तक सेट नहीं किया गया?";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "Gqy-to-jsq"; */
+"Gqy-to-jsq.normalTitle" = "साइन अप करें";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "HUf-zB-hG5"; */
+"HUf-zB-hG5.text" = "भाषा";
+
+/* Class = "UITextField"; placeholder = "name of group"; ObjectID = "Hvn-Wu-XKH"; */
+"Hvn-Wu-XKH.placeholder" = "समूह का नाम";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "JRG-DQ-C5V"; */
+"JRG-DQ-C5V.placeholder" = "पारण शब्द";
+
+/* Class = "UIButton"; normalTitle = "Forgot Password"; ObjectID = "Jo1-7B-NzU"; */
+"Jo1-7B-NzU.normalTitle" = "पासवर्ड भूल गए";
+
+/* Class = "UILabel"; text = "Full Name"; ObjectID = "KjK-lb-Jxg"; */
+"KjK-lb-Jxg.text" = "पूरा नाम";
+
+/* Class = "UIButton"; normalTitle = "I agree to terms and conditions"; ObjectID = "Ljo-Xk-K0U"; */
+"Ljo-Xk-K0U.normalTitle" = "मैं नियमों और शर्तों से सहमत हूँ";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "NS1-0J-bpU"; */
+"NS1-0J-bpU.title" = "वापस";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Ow2-2g-V5H"; */
+"Ow2-2g-V5H.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "name of person"; ObjectID = "Rdm-Yg-sb6"; */
+"Rdm-Yg-sb6.placeholder" = "व्यक्ति का नाम";
+
+/* Class = "UITextField"; placeholder = "Subject Of Your Bill"; ObjectID = "StM-Ib-vaw"; */
+"StM-Ib-vaw.placeholder" = "आपके बिल का विषय";
+
+/* Class = "UILabel"; text = "Currency"; ObjectID = "UO6-qh-Har"; */
+"UO6-qh-Har.text" = "मुद्रा";
+
+/* Class = "UINavigationItem"; title = "Edit Profile"; ObjectID = "Ub3-cB-CbI"; */
+"Ub3-cB-CbI.title" = "प्रोफाइल एडिट करें";
+
+/* Class = "UILabel"; text = "43$"; ObjectID = "VGQ-kM-foE"; */
+"VGQ-kM-foE.text" = "43$";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "VYn-G8-mqE"; */
+"VYn-G8-mqE.text" = "ईमेल";
+
+/* Class = "UILabel"; text = "Subject of bill"; ObjectID = "XDF-kO-qgs"; */
+"XDF-kO-qgs.text" = "बिल का विषय";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "aEA-I7-L9l"; */
+"aEA-I7-L9l.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Enter your registered emaild"; ObjectID = "bLm-EC-h34"; */
+"bLm-EC-h34.text" = "अपना पंजीकृत ईमेल दर्ज करें";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "cLg-Zn-kSu"; */
+"cLg-Zn-kSu.title" = "वापस";
+
+/* Class = "UILabel"; text = "Paid by"; ObjectID = "cbE-hR-ZH3"; */
+"cbE-hR-ZH3.text" = "द्वारा भुगतान";
+
+/* Class = "UITextField"; placeholder = "Total amount "; ObjectID = "eJt-mI-1a4"; */
+"eJt-mI-1a4.placeholder" = "कुल रकम ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eth-6D-bPV"; */
+"eth-6D-bPV.text" = "Label";
+
+/* Class = "UILabel"; text = "L"; ObjectID = "fs3-bW-bwQ"; */
+"fs3-bW-bwQ.text" = "L";
+
+/* Class = "UILabel"; text = "Split Equally"; ObjectID = "gp1-zn-bup"; */
+"gp1-zn-bup.text" = "समान रूप से विभाजित";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "iGG-7R-V33"; */
+"iGG-7R-V33.normalTitle" = "वापस";
+
+/* Class = "UILabel"; text = "For"; ObjectID = "mTd-4K-9we"; */
+"mTd-4K-9we.text" = "के लिये";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "nVR-4m-BvO"; */
+"nVR-4m-BvO.text" = "भाषा";
+
+/* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "nsZ-pg-KuX"; */
+"nsZ-pg-KuX.normalTitle" = "दाखिल करना";
+
+/* Class = "UIBarButtonItem"; title = " < Back"; ObjectID = "pTU-9d-yDq"; */
+"pTU-9d-yDq.title" = " < वापस";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "qAf-qG-20u"; */
+"qAf-qG-20u.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "qHE-xJ-c15"; */
+"qHE-xJ-c15.placeholder" = "ईमेल";
+
+/* Class = "UILabel"; text = "L"; ObjectID = "qz4-MX-RO6"; */
+"qz4-MX-RO6.text" = "L";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "re8-e5-fZ6"; */
+"re8-e5-fZ6.placeholder" = "पारण शब्द";
+
+/* Class = "UIButton"; normalTitle = "Sign up"; ObjectID = "uwI-Wy-pjH"; */
+"uwI-Wy-pjH.normalTitle" = "साइन अप करें";
+
+/* Class = "UILabel"; text = "Money split"; ObjectID = "v1u-k5-JAr"; */
+"v1u-k5-JAr.text" = "पैसा बंट गया";
+
+/* Class = "UITextField"; placeholder = " Username"; ObjectID = "wwq-Wd-FNx"; */
+"wwq-Wd-FNx.placeholder" = " उपयोगकर्ता नाम";
+
+/* Class = "UIBarButtonItem"; title = "Logout"; ObjectID = "xIn-Zb-Awv"; */
+"xIn-Zb-Awv.title" = "लोग आउट";
+
+/* Class = "UITextField"; placeholder = "Fullname"; ObjectID = "y2E-ec-6Qj"; */
+"y2E-ec-6Qj.placeholder" = "पूरा नाम";

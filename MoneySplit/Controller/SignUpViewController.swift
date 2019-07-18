@@ -14,6 +14,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     
     var db: Firestore!
     let actionCodeSettings = ActionCodeSettings()
+    let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
 
     @IBOutlet weak var fullnameTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -22,9 +23,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var conditionView: UIImageView!
     @IBOutlet weak var signUpOutlet: UIButton!
-    
-    let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
-
     
     @IBAction func tAcButtonClick(_ sender: UIButton) {
         if  conditionView.image == UIImage(named: "Ellipse") {
@@ -90,7 +88,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
                     alert.addAction(action)
                     self.present(alert, animated: true , completion: nil)
                 }
-                
                 if user != nil{
                     self.addUser()
                     self.addImage()
@@ -183,7 +180,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         fullnameTextField.leftViewMode = UITextField.ViewMode.always
         fullnameTextField.attributedPlaceholder = NSAttributedString(string: "Full Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
 
-        
         fullnameTextField.autocorrectionType = .no
         fullnameTextField.borderStyle = .none
         let bsLine = CALayer()
@@ -216,7 +212,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         passwordTextField.leftView = passwordImageView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
-
         
         passwordTextField.autocorrectionType = .no
         passwordTextField.borderStyle = .none
@@ -225,8 +220,8 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         btmLine.backgroundColor = UIColor.gray.cgColor
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(btmLine)
-        
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         picker.dismiss(animated: true, completion: nil)
