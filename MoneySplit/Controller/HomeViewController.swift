@@ -16,6 +16,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var peopleArray = [PeopleData]()
     var emailOfUser  : [String] = []
     var currentUserArray  : [String] = []
+    var countArray  : [Int] = []
+
+    var monthArray : [String]!
+    var user : Set<String> = []
+    var  people : Set<String>  = []
+    
     var count = 0
     var sum = 0.0
     var totalValue = 0
@@ -67,11 +73,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         rightView.layer.cornerRadius = min(self.rightView.frame.width, self.rightView.frame.height) / 2.0
     }
     
-   
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerLabel = UILabel(frame: CGRect(x: 00, y: 28, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        let headerLabel = UILabel(frame: CGRect(x: 00, y: 28, width: tableView.bounds.size.width, height: 60))
         headerLabel.font = UIFont(name: "Poppins", size: 24)
         headerLabel.textColor = UIColor.black
         
@@ -83,7 +88,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             headerLabel.text = "People who owe you"
         }
         let bottomLine2 = CALayer()
-        bottomLine2.frame = CGRect(x: 0, y: 28  , width: headerLabel.bounds.size.width, height: 1)
+        bottomLine2.frame = CGRect(x: 0, y: 32  , width: headerLabel.bounds.size.width, height: 1)
         bottomLine2.backgroundColor = UIColor.black.cgColor
         headerLabel.layer.addSublayer(bottomLine2)
         return headerLabel
@@ -139,19 +144,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     
                 }
                 else {
-                    amt =  "\(userArray[indexPath.row].userCount!)$ "
+                    amt =  "\(peopleArray[indexPath.row].peopleCount!)$ "
                     
-                    for i in 0..<userArray.count {
-                        amount = userArray[i].userCount!
+                    for i in 0..<peopleArray.count {
+                        amount = peopleArray[i].peopleCount!
                         totalAmount = totalAmount + amount
                     }
                     leftLabel.text = " \(totalAmount)$"
                 }
                 cell.userName.text =  peopleArray[indexPath.row].peopleFullName
                 cell.profileImage.image = peopleArray[indexPath.row].peopleProfileImage
+                
                 cell.amountButtonOutlet.setTitle("\(amt)", for: .normal)
                 cell.amountButtonOutlet.tintColor = pinkColour
-                
                 return cell
             }
         }
@@ -207,16 +212,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             vc.selectedUserName = peopleArray[indexPath.row].peopleFullName
             vc.userImage = peopleArray[indexPath.row].peopleProfileImage
             vc.amount = peopleArray[indexPath.row].peopleCount
+            vc.userEmail = peopleArray[indexPath.row].peopleEmailId
             vc.colour = "pink"
-            navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+
         }
         if indexPath.section == 1 {
             vc.selectedUserName = userArray[indexPath.row].userFullname
             vc.userImage = userArray[indexPath.row].userImage
             vc.amount = userArray[indexPath.row].userCount
+            vc.userEmail = userArray[indexPath.row].userEmailId
             vc.colour = "green"
-            navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
+        
     }
     
     //MARK: peopleWhoOweYou Function
@@ -243,25 +254,31 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                     else{
                         var value = 0
+                      
+                        
                         for document in QuerySnapshot!.documents {
-                            
+
                             let paidByUser = document.data()["paidBy"]  as! String
+
                             
                             for i in 0..<self.emailOfUser.count {
-                                 let userEmail = self.emailOfUser[i]
-                                if Auth.auth().currentUser?.email == paidByUser {
-                                    if userEmail == document.data()["name"] as! String {
-                                        self.count = 0
+                                let userEmail = self.emailOfUser[i]
 
+                                
+                                if Auth.auth().currentUser?.email == paidByUser {
+                                      self.count = 0
+
+                                    if userEmail == document.data()["name"] as! String {
                                         let countTwo = document.data()["money"] as! Int
                                         self.count = self.count + countTwo
                                         self.currentUser = (document.data()["name"] as! String)
                                         self.currentUserArray.append(self.currentUser)
+                                        self.countArray.append(self.count)
+                                        self.user.insert(self.currentUser)
+                                        print(self.user.count)
                                         value = 1
-                                        self.tableView.reloadData()
                                     }
                                 }
-                                
                             }
                         }
                         if value == 1 {
@@ -274,15 +291,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
         func getData(){
             self.db.collection("UserSignUp").getDocuments { (query, error) in
-                
                 for document in (query?.documents)!{
-                    for i in 0..<self.currentUserArray.count {
+                    for i in 0..<self.user.count {
+                        print(self.user.count)
                         if document.documentID == self.currentUserArray[i] {
+                            print("Here users = \(self.user)")
                             let userInfo = User()
                             
                             userInfo.userFullname = (document.data()["fullName"] as! String)
                             userInfo.userName = (document.data()["userName"] as! String)
-                            userInfo.userCount = self.count
+                            userInfo.userEmailId = (document.data()["email"] as! String)
+                            userInfo.userCount = self.countArray[i]
+
                             let imageName =  userInfo.userName!
                             let storageRef = Storage.storage().reference(withPath: "uploads/\(imageName).jpg")
                             storageRef.getData(maxSize: 4 * 1024 * 1024) {(data, error) in
@@ -315,19 +335,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             else{
                 var increase = 0
                 var countTwo : Int!
+                self.totalValue = 0
+
                 for document in QuerySnapshot!.documents {
                     let paidByUser = document.data()["paidBy"]  as! String
                     let nameOfUser = document.data()["name"] as! String
                     
                     if Auth.auth().currentUser?.email != paidByUser {
+
                         if Auth.auth().currentUser?.email == nameOfUser {
-                            self.totalValue = 0
                             self.peopleArray.removeAll()
 
                             countTwo = (document.data()["money"] as! Int)
                             self.totalValue = self.totalValue + countTwo
                             self.currentUser = paidByUser
                             self.array.append(self.currentUser!)
+                            self.people.insert(self.currentUser)
                             self.prize.append(self.totalValue)
                             increase = 1
                         }
@@ -343,13 +366,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.db.collection("UserSignUp").getDocuments { (query, error) in
 
             for document in (query!.documents){
-                for i in 0..<self.array.count{
+                for i in 0..<self.people.count{
                     if document.documentID == self.array[i] {
                         
                         let peopleInfo = PeopleData()
                         
                         peopleInfo.peopleFullName = (document.data()["fullName"] as! String)
                         peopleInfo.peopleUserName = (document.data()["userName"] as! String)
+                        peopleInfo.peopleEmailId = (document.data()["email"] as! String)
                         peopleInfo.peopleCount = self.prize[i]
                         self.tableView.reloadData()
                         

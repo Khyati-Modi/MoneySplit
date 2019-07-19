@@ -26,7 +26,12 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var fullNameText: UITextField!
     @IBOutlet weak var currencyText: UITextField!
     @IBOutlet weak var EmailIdText: UITextField!
-    @IBOutlet weak var languageText: UITextField!
+//    @IBOutlet weak var languageText: UITextField!
+    
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     @IBAction func changeImage(_ sender: UIButton) {
         let imagePickerController = UIImagePickerController()
@@ -45,10 +50,6 @@ class EditProfileViewController: UIViewController {
         self.view.addSubview(userPickerView)
     }
     
-    @IBAction func languageOption(_ sender: UIButton) {
-    }
-    
-    
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
         print(currencyText.text!)
         UserDefaults.standard.setValue(currencyText.text!, forKey: "currency")
@@ -63,7 +64,6 @@ class EditProfileViewController: UIViewController {
         
         fullNameText.text = userfullname
         currencyText.text = UserDefaults.standard.string(forKey: "currency")
-        languageText.text = "English"
         userProfileImage.image = imageData
     }
     

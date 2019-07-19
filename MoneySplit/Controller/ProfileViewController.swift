@@ -64,6 +64,8 @@ class ProfileViewController: UIViewController {
         self.activityIndicator.style = UIActivityIndicatorView.Style.gray
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
@@ -94,6 +96,7 @@ class ProfileViewController: UIViewController {
                                 self.profileImageView.image = UIImage(data: data)!
                                 print("File Downloaded")
                                 self.activityIndicator.stopAnimating()
+                                 UIApplication.shared.endIgnoringInteractionEvents()
                             }
                         }
                     }

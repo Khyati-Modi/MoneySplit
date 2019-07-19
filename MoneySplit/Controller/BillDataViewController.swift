@@ -50,7 +50,7 @@ class BillDataViewController: UIViewController {
                         amt = Conversion.shared.convertCurrency(dollarAmount: IntRupees)
                     }
                     else {
-                        amt =  ("\(document.data()["totalAmountOfBill"] as! String) $")
+                        amt =  ("\(document.data()["totalAmountOfBill"] as! Int) $")
                     }
                     
                     self.amountOfBill.text = "\(amt)"
@@ -58,7 +58,13 @@ class BillDataViewController: UIViewController {
                     self.addedByDate.text = ("Added by \(user) on \(document.data()["Time"] as! String)")
                     self.paidBy.text = ("Paid by \(user)")
                     self.paidFor.text = ("For \(document.data()["paidFor"] as! String)")
-                    self.splittedType.text = (document.data()["splitManner"] as! String)
+                    
+                    if (document.data()["splitManner"] as! String) == "Split Equally"{
+                         self.splittedType.text = "Splitted equally"
+                    }
+                    else{
+                        self.splittedType.text = "Splitted unequally"
+                    }
                 }
             }
         }

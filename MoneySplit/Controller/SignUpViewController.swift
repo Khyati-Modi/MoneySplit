@@ -108,7 +108,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         
         self.navigationController?.navigationBar.isHidden = true
         
-        actionCodeSettings.url = URL(string: "https://moneySplit.page.link")
+        actionCodeSettings.url = URL(string: "https://money.page.link")
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
     }
@@ -162,12 +162,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         userImageView.image = userImage
         usernameTextField.leftView = userImageView
         usernameTextField.leftViewMode = UITextField.ViewMode.always
-        usernameTextField.attributedPlaceholder = NSAttributedString(string: "userName", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: "UserName", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         
         usernameTextField.autocorrectionType = .no
         usernameTextField.borderStyle = .none
         let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: usernameTextField.frame.height - 1, width: usernameTextField.frame.width, height: 1)
+        bottomLine.frame = CGRect(x: 0, y: usernameTextField.frame.height - 1, width: self.view.frame.width, height: 1)
         bottomLine.backgroundColor = UIColor.gray.cgColor
         usernameTextField.borderStyle = UITextField.BorderStyle.none
         usernameTextField.layer.addSublayer(bottomLine)
@@ -183,12 +183,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         fullnameTextField.autocorrectionType = .no
         fullnameTextField.borderStyle = .none
         let bsLine = CALayer()
-        bsLine.frame = CGRect(x: 0, y: fullnameTextField.frame.height - 1, width: fullnameTextField.frame.width, height: 1)
+        bsLine.frame = CGRect(x: 0, y: fullnameTextField.frame.height - 1, width: self.view.frame.width, height: 1)
         bsLine.backgroundColor = UIColor.gray.cgColor
         fullnameTextField.borderStyle = UITextField.BorderStyle.none
         fullnameTextField.layer.addSublayer(bsLine)
         
-        let emailImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
+        let emailImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 18))
         emailImageView.contentMode = .scaleAspectFit
         let emailImage = UIImage(named: "Email")
         emailImageView.image = emailImage
@@ -200,7 +200,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         emailTextField.autocorrectionType = .no
         emailTextField.borderStyle = .none
         let bLine = CALayer()
-        bLine.frame = CGRect(x: 0, y: emailTextField.frame.height - 1, width: emailTextField.frame.width, height: 1)
+        bLine.frame = CGRect(x: 0, y: emailTextField.frame.height - 1, width: self.view.frame.width, height: 1)
         bLine.backgroundColor = UIColor.gray.cgColor
         emailTextField.borderStyle = UITextField.BorderStyle.none
         emailTextField.layer.addSublayer(bLine)
@@ -216,7 +216,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         passwordTextField.autocorrectionType = .no
         passwordTextField.borderStyle = .none
         let btmLine = CALayer()
-        btmLine.frame = CGRect(x: 0, y: passwordTextField.frame.height - 1, width: passwordTextField.frame.width, height: 1)
+        btmLine.frame = CGRect(x: 0, y: passwordTextField.frame.height - 1, width: self.view.frame.width, height: 1)
         btmLine.backgroundColor = UIColor.gray.cgColor
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(btmLine)

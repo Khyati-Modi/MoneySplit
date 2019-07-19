@@ -19,6 +19,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     var colour : String!
     var name = ""
     var username = ""
+    var userEmail : String!
     
     var array : [String] = []
     var billArray = [BillHistory]()
@@ -37,6 +38,8 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
@@ -83,16 +86,21 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
         return monthArray.count
     }
     
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerLabel = UILabel(frame: CGRect(x: 00, y: 28, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         headerLabel.font = UIFont(name: "Poppins", size: 21)
         headerLabel.textColor = UIColor.black
-        headerLabel.text = monthArray[0]
+        
+        for i in 0..<monthArray.count{
+              headerLabel.text = monthArray[i]
+        }
         return headerLabel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return billArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,6 +118,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
             FriendTableViewCell.paidByLabel.textColor = greenColor
             FriendTableViewCell.amountLabel.textColor = greenColor
         }
+        
         var amt = ""
         var totalAmt = ""
         
@@ -121,6 +130,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
             amt =  "\(billArray[indexPath.row].money!)$ "
            totalAmt = "\(billArray[indexPath.row].totalAmount!)$"
         }
+        
         
         FriendTableViewCell.subjectLabel.text = (billArray[indexPath.row].subjectOfBill)
         FriendTableViewCell.paidByLabel.text = ("\(billArray[indexPath.row].paidBy!) paid  \(totalAmt)")
@@ -137,7 +147,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
             vc.sender = "owner"
             vc.paidByUser = "You"
             self.navigationController?.pushViewController(vc, animated: true)
-
+            historyTable.deselectRow(at: indexPath, animated: true)
         }
         else{
             name = (billArray[indexPath.row].paidBy!)
@@ -152,7 +162,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
                         self.username  = document.documentID
                         vc.addedByUserName = self.username
                        self.navigationController?.pushViewController(vc, animated: true)
-
+                        self.historyTable.deselectRow(at: indexPath, animated: true)
                     }
                 }
             }
@@ -199,6 +209,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
                             let countTwo = (document.data()["totalAmount"] as! Int)
                             billInfo.totalAmount = countTwo
                             billInfo.money = (document.data()["money"] as! Int)
+                            billInfo.billMonth = (document.data()["Month"] as! String)
                             self.billArray.append(billInfo)
                             self.historyTable.reloadData()
                         }
@@ -214,6 +225,7 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
                             let countTwo = (document.data()["totalAmount"] as! Int)
                             billInfo.totalAmount = countTwo
                             billInfo.money = Int(document.data()["money"] as! Int)
+                            billInfo.billMonth = (document.data()["Month"] as! String)
                             self.billArray.append(billInfo)
                         }
                         self.historyTable.reloadData()
@@ -222,4 +234,6 @@ class FriendsPageViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
+    
+    
 }

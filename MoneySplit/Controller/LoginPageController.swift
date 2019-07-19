@@ -27,6 +27,8 @@ class LoginPageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UserDefaults.standard.setValue("USD", forKey: "currency")
+        
         assignbackground()
         navigationController?.navigationBar.isHidden  = true
         
@@ -127,7 +129,7 @@ class LoginPageController: UIViewController {
         userNameTextField.autocorrectionType = .no
         userNameTextField.borderStyle = .none
         let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: userNameTextField.frame.height - 1, width: userNameTextField.frame.width, height: 1)
+        bottomLine.frame = CGRect(x: 0, y: userNameTextField.frame.height - 1, width: self.view.frame.width, height: 1)
         bottomLine.backgroundColor = UIColor.white.cgColor
         userNameTextField.borderStyle = UITextField.BorderStyle.none
         userNameTextField.layer.addSublayer(bottomLine)
@@ -145,7 +147,7 @@ class LoginPageController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         passwordTextField.autocorrectionType = .no
         let bottomLine2 = CALayer()
-        bottomLine2.frame = CGRect(x: 0, y: passwordTextField.frame.height - 1, width: passwordTextField.frame.width, height: 1)
+        bottomLine2.frame = CGRect(x: 0, y: passwordTextField.frame.height - 1, width: self.view.frame.width, height: 1)
         bottomLine2.backgroundColor = UIColor.white.cgColor
         passwordTextField.borderStyle = UITextField.BorderStyle.none
         passwordTextField.layer.addSublayer(bottomLine2)

@@ -14,6 +14,6 @@ class BillHistory {
     var subjectOfBill : String!
     var totalAmount : Int!
     var nameEmail : String!
-
+    var billMonth : String!
     var money : Int!
 }

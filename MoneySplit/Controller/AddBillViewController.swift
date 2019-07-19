@@ -33,16 +33,18 @@ class AddBillViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var subjectOfBill: UITextField!
     @IBOutlet weak var totalAmountOfBill: UITextField!
-    @IBOutlet weak var paidByTextField: UITextField!
-    @IBOutlet weak var fortextField: UITextField!
+    
+    @IBOutlet weak var PaidByLabel: UILabel!
+    
+    @IBOutlet weak var forLabel: UILabel!
     @IBOutlet weak var splitManually: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         subjectOfBill.text = ""
         totalAmountOfBill.text = ""
-        paidByTextField.text = ""
-        fortextField.text = ""
+        PaidByLabel.text = ""
+        forLabel.text = ""
         
         let currencyImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
         var currencyImage : UIImage!
@@ -59,7 +61,7 @@ class AddBillViewController: UIViewController {
         totalAmountOfBill.leftView = currencyImageView
         totalAmountOfBill.leftViewMode = UITextField.ViewMode.always
         
-        paidByTextField.text = Auth.auth().currentUser?.email
+        PaidByLabel.text = Auth.auth().currentUser?.email
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
@@ -71,13 +73,25 @@ class AddBillViewController: UIViewController {
         fetchGroupArray()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        var currencyImage : UIImage!
+
+        if UserDefaults.standard.string(forKey: "currency") == "USD" {
+            currencyImage = UIImage(named: "Currency")
+        }
+        else if UserDefaults.standard.string(forKey: "currency") == "INR" {
+            currencyImage = UIImage(named: "rupee")
+        }
+
+    }
+    
     func fetchGroupArray(){
         
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
         
-        db.collection("selectYourGroup").getDocuments() { (QuerySnapshot, err) in
+        db.collection("SelectYourGroup").getDocuments() { (QuerySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             }
@@ -93,8 +107,8 @@ class AddBillViewController: UIViewController {
     }
     
     func fetchGroupMember(){
-        let docName = fortextField.text!
-        db.collection("selectYourGroup").document("\(docName)!").getDocument { (querySnapshot, err) in
+        let docName = forLabel.text!
+        db.collection("SelectYourGroup").document("\(docName)!").getDocument { (querySnapshot, err) in
             if let err = err
             {
                 print("Error getting documents: \(err)");
@@ -111,11 +125,11 @@ class AddBillViewController: UIViewController {
         }
     }
     func getUserName(){
-        db.collection("selectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
+        db.collection("SelectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
             self.groupInfoArray.removeAll()
             
             for document in QuerySnapShot!.documents {
-                if self.fortextField.text! ==  document.documentID {
+                if self.forLabel.text! ==  document.documentID {
                     self.numberOfUser = Int(document.data()["totalMember"] as! Int)
                     for i in 1..<self.numberOfUser {
                         let groupInfo = GroupData()
@@ -168,12 +182,12 @@ class AddBillViewController: UIViewController {
          if totalAmountOfBill.text != "" {
             self.groupInfoArray.removeAll()
             
-            db.collection("selectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
+            db.collection("SelectYourGroup").getDocuments(completion: { (QuerySnapShot, error) in
                 var Amt = Int(self.totalAmountOfBill.text!)!
 
                 
                 for document in QuerySnapShot!.documents {
-                    if self.fortextField.text! ==  document.documentID {
+                    if self.forLabel.text! ==  document.documentID {
 
                         for i in 1..<self.numberOfUser {
                             let groupInfo = GroupData()
@@ -222,7 +236,7 @@ class AddBillViewController: UIViewController {
     
     @IBAction func saveBill(_ sender: UIBarButtonItem) {
       
-        if subjectOfBill.text ==  "" || totalAmountOfBill.text == "" || fortextField.text == "" {
+        if subjectOfBill.text ==  "" || totalAmountOfBill.text == "" || forLabel.text == "" {
             let alert = UIAlertController(title: "Oops!", message: "Please enter total amount of bill", preferredStyle: .alert)
             let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
             alert.addAction(action)
@@ -250,6 +264,7 @@ class AddBillViewController: UIViewController {
                 }
             }
             userInfo()
+//            monthInfo()
             saveTheBill(users: userPickerArray)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as!  TabBarViewController
@@ -269,12 +284,42 @@ class AddBillViewController: UIViewController {
         let month = dateFormatter.string(from: now)
         let year : Int = currentTime.year!
         let timeData = "\(date) \(month), \(year)"
+//        let monthData = "\(month), \(year)"
         
         
-        let docData: [String: Any] = ["subjectOfBill": "\(subjectOfBill.text!)","totalAmountOfBill":  totalAmount ,"paidBy": "\(paidByTextField.text!)",
-                    "paidFor": "\(fortextField.text!)","currentUser": "\(user)","splitManner":"\(splitManually.text!)","Time": timeData]
+        
+        let docData: [String: Any] = ["subjectOfBill": "\(subjectOfBill.text!)","totalAmountOfBill":  totalAmount ,"paidBy": "\(PaidByLabel.text!)",
+                    "paidFor": "\(forLabel.text!)","currentUser": "\(user)","splitManner":"\(splitManually.text!)","Time": timeData]
         
         db.collection("userInfo").document("\(user)").collection("billInfo").document().setData(docData) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            }
+            else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    func monthInfo() {
+        let user = Auth.auth().currentUser!.email!
+        
+        let now = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "LLLL"
+        
+        let currentTime = Calendar.current.dateComponents([.day,.year], from: Date.init())
+        let date : Int = currentTime.day!
+        let month = dateFormatter.string(from: now)
+        let year : Int = currentTime.year!
+        let timeData = "\(date) \(month), \(year)"
+                let monthData = "\(month) \(year)"
+        
+        
+        let docData: [String: Any] = ["subjectOfBill": "\(subjectOfBill.text!)","totalAmountOfBill":  totalAmount ,"paidBy": "\(PaidByLabel.text!)",
+            "paidFor": "\(forLabel.text!)","currentUser": "\(user)","splitManner":"\(splitManually.text!)","Time": timeData]
+        
+        db.collection("MonthInfo").document("\(monthData)").collection("transaction").document().setData(docData) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             }
@@ -291,12 +336,21 @@ class AddBillViewController: UIViewController {
             let m = i + 1
             print(userPickerArray["email\(m)"]!)
             print(dolarArray[i])
-            print(paidByTextField.text!)
+            print(PaidByLabel.text!)
             print(totalAmount!)
+            
+            let now = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "LLLL"
+            
+            let currentTime = Calendar.current.dateComponents([.year], from: Date.init())
+            let month = dateFormatter.string(from: now)
+            let year : Int = currentTime.year!
+            let timeData = "\(month), \(year)"
 
             
-            let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userPickerArray["email\(m)"]!, "money" :  dolarArray[i],
-                                          "paidBy": "\(paidByTextField.text!)","totalAmount": totalAmount!]
+            let docData: [String: Any] = ["Subject": "\(subjectOfBill.text!)" ,"name": userPickerArray["email\(m)"]!, "money" : dolarArray[i],
+                                          "paidBy": "\(PaidByLabel.text!)","totalAmount": totalAmount!, "Month" : timeData ]
             
             db.collection("PeopleWhoOweYou").document().setData(docData) { err in
                 if let err = err {
@@ -342,7 +396,7 @@ extension AddBillViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedGroupRow = row
-        fortextField.text = groupArray[row]
+        forLabel.text = groupArray[row]
         selectedGroup = row
         fetchGroupMember()
         userPickerView.isHidden = true
