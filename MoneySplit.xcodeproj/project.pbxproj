@@ -23,10 +23,7 @@
 		428F27FC22E5EAFA00B602AC /* MonthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F27FB22E5EAFA00B602AC /* MonthData.swift */; };
 		4290B5C022DD91320041D789 /* BillDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290B5BF22DD91320041D789 /* BillDataViewController.swift */; };
 		4290B5C422DD93EF0041D789 /* Poppins-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */; };
-		4290B5C722DD95740041D789 /* Poppins-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C622DD95740041D789 /* Poppins-Regular.otf */; };
-		4290B5C922DD966C0041D789 /* Poppins-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C822DD966C0041D789 /* Poppins-Medium.otf */; };
 		4290B5CB22DDA4680041D789 /* GroupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290B5CA22DDA4680041D789 /* GroupData.swift */; };
-		4292ABD722E1AE3700C4EDF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4292ABD622E1AE3700C4EDF0 /* GoogleService-Info.plist */; };
 		4295E9EE22D439CB00B6385E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9ED22D439CB00B6385E /* HomeViewController.swift */; };
 		4295E9F022D4466200B6385E /* AddBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9EF22D4466200B6385E /* AddBillViewController.swift */; };
 		4295E9F622D46C6200B6385E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9F522D46C6200B6385E /* ProfileViewController.swift */; };
@@ -38,6 +35,7 @@
 		42DFD41D22D31BBA00275B98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DFD41B22D31BBA00275B98 /* Main.storyboard */; };
 		42DFD41F22D31BBA00275B98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42DFD41E22D31BBA00275B98 /* Assets.xcassets */; };
 		42DFD42222D31BBA00275B98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DFD42022D31BBA00275B98 /* LaunchScreen.storyboard */; };
+		42EB23FA22E7022F004ACA82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42EB23F922E7022F004ACA82 /* GoogleService-Info.plist */; };
 		54DFCAB467F9168FEBE6D627 /* Pods_MoneySplit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F619B30816CE53579B87690 /* Pods_MoneySplit.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,10 +58,7 @@
 		428F27FB22E5EAFA00B602AC /* MonthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthData.swift; sourceTree = "<group>"; };
 		4290B5BF22DD91320041D789 /* BillDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDataViewController.swift; sourceTree = "<group>"; };
 		4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.otf"; sourceTree = "<group>"; };
-		4290B5C622DD95740041D789 /* Poppins-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.otf"; path = "../../../../Downloads/poppins/Poppins-Regular.otf"; sourceTree = "<group>"; };
-		4290B5C822DD966C0041D789 /* Poppins-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Medium.otf"; path = "../../../../Downloads/poppins/Poppins-Medium.otf"; sourceTree = "<group>"; };
 		4290B5CA22DDA4680041D789 /* GroupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupData.swift; sourceTree = "<group>"; };
-		4292ABD622E1AE3700C4EDF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4295E9ED22D439CB00B6385E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4295E9EF22D4466200B6385E /* AddBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillViewController.swift; sourceTree = "<group>"; };
 		4295E9F522D46C6200B6385E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +72,9 @@
 		42DFD41E22D31BBA00275B98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42DFD42122D31BBA00275B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42DFD42322D31BBA00275B98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42EB23F922E7022F004ACA82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		42EB23FB22E7025B004ACA82 /* Poppins-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.otf"; sourceTree = "<group>"; };
+		42EB23FC22E70261004ACA82 /* Poppins-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.otf"; sourceTree = "<group>"; };
 		5F619B30816CE53579B87690 /* Pods_MoneySplit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneySplit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		837E8CD61C2A1689BA1376EC /* Pods-MoneySplit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneySplit.release.xcconfig"; path = "Target Support Files/Pods-MoneySplit/Pods-MoneySplit.release.xcconfig"; sourceTree = "<group>"; };
 		A46ACD336A7C7C9C0D3B4349 /* Pods-MoneySplit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneySplit.debug.xcconfig"; path = "Target Support Files/Pods-MoneySplit/Pods-MoneySplit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -141,8 +139,8 @@
 		4290B5C122DD93990041D789 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				4290B5C822DD966C0041D789 /* Poppins-Medium.otf */,
-				4290B5C622DD95740041D789 /* Poppins-Regular.otf */,
+				42EB23FB22E7025B004ACA82 /* Poppins-Regular.otf */,
+				42EB23FC22E70261004ACA82 /* Poppins-Medium.otf */,
 				4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */,
 			);
 			path = fonts;
@@ -176,8 +174,8 @@
 				4276BC0122D32C2200FAD007 /* Model */,
 				42DFD41722D31BBA00275B98 /* AppDelegate.swift */,
 				42DFD42022D31BBA00275B98 /* LaunchScreen.storyboard */,
+				42EB23F922E7022F004ACA82 /* GoogleService-Info.plist */,
 				42DFD42322D31BBA00275B98 /* Info.plist */,
-				4292ABD622E1AE3700C4EDF0 /* GoogleService-Info.plist */,
 				424F64D922E02D3E001441F3 /* Localization Strings.strings */,
 			);
 			path = MoneySplit;
@@ -268,9 +266,7 @@
 				42DFD41F22D31BBA00275B98 /* Assets.xcassets in Resources */,
 				42DFD41D22D31BBA00275B98 /* Main.storyboard in Resources */,
 				42BBDD3E22D378CB00BF25D4 /* ListTableViewCell.xib in Resources */,
-				4292ABD722E1AE3700C4EDF0 /* GoogleService-Info.plist in Resources */,
-				4290B5C922DD966C0041D789 /* Poppins-Medium.otf in Resources */,
-				4290B5C722DD95740041D789 /* Poppins-Regular.otf in Resources */,
+				42EB23FA22E7022F004ACA82 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
