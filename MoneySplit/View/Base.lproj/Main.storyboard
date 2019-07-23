@@ -304,15 +304,18 @@
                                             <action selector="SignUpClick:" destination="kqT-A1-5R6" eventType="touchUpInside" id="Edx-KK-vGx"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FgY-t7-Ipn">
-                                        <rect key="frame" x="58" y="226" width="251" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="BBI-ZB-C82">
+                                        <rect key="frame" x="77.5" y="225" width="220" height="50"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjj-gV-uwR">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="50"/>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ljo-Xk-K0U">
-                                                <rect key="frame" x="56" y="0.0" width="195" height="50"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OT9-xJ-0Gn">
+                                                <rect key="frame" x="0.0" y="0.0" width="23" height="50"/>
+                                                <state key="normal" image="Ellipse"/>
+                                                <connections>
+                                                    <action selector="conditionButton:" destination="kqT-A1-5R6" eventType="touchUpInside" id="AfK-Pe-Nmp"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ljo-Xk-K0U">
+                                                <rect key="frame" x="25" y="0.0" width="195" height="50"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                 <state key="normal" title="I agree to terms and conditions">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -322,12 +325,17 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="IFn-kG-AaW"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="CeA-lS-89Q" secondAttribute="height" multiplier="75:74" id="BRk-J6-42C"/>
                                     <constraint firstAttribute="width" constant="375" id="Gql-eX-Jmg"/>
                                     <constraint firstAttribute="height" constant="370" id="XQf-sY-3D2"/>
+                                    <constraint firstItem="BBI-ZB-C82" firstAttribute="centerY" secondItem="CeA-lS-89Q" secondAttribute="centerY" multiplier="1.35" id="cND-Rf-PTs"/>
+                                    <constraint firstItem="BBI-ZB-C82" firstAttribute="centerX" secondItem="CeA-lS-89Q" secondAttribute="centerX" id="icQ-Tt-YmT"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWu-uZ-Ron">
@@ -389,7 +397,7 @@
                         <viewLayoutGuide key="safeArea" id="Njc-P4-33h"/>
                     </view>
                     <connections>
-                        <outlet property="conditionView" destination="qjj-gV-uwR" id="SmB-D8-7ww"/>
+                        <outlet property="conditionOutlet" destination="OT9-xJ-0Gn" id="YbN-J0-6LW"/>
                         <outlet property="emailTextField" destination="qHE-xJ-c15" id="Cwx-A2-I7h"/>
                         <outlet property="fullnameTextField" destination="y2E-ec-6Qj" id="dlH-Pi-plr"/>
                         <outlet property="imageView" destination="l7w-6d-npj" id="20Y-OD-0nP"/>
@@ -748,7 +756,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eth-6D-bPV">
-                                <rect key="frame" x="97" y="245" width="185" height="39.5"/>
+                                <rect key="frame" x="97" y="245" width="185" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="C78-yW-w71"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="p9z-Ox-7CO"/>
@@ -1352,6 +1360,7 @@
     </scenes>
     <resources>
         <image name="Cash" width="323" height="190"/>
+        <image name="Ellipse" width="23" height="23"/>
         <image name="downArrow" width="12" height="8"/>
         <image name="greenAdd" width="49" height="49"/>
         <image name="greenList" width="37" height="33"/>

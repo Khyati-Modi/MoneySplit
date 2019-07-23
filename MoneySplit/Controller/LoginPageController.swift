@@ -9,11 +9,9 @@
 import UIKit
 import Firebase
 
-
 class LoginPageController: UIViewController {
    var gradientLayer: CAGradientLayer!
     var db: Firestore!
-    
     
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -43,7 +41,6 @@ class LoginPageController: UIViewController {
             navigationController?.pushViewController(vc, animated:false)
         }
     }
-    
     
     @IBAction func signUpClick(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
@@ -101,7 +98,6 @@ class LoginPageController: UIViewController {
             }
         }
     }
-    
     //background and input text field style
     func assignbackground(){
         let background = UIImage(named: "bg")

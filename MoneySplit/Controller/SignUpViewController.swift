@@ -21,15 +21,24 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var conditionView: UIImageView!
     @IBOutlet weak var signUpOutlet: UIButton!
+    @IBOutlet weak var conditionOutlet: UIButton!
     
-    @IBAction func tAcButtonClick(_ sender: UIButton) {
-        if  conditionView.image == UIImage(named: "Ellipse") {
-             conditionView.image = UIImage(named: "tick")
+    @IBAction func conditionButton(_ sender: UIButton) {
+        if  conditionOutlet.currentImage == UIImage(named: "Ellipse") {
+            conditionOutlet.setImage(UIImage(named: "tick"), for: .normal)
         }
         else{
-            conditionView.image = UIImage(named: "Ellipse")
+            conditionOutlet.setImage(UIImage(named: "Ellipse"), for: .normal)
+        }
+    }
+    
+    @IBAction func tAcButtonClick(_ sender: UIButton) {
+        if  conditionOutlet.currentImage == UIImage(named: "Ellipse") {
+            conditionOutlet.setImage(UIImage(named: "tick"), for: .normal)
+        }
+        else{
+            conditionOutlet.setImage(UIImage(named: "Ellipse"), for: .normal)
         }
     }
     
@@ -44,41 +53,36 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
             imagePickerController.allowsEditing = true
             self.present(imagePickerController, animated: true, completion: nil)
     }
+    
+    func alert (message : String){
+        let alert = UIAlertController(title: "", message: "\(message)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true , completion: nil)
+    }
 
     @IBAction func SignUpClick(_ sender: UIButton) {
         if usernameTextField.text == ""{
-            let alert = UIAlertController(title: "", message: "Enter Your UserName", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true , completion: nil)
-            
+            alert(message: "Enter Your UserName")
         }
+        
         if fullnameTextField.text == ""{
-            let alert = UIAlertController(title: "", message: "Enter Your Full Name", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true , completion: nil)
+            alert(message: "Enter Your Full Name")
         }
+        
         if emailTextField.text == ""{
-            let alert = UIAlertController(title: "", message: "Enter Your EmailId", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true , completion: nil)
+            alert(message: "Enter Your Email")
         }
+        
         if passwordTextField.text == ""{
-            let alert = UIAlertController(title: "", message: "Enter Your Password", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true , completion: nil)
+            alert(message: "Enter Your Password")
         }
-        if conditionView.image == UIImage(named: "Ellipse"){
-            let alert = UIAlertController(title: "", message: "Please agree with our terms and conditions", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true , completion: nil)
+        
+        if conditionOutlet.currentImage == UIImage(named: "Ellipse"){
+            alert(message: "Please agree with our terms and conditions")
         }
 
-        if usernameTextField.text != "" && fullnameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != "" && conditionView.image == UIImage(named: "tick") {
+        if usernameTextField.text != "" && fullnameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != "" && conditionOutlet.currentImage == UIImage(named: "tick") {
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if let error = error {
                     let alert = UIAlertController(title: "Oops!", message: "\(error.localizedDescription)", preferredStyle: .alert)
@@ -147,9 +151,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         
         signUpOutlet.layer.cornerRadius = 26
         signUpOutlet.backgroundColor = greenColour
-        
-        conditionView.image = UIImage(named: "Ellipse")
-        conditionView.contentMode = .scaleAspectFit
         
         let userImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
         let userImage = UIImage(named: "signUser")

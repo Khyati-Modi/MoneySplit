@@ -17,10 +17,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var emailOfUser  : [String] = []
     var currentUserArray  : [String] = []
     var countArray  : [Int] = []
-    let EmptyArray = ["Hurray! nothing to pay"]
     var monthArray : [String]!
     var user : Set<String> = []
-    var  people : Set<String>  = []
+    var people : Set<String>  = []
     var count = 0
     var sum = 0.0
     var totalValue = 0
@@ -29,6 +28,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var totalOweAmount = 0.0
     var array : [String] = []
     var prize : [Int] = []
+    var peopleNo = 0
+    var userNo = 0
+    var typeArray : [String] = []
     let greenColour = UIColor(red:0.32, green:0.60, blue:0.33, alpha:1.0)
     let pinkColour = UIColor(red:0.98, green:0.30, blue:0.38, alpha:1.0)
 
@@ -64,7 +66,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         leftView.layer.cornerRadius = min(self.leftView.frame.width, self.leftView.frame.height) / 2.0
         rightView.layer.cornerRadius = min(self.rightView.frame.width, self.rightView.frame.height) / 2.0
     }
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return typeArray.count
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -72,33 +76,29 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         headerLabel.font = UIFont(name: "Poppins", size: 24)
         headerLabel.textColor = UIColor.black
         
-        if section == 0{
-            headerLabel.text = "People you owe"
-        }
-        if section == 1{
-            headerLabel.text = "People who owe you"
-        }
+            if section == 0{
+                headerLabel.text = typeArray[0]
+            }
+            if section == 1{
+                headerLabel.text = typeArray[1]
+            }
+        
         let bottomLine2 = CALayer()
         bottomLine2.frame = CGRect(x: 0, y: 32  , width: headerLabel.bounds.size.width, height: 1)
         bottomLine2.backgroundColor = UIColor.black.cgColor
         headerLabel.layer.addSublayer(bottomLine2)
         return headerLabel
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(typeArray.count)
+
         if peopleArray.count != 0{
             if section == 0 {
                 SecCount = peopleArray.count
             }
         }
-        if userArray.count != 0{
-           if section == 1 {
-                SecCount =  userArray.count
-            }
+        if peopleArray.count == 0 && section == 0 || userArray.count != 0 && section == 1 {
+            SecCount =  userArray.count
         }
         return SecCount
     }
@@ -138,8 +138,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     return cell
                 }
             }
-        
-            if indexPath.section == 1{
+            if peopleArray.count == 0 && indexPath.section == 0 || indexPath.section == 1 {
                  if userArray.count != 0 {
                     var  amount = 0
                     var totalAmount = 0
@@ -174,43 +173,26 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
     }
-   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "FriendsPageViewController") as! FriendsPageViewController
-        if indexPath.section == 0 {
-            if peopleArray.count == 0 {
-                let alert = UIAlertController(title: "Oops!", message: "Invalid selection of row", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-                alert.addAction(action)
-                self.present(alert, animated: true , completion: nil)
-            }
-            else{
-                    vc.selectedUserName = peopleArray[indexPath.row].peopleFullName
-                    vc.userImage = peopleArray[indexPath.row].peopleProfileImage
-                    vc.amount = peopleArray[indexPath.row].peopleCount
-                    vc.userEmail = peopleArray[indexPath.row].peopleEmailId
-                    vc.colour = "pink"
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    tableView.deselectRow(at: indexPath, animated: true)
-            }
+        if peopleArray.count != 0 && indexPath.section == 0 {
+            vc.selectedUserName = peopleArray[indexPath.row].peopleFullName
+            vc.userImage = peopleArray[indexPath.row].peopleProfileImage
+            vc.amount = peopleArray[indexPath.row].peopleCount
+            vc.userEmail = peopleArray[indexPath.row].peopleEmailId
+            vc.colour = "pink"
+            self.navigationController?.pushViewController(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        if indexPath.section == 1 {
-            if userArray.count == 0 {
-                let alert = UIAlertController(title: "Oops!", message: "Invalid selection of row", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
-                alert.addAction(action)
-                self.present(alert, animated: true , completion: nil)
-            }
-            else{
-                vc.selectedUserName = userArray[indexPath.row].userFullname
-                vc.userImage = userArray[indexPath.row].userImage
-                vc.amount = userArray[indexPath.row].userCount
-                vc.userEmail = userArray[indexPath.row].userEmailId
-                vc.colour = "green"
-                self.navigationController?.pushViewController(vc, animated: true)
-                tableView.deselectRow(at: indexPath, animated: true)
-            }
+        if peopleArray.count == 0 && indexPath.section == 0 || indexPath.section == 1 {
+            vc.selectedUserName = userArray[indexPath.row].userFullname
+            vc.userImage = userArray[indexPath.row].userImage
+            vc.amount = userArray[indexPath.row].userCount
+            vc.userEmail = userArray[indexPath.row].userEmailId
+            vc.colour = "green"
+            self.navigationController?.pushViewController(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
@@ -312,13 +294,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                             }
                         }
                         self.userArray.append(userInfo)
+                        self.userNo = 1
                         self.tableView.reloadData()
                     }
                 }
             }
+            self.getUser()
         }
     }
-    
     //MARK: peopleYouOwe
     func peopleYouOwe(){
         self.peopleArray.removeAll()
@@ -331,7 +314,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 var countTwo : Int!
                 self.totalValue = 0
                 var a = 1
-
                 for document in QuerySnapshot!.documents {
                     let paidByUser = document.data()["paidBy"]  as! String
                     let nameOfUser = document.data()["name"] as! String
@@ -369,7 +351,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     func setUser(){
         self.db.collection("UserSignUp").getDocuments { (query, error) in
-
             for document in (query!.documents){
                 for i in 0..<self.people.count{
                     if document.documentID == self.array[i] {
@@ -391,11 +372,26 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                             }
                         }
                         self.peopleArray.append(peopleInfo)
+                        self.peopleNo = 1
                         self.tableView.reloadData()
                     }
                 }
-        
             }
+            self.getpeople()
+        }
+    }
+    func getpeople() {
+        if peopleNo == 1{
+            let title = "People You Owe"
+            self.typeArray.append(title)
+            self.tableView.reloadData()
+        }
+    }
+    func getUser() {
+        if userNo == 1{
+            let titleName = "People Who Owe You"
+            self.typeArray.append(titleName)
+            self.tableView.reloadData()
         }
     }
 }

@@ -40,31 +40,32 @@ class BillDataViewController: UIViewController {
             else{
                 for document in (QuerySnapShot!.documents) {
                     var amt = ""
-                    
-                    let userName = self.paidByUser!
-                    let userNameArray = userName.components(separatedBy: " ")
-                    let firstName: String = userNameArray[0]
-                    let user = firstName
-                    self.subjectOfBill.text = (document.data()["subjectOfBill"] as! String)
-                    
-                    if UserDefaults.standard.string(forKey: "currency") == "INR"{
-                        let rupees = (document.data()["totalAmountOfBill"] as! Int)
-                        let IntRupees = Int(rupees)
-                        amt = Conversion.shared.convertCurrency(dollarAmount: IntRupees)
-                    }
-                    else {
-                        amt =  ("\(document.data()["totalAmountOfBill"] as! Int) $")
-                    }
-                    self.amountOfBill.text = "\(amt)"
-                    self.addedByDate.text = ("Added by \(user) on \(document.data()["Time"] as! String)")
-                    self.paidBy.text = ("Paid by \(user)")
-                    self.paidFor.text = ("For \(document.data()["paidFor"] as! String)")
+                    if self.selectedItem == (document.data()["subjectOfBill"] as! String) {
+                        let userName = self.paidByUser!
+                        let userNameArray = userName.components(separatedBy: " ")
+                        let firstName: String = userNameArray[0]
+                        let user = firstName
+                        self.subjectOfBill.text = (document.data()["subjectOfBill"] as! String)
+                        
+                        if UserDefaults.standard.string(forKey: "currency") == "INR"{
+                            let rupees = (document.data()["totalAmountOfBill"] as! Int)
+                            let IntRupees = Int(rupees)
+                            amt = Conversion.shared.convertCurrency(dollarAmount: IntRupees)
+                        }
+                        else {
+                            amt =  ("\(document.data()["totalAmountOfBill"] as! Int) $")
+                        }
+                        self.amountOfBill.text = "\(amt)"
+                        self.addedByDate.text = ("Added by \(user) on \(document.data()["Time"] as! String)")
+                        self.paidBy.text = ("Paid by \(user)")
+                        self.paidFor.text = ("For \(document.data()["paidFor"] as! String)")
 
-                    if (document.data()["splitManner"] as! String) == "Split Equally"{
-                         self.splittedType.text = "Splitted equally"
-                    }
-                    else{
-                        self.splittedType.text = "Splitted unequally"
+                        if (document.data()["splitManner"] as! String) == "Split Equally"{
+                             self.splittedType.text = "Splitted equally"
+                        }
+                        else{
+                            self.splittedType.text = "Splitted unequally"
+                        }
                     }
                 }
             }
