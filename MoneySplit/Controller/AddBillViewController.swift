@@ -13,7 +13,7 @@ class AddBillViewController: UIViewController {
     var activityIndicator  = UIActivityIndicatorView()
     var paidByEmail : String!
     var groupInfoArray = [GroupData]()
-    var paidByArray = ["kmodi","saheb","Dharmik","kishan"]
+    var paidByArray : [String] = []
     
     let storage = Storage.storage()
     var db: Firestore!
@@ -70,15 +70,24 @@ class AddBillViewController: UIViewController {
         totalAmountOfBill.leftView = currencyImageView
         totalAmountOfBill.leftViewMode = UITextField.ViewMode.always
         
+        let settings = FirestoreSettings()
+        Firestore.firestore().settings = settings
+        db = Firestore.firestore()
+        
+        self.db.collection("UserSignUp").getDocuments { (query, error) in
+            for document in (query?.documents)!{
+                       let username = (document.data()["userName"] as! String)
+                        self.paidByArray.append(username)
+                        self.tableView.reloadData()
+                    }
+                }
+        
         getBackground()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         
-        let settings = FirestoreSettings()
-        Firestore.firestore().settings = settings
-        db = Firestore.firestore()
         
         fetchGroupArray()
     }
@@ -141,7 +150,7 @@ class AddBillViewController: UIViewController {
         self.view.addSubview(userPickerView)
     }
     
-    
+   
     func fetchGroupArray(){
         
         let settings = FirestoreSettings()
