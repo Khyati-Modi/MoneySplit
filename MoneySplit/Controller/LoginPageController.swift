@@ -28,7 +28,6 @@ class LoginPageController: UIViewController {
         super.viewDidLoad()
         
         UserDefaults.standard.setValue("USD", forKey: "currency")
-        
         assignbackground()
         navigationController?.navigationBar.isHidden  = true
         
@@ -47,7 +46,6 @@ class LoginPageController: UIViewController {
     
     
     @IBAction func signUpClick(_ sender: UIButton) {
-    
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         navigationController?.pushViewController(vc, animated: true)
         userNameTextField.text = ""
@@ -78,7 +76,6 @@ class LoginPageController: UIViewController {
                     for document in QuerySnapshot!.documents {
                         if self.userNameTextField.text == document.data()["userName"] as? String{
                             let email = document.documentID
-                            
                             Auth.auth().signIn(withEmail: "\(String(describing: email))", password: self.passwordTextField.text!) { (user, error) in
                                 if let error = error {
                                     let alert = UIAlertController(title: "Oops!", message: "\(error.localizedDescription)", preferredStyle: .alert)
@@ -104,11 +101,10 @@ class LoginPageController: UIViewController {
             }
         }
     }
-
+    
+    //background and input text field style
     func assignbackground(){
-        //background and input text field style
         let background = UIImage(named: "bg")
-        
         var imageView : UIImageView!
         imageView = UIImageView(frame: view.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
@@ -141,7 +137,6 @@ class LoginPageController: UIViewController {
         passwordTextField.leftView = passwordImageView
         passwordTextField.leftViewMode = UITextField.ViewMode.always
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-
         
         passwordTextField.borderStyle = .none
         passwordTextField.isSecureTextEntry = true

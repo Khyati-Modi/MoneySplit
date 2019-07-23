@@ -18,7 +18,6 @@ class BillDataViewController: UIViewController {
     var paidby = ""
     var addedByUserName = ""
 
-    
     @IBOutlet weak var subjectOfBill: UILabel!
     @IBOutlet weak var amountOfBill: UILabel!
     @IBOutlet weak var addedByDate: UILabel!
@@ -40,10 +39,14 @@ class BillDataViewController: UIViewController {
             }
             else{
                 for document in (QuerySnapShot!.documents) {
-                    let user = self.paidByUser!
-
-                    self.subjectOfBill.text = (document.data()["subjectOfBill"] as! String)
                     var amt = ""
+                    
+                    let userName = self.paidByUser!
+                    let userNameArray = userName.components(separatedBy: " ")
+                    let firstName: String = userNameArray[0]
+                    let user = firstName
+                    self.subjectOfBill.text = (document.data()["subjectOfBill"] as! String)
+                    
                     if UserDefaults.standard.string(forKey: "currency") == "INR"{
                         let rupees = (document.data()["totalAmountOfBill"] as! Int)
                         let IntRupees = Int(rupees)
@@ -52,13 +55,11 @@ class BillDataViewController: UIViewController {
                     else {
                         amt =  ("\(document.data()["totalAmountOfBill"] as! Int) $")
                     }
-                    
                     self.amountOfBill.text = "\(amt)"
-
                     self.addedByDate.text = ("Added by \(user) on \(document.data()["Time"] as! String)")
                     self.paidBy.text = ("Paid by \(user)")
                     self.paidFor.text = ("For \(document.data()["paidFor"] as! String)")
-                    
+
                     if (document.data()["splitManner"] as! String) == "Split Equally"{
                          self.splittedType.text = "Splitted equally"
                     }
@@ -69,6 +70,7 @@ class BillDataViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }

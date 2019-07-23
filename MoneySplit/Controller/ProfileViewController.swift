@@ -13,18 +13,15 @@ class ProfileViewController: UIViewController {
     var db: Firestore!
     var activityIndicator  = UIActivityIndicatorView()
 
-
     @IBOutlet weak var emailIdLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         currencyLabel.text = UserDefaults.standard.string(forKey: "currency")
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = min(self.profileImageView.frame.width, self.profileImageView.frame.height) / 2.0
@@ -38,12 +35,20 @@ class ProfileViewController: UIViewController {
     
     @IBAction func editProfile(_ sender: UIBarButtonItem) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as!  EditProfileViewController
-        vc.userfullname = fullNameLabel.text!
-        vc.imageData = profileImageView.image!
-        vc.username = userNameLabel.text!
-        navigationController?.pushViewController(vc, animated:true)
+      if profileImageView.image == nil {
+            let alert = UIAlertController(title: "Sorry!", message: "Please wait till your profile image is loading", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true , completion: nil)
+        }
+      else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as!  EditProfileViewController
+            vc.userfullname = fullNameLabel.text!
+            vc.imageData = profileImageView.image!
+            vc.username = userNameLabel.text!
+            navigationController?.pushViewController(vc, animated:true)
+        }
     }
     
     @IBAction func Logoput(_ sender: UIBarButtonItem) {
@@ -64,8 +69,6 @@ class ProfileViewController: UIViewController {
         self.activityIndicator.style = UIActivityIndicatorView.Style.gray
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
         
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
@@ -94,9 +97,7 @@ class ProfileViewController: UIViewController {
                             }
                             if let data = data {
                                 self.profileImageView.image = UIImage(data: data)!
-                                print("File Downloaded")
                                 self.activityIndicator.stopAnimating()
-                                 UIApplication.shared.endIgnoringInteractionEvents()
                             }
                         }
                     }

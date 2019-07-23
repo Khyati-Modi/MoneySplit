@@ -20,6 +20,7 @@
 		426FCC7122D8BDD300BE8E04 /* PeopleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FCC7022D8BDD300BE8E04 /* PeopleData.swift */; };
 		4276BC0022D32C1B00FAD007 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */; };
 		4276BC0622D3420700FAD007 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4276BC0522D3420700FAD007 /* TabBarViewController.swift */; };
+		428F27FC22E5EAFA00B602AC /* MonthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F27FB22E5EAFA00B602AC /* MonthData.swift */; };
 		4290B5C022DD91320041D789 /* BillDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4290B5BF22DD91320041D789 /* BillDataViewController.swift */; };
 		4290B5C422DD93EF0041D789 /* Poppins-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */; };
 		4290B5C722DD95740041D789 /* Poppins-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4290B5C622DD95740041D789 /* Poppins-Regular.otf */; };
@@ -56,8 +57,8 @@
 		426FCC7022D8BDD300BE8E04 /* PeopleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleData.swift; sourceTree = "<group>"; };
 		4276BBFF22D32C1B00FAD007 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4276BC0522D3420700FAD007 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		428F27FB22E5EAFA00B602AC /* MonthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthData.swift; sourceTree = "<group>"; };
 		4290B5BF22DD91320041D789 /* BillDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDataViewController.swift; sourceTree = "<group>"; };
-		4290B5C222DD93AA0041D789 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-SemiBold.otf"; path = "../../../Downloads/poppins/Poppins-SemiBold.otf"; sourceTree = "<group>"; };
 		4290B5C322DD93B20041D789 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.otf"; sourceTree = "<group>"; };
 		4290B5C622DD95740041D789 /* Poppins-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Regular.otf"; path = "../../../../Downloads/poppins/Poppins-Regular.otf"; sourceTree = "<group>"; };
 		4290B5C822DD966C0041D789 /* Poppins-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Poppins-Medium.otf"; path = "../../../../Downloads/poppins/Poppins-Medium.otf"; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 				426FCC7022D8BDD300BE8E04 /* PeopleData.swift */,
 				4290B5CA22DDA4680041D789 /* GroupData.swift */,
 				424AAC7322E09AC800D164DD /* Conversion.swift */,
+				428F27FB22E5EAFA00B602AC /* MonthData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,13 +138,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		4276BC0422D32C3900FAD007 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		4290B5C122DD93990041D789 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,9 +170,7 @@
 		42DFD41622D31BBA00275B98 /* MoneySplit */ = {
 			isa = PBXGroup;
 			children = (
-				4290B5C222DD93AA0041D789 /* Poppins-SemiBold.otf */,
 				4290B5C122DD93990041D789 /* fonts */,
-				4276BC0422D32C3900FAD007 /* Resources */,
 				4276BC0322D32C3100FAD007 /* Controller */,
 				4276BC0222D32C2A00FAD007 /* View */,
 				4276BC0122D32C2200FAD007 /* Model */,
@@ -348,6 +341,7 @@
 				4295E9EE22D439CB00B6385E /* HomeViewController.swift in Sources */,
 				4213218322D49B9F00E0C47B /* User.swift in Sources */,
 				42BBDD3D22D378CB00BF25D4 /* ListTableViewCell.swift in Sources */,
+				428F27FC22E5EAFA00B602AC /* MonthData.swift in Sources */,
 				424AAC7422E09AC800D164DD /* Conversion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

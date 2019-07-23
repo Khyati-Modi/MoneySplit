@@ -79,9 +79,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         }
 
         if usernameTextField.text != "" && fullnameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != "" && conditionView.image == UIImage(named: "tick") {
-            
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-               
                 if let error = error {
                     let alert = UIAlertController(title: "Oops!", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
@@ -105,9 +103,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
-        
         self.navigationController?.navigationBar.isHidden = true
-        
         actionCodeSettings.url = URL(string: "https://money.page.link")
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
@@ -151,7 +147,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         
         signUpOutlet.layer.cornerRadius = 26
         signUpOutlet.backgroundColor = greenColour
-
         
         conditionView.image = UIImage(named: "Ellipse")
         conditionView.contentMode = .scaleAspectFit
@@ -196,7 +191,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
         emailTextField.leftViewMode = UITextField.ViewMode.always
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
 
-        
         emailTextField.autocorrectionType = .no
         emailTextField.borderStyle = .none
         let bLine = CALayer()

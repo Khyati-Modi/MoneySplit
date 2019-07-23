@@ -21,17 +21,15 @@ class EditProfileViewController: UIViewController {
     var selectedCurrency : Int!
     var selectedCurrencyRow : Int = 0
 
-
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var fullNameText: UITextField!
     @IBOutlet weak var currencyText: UITextField!
     @IBOutlet weak var EmailIdText: UITextField!
-//    @IBOutlet weak var languageText: UITextField!
+
     
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
-    
     
     @IBAction func changeImage(_ sender: UIButton) {
         let imagePickerController = UIImagePickerController()
@@ -49,13 +47,12 @@ class EditProfileViewController: UIViewController {
         self.userPickerView.selectRow(selectedCurrencyRow, inComponent: 0, animated: true)
         self.view.addSubview(userPickerView)
     }
+
     
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
-        print(currencyText.text!)
         UserDefaults.standard.setValue(currencyText.text!, forKey: "currency")
         updateImage()
         updateFullName()
-        
         navigationController?.popViewController(animated: true)
     }
     
@@ -92,7 +89,6 @@ class EditProfileViewController: UIViewController {
         
         
         let docData: [String: Any] = ["fullName": "\(fullNameText.text!)","email": "\(currentUser!)","userName": "\(username)"]
-        
         db.collection("UserSignUp").document(currentUser!).setData(docData) { err in
             if let err = err {
                 print("Error writing document: \(err)")
@@ -106,7 +102,6 @@ class EditProfileViewController: UIViewController {
 extension EditProfileViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -124,7 +119,6 @@ extension EditProfileViewController : UIPickerViewDelegate, UIPickerViewDataSour
         userPickerView.isHidden = true
     }
 }
-    
     
 extension EditProfileViewController :   UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

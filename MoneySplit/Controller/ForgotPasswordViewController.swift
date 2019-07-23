@@ -16,7 +16,6 @@ class ForgotPasswordViewController: UIViewController {
     @IBOutlet weak var reserPassword: UIButton!
     
     @IBAction func resetPassword(_ sender: UIButton) {
-        
         Auth.auth().sendPasswordReset(withEmail: emailField.text!) { error in
             if let error = error {
                 print(error.localizedDescription)
@@ -46,7 +45,6 @@ class ForgotPasswordViewController: UIViewController {
     }
     
     func getBackground(){
-    
         var imageView : UIImageView!
         imageView = UIImageView(frame: view.bounds)
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
@@ -56,7 +54,6 @@ class ForgotPasswordViewController: UIViewController {
         view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
         
-        
         let emailImageView = UIImageView(frame: CGRect(x: 2, y: 0, width: 60, height: 22))
         emailImageView.contentMode = .scaleAspectFit
         let emailImage = UIImage(named: "Email")
@@ -64,7 +61,6 @@ class ForgotPasswordViewController: UIViewController {
         emailField.leftView = emailImageView
         emailField.leftViewMode = UITextField.ViewMode.always
         emailField.attributedPlaceholder = NSAttributedString(string: "Enter Your Registered EmailID", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        
         
         emailField.autocorrectionType = .no
         emailField.borderStyle = .none
