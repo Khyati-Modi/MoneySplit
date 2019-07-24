@@ -17,13 +17,13 @@ class ForgotPasswordViewController: UIViewController {
     @IBAction func resetPassword(_ sender: UIButton) {
         Auth.auth().sendPasswordReset(withEmail: emailField.text!) { error in
             if let error = error {
-                let alert = UIAlertController(title: "Oops!", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Incorrect Data!", message: "\(error.localizedDescription)", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Okay", style: .cancel, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true , completion: nil)
             }
             else{
-                let alert = UIAlertController(title: "Successfull!", message: "Please Check your mailBox for further procedure", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Email Sent!", message: "Please Check your mailBox for further procedure", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Okay", style: .cancel, handler: { (UIAlertAction) in
                     self.navigationController?.popViewController(animated: true)
                 })
