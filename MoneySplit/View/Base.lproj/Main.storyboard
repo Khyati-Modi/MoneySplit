@@ -188,7 +188,7 @@
                                             <constraint firstAttribute="height" constant="30" id="9ii-RX-6WU"/>
                                         </constraints>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
@@ -227,7 +227,10 @@
                                     <constraint firstAttribute="width" constant="50" id="GCj-5u-xUF"/>
                                     <constraint firstAttribute="height" constant="30" id="HhL-bV-rmY"/>
                                 </constraints>
-                                <state key="normal" title="Back"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="backButton:" destination="YXt-ia-eOy" eventType="touchUpInside" id="gxD-yc-fSQ"/>
                                 </connections>
@@ -756,10 +759,10 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eth-6D-bPV">
-                                <rect key="frame" x="97" y="245" width="185" height="33"/>
+                                <rect key="frame" x="152.5" y="233.5" width="70" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="C78-yW-w71"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="p9z-Ox-7CO"/>
+                                    <constraint firstAttribute="height" constant="33" id="06r-dg-uXn"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Tah-5M-74h"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="28"/>
                                 <nil key="textColor"/>
@@ -779,7 +782,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="G5H-lY-wZQ" firstAttribute="bottom" secondItem="Ow2-2g-V5H" secondAttribute="bottom" constant="10" id="4D8-SF-frh"/>
-                            <constraint firstItem="eth-6D-bPV" firstAttribute="top" secondItem="5e6-Yc-fL3" secondAttribute="bottom" constant="23.5" id="6zD-9X-BEE"/>
                             <constraint firstItem="qz4-MX-RO6" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="87Q-6g-jcz"/>
                             <constraint firstItem="qz4-MX-RO6" firstAttribute="top" secondItem="3Uo-Kr-DHv" secondAttribute="bottom" constant="8" id="9OW-xb-Dee"/>
                             <constraint firstItem="G5H-lY-wZQ" firstAttribute="trailing" secondItem="nVR-4m-BvO" secondAttribute="trailing" constant="11" id="9tw-st-F1h"/>
@@ -789,6 +791,8 @@
                             <constraint firstItem="qz4-MX-RO6" firstAttribute="top" secondItem="3Uo-Kr-DHv" secondAttribute="bottom" constant="8" id="HtM-sj-Npx"/>
                             <constraint firstItem="6XW-B2-WaU" firstAttribute="top" secondItem="1Sc-Wm-Adh" secondAttribute="bottom" constant="8" id="I7v-1b-QSI"/>
                             <constraint firstItem="6XW-B2-WaU" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="INy-sD-vZF"/>
+                            <constraint firstItem="eth-6D-bPV" firstAttribute="centerY" secondItem="7u6-Dq-g6O" secondAttribute="centerY" multiplier="0.75" id="IPY-yg-Xzv"/>
+                            <constraint firstItem="eth-6D-bPV" firstAttribute="centerX" secondItem="7u6-Dq-g6O" secondAttribute="centerX" id="Ig2-nH-bKc"/>
                             <constraint firstItem="VYn-G8-mqE" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="JNL-Ti-68l"/>
                             <constraint firstItem="nVR-4m-BvO" firstAttribute="top" secondItem="6XW-B2-WaU" secondAttribute="bottom" constant="24" id="RZj-te-Zxf"/>
                             <constraint firstItem="Ow2-2g-V5H" firstAttribute="top" secondItem="nVR-4m-BvO" secondAttribute="bottom" constant="8" id="TX8-EI-OPF"/>
@@ -799,13 +803,11 @@
                             <constraint firstItem="fs3-bW-bwQ" firstAttribute="top" secondItem="VYn-G8-mqE" secondAttribute="bottom" constant="8" id="eRx-t8-H4w"/>
                             <constraint firstItem="G5H-lY-wZQ" firstAttribute="trailing" secondItem="fs3-bW-bwQ" secondAttribute="trailing" constant="11" id="ekj-Yr-Rfb"/>
                             <constraint firstItem="fs3-bW-bwQ" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="fDs-vJ-y2Q"/>
-                            <constraint firstItem="eth-6D-bPV" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="97" id="gDB-av-x7D"/>
                             <constraint firstItem="5e6-Yc-fL3" firstAttribute="centerX" secondItem="7u6-Dq-g6O" secondAttribute="centerX" id="hxS-4k-JTg"/>
                             <constraint firstItem="3Uo-Kr-DHv" firstAttribute="top" secondItem="fs3-bW-bwQ" secondAttribute="bottom" constant="24" id="kMl-i8-h8K"/>
                             <constraint firstItem="G5H-lY-wZQ" firstAttribute="trailing" secondItem="1Sc-Wm-Adh" secondAttribute="trailing" constant="11" id="mHe-OA-DbP"/>
                             <constraint firstItem="3Uo-Kr-DHv" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="oL8-S4-9gV"/>
                             <constraint firstItem="1Sc-Wm-Adh" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="oaS-BD-ouf"/>
-                            <constraint firstItem="G5H-lY-wZQ" firstAttribute="trailing" secondItem="eth-6D-bPV" secondAttribute="trailing" constant="93" id="pic-cM-d1E"/>
                             <constraint firstItem="nVR-4m-BvO" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="rsx-Sn-j5E"/>
                             <constraint firstItem="Ow2-2g-V5H" firstAttribute="leading" secondItem="G5H-lY-wZQ" secondAttribute="leading" constant="8" id="s7t-2O-pzW"/>
                             <constraint firstItem="1Sc-Wm-Adh" firstAttribute="top" secondItem="qz4-MX-RO6" secondAttribute="bottom" constant="24" id="teS-3X-68q"/>
@@ -1235,7 +1237,7 @@
                                         <items>
                                             <navigationItem id="0PL-jz-vu3">
                                                 <barButtonItem key="backBarButtonItem" title="Back" id="NS1-0J-bpU"/>
-                                                <barButtonItem key="leftBarButtonItem" title=" &lt; Back" id="pTU-9d-yDq">
+                                                <barButtonItem key="leftBarButtonItem" title="Back" id="pTU-9d-yDq">
                                                     <connections>
                                                         <action selector="Backbutton:" destination="mSN-Fv-xVe" id="KwN-zO-XSV"/>
                                                     </connections>

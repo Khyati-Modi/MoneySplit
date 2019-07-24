@@ -225,5 +225,4 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate,UI
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }

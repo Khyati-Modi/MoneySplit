@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     var db: Firestore!
-
     var userArray = [User]()
     var peopleArray = [PeopleData]()
     var emailOfUser  : [String] = []
@@ -42,6 +42,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         if UserDefaults.standard.string(forKey: "currency") == "INR"{
             let amt = Conversion.shared.convertCurrency(dollarAmount: 0)
             leftLabel.text = "\(amt)"
@@ -76,12 +77,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         headerLabel.font = UIFont(name: "Poppins", size: 24)
         headerLabel.textColor = UIColor.black
         
-            if section == 0{
-                headerLabel.text = typeArray[0]
-            }
-            if section == 1{
-                headerLabel.text = typeArray[1]
-            }
+        if section == 0{
+            headerLabel.text = typeArray[0]
+        }
+        if section == 1{
+            headerLabel.text = typeArray[1]
+        }
         
         let bottomLine2 = CALayer()
         bottomLine2.frame = CGRect(x: 0, y: 32  , width: headerLabel.bounds.size.width, height: 1)
@@ -90,7 +91,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return headerLabel
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(typeArray.count)
 
         if peopleArray.count != 0{
             if section == 0 {
@@ -104,8 +104,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
             if indexPath.section == 0 {
                 if peopleArray.count != 0{
                     var  amount = 0
@@ -122,7 +122,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         totalamt = Conversion.shared.convertCurrency(dollarAmount: totalAmount)
                         leftLabel.text = " \(totalamt)"
                     }
-                        
                     else {
                         amt =  "\(peopleArray[indexPath.row].peopleCount!)$ "
                         for i in 0..<peopleArray.count {
@@ -167,7 +166,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     cell.amountButtonOutlet.tintColor = greenColour
                     return cell
                 }
-             return UITableViewCell()
+                return UITableViewCell()
         }
         else{
             return UITableViewCell()
@@ -211,7 +210,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func peopleWhoOweYou(){
         self.userArray.removeAll()
         var a = 1
+
         db.collection("UserSignUp").getDocuments { (query, error) in
+
             if error != nil{
                 print("Error to find UserSignUp Database")
             }
@@ -232,6 +233,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     else{
                         var value = 0
                         for document in QuerySnapshot!.documents {
+
                             let paidByUser = document.data()["paidBy"]  as! String
                             for i in 0..<self.emailOfUser.count {
                                 let userEmail = self.emailOfUser[i]
@@ -305,7 +307,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: peopleYouOwe
     func peopleYouOwe(){
         self.peopleArray.removeAll()
+
         self.db.collection("PeopleWhoOweYou").getDocuments(completion: { (QuerySnapshot, err) in
+
             if let err = err {
                 print("Error getting documents: \(err)")
             }
@@ -321,15 +325,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     if Auth.auth().currentUser?.email != paidByUser {
                         if Auth.auth().currentUser?.email == nameOfUser {
                             self.peopleArray.removeAll()
+
                             countTwo = (document.data()["money"] as! Int)
                             self.totalValue = self.totalValue + countTwo
                             self.currentUser = paidByUser
                             for currentUser in self.array {
                                 if currentUser == self.currentUser {
                                     let foundIndex = self.find(value: "\(currentUser)", in: self.array)
-                                   
                                     let previosCount =  self.prize[foundIndex!]
-                                    
                                     self.prize[foundIndex!] = previosCount + countTwo
                                     a = 0
                                 }
@@ -369,6 +372,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                             }
                             if let data = data {
                                 peopleInfo.peopleProfileImage = UIImage(data: data)!
+                                self.tableView.reloadData()
                             }
                         }
                         self.peopleArray.append(peopleInfo)

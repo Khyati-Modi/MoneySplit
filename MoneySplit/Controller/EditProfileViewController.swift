@@ -26,7 +26,6 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var currencyText: UITextField!
     @IBOutlet weak var EmailIdText: UITextField!
 
-    
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
@@ -48,7 +47,6 @@ class EditProfileViewController: UIViewController {
         self.view.addSubview(userPickerView)
     }
 
-    
     @IBAction func doneEditing(_ sender: UIBarButtonItem) {
         UserDefaults.standard.setValue(currencyText.text!, forKey: "currency")
         updateImage()
@@ -58,7 +56,6 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fullNameText.text = userfullname
         currencyText.text = UserDefaults.standard.string(forKey: "currency")
         userProfileImage.image = imageData

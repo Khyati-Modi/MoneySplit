@@ -12,7 +12,6 @@
 		4213218322D49B9F00E0C47B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213218222D49B9F00E0C47B /* User.swift */; };
 		4213D68F22D7193100F8BA7F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4213D68E22D7193100F8BA7F /* EditProfileViewController.swift */; };
 		424AAC7422E09AC800D164DD /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424AAC7322E09AC800D164DD /* Conversion.swift */; };
-		424F64DA22E02D3E001441F3 /* Localization Strings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 424F64D922E02D3E001441F3 /* Localization Strings.strings */; };
 		4259C4A122D8A492003D8158 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259C49F22D8A492003D8158 /* FriendTableViewCell.swift */; };
 		4259C4A222D8A492003D8158 /* FriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4259C4A022D8A492003D8158 /* FriendTableViewCell.xib */; };
 		4259C4A422D8A7D3003D8158 /* BillHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259C4A322D8A7D3003D8158 /* BillHistory.swift */; };
@@ -28,6 +27,7 @@
 		4295E9F022D4466200B6385E /* AddBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9EF22D4466200B6385E /* AddBillViewController.swift */; };
 		4295E9F622D46C6200B6385E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295E9F522D46C6200B6385E /* ProfileViewController.swift */; };
 		4295EDED22DF59580028005E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295EDEC22DF59580028005E /* ForgotPasswordViewController.swift */; };
+		42A3CCE922E81B13008E8D52 /* LocalizableStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42A3CCEB22E81B13008E8D52 /* LocalizableStrings.strings */; };
 		42BBDD3D22D378CB00BF25D4 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BBDD3B22D378CB00BF25D4 /* ListTableViewCell.swift */; };
 		42BBDD3E22D378CB00BF25D4 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BBDD3C22D378CB00BF25D4 /* ListTableViewCell.xib */; };
 		42DFD41822D31BBA00275B98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DFD41722D31BBA00275B98 /* AppDelegate.swift */; };
@@ -47,7 +47,6 @@
 		424AAC7322E09AC800D164DD /* Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; };
 		424F64D722E02D0A001441F3 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Main.strings; sourceTree = "<group>"; };
 		424F64D822E02D0A001441F3 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		424F64D922E02D3E001441F3 /* Localization Strings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Localization Strings.strings"; sourceTree = "<group>"; };
 		4259C49F22D8A492003D8158 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		4259C4A022D8A492003D8158 /* FriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendTableViewCell.xib; sourceTree = "<group>"; };
 		4259C4A322D8A7D3003D8158 /* BillHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistory.swift; sourceTree = "<group>"; };
@@ -63,6 +62,8 @@
 		4295E9EF22D4466200B6385E /* AddBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillViewController.swift; sourceTree = "<group>"; };
 		4295E9F522D46C6200B6385E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4295EDEC22DF59580028005E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		42A3CCEA22E81B13008E8D52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizableStrings.strings; sourceTree = "<group>"; };
+		42A3CCEC22E81B16008E8D52 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LocalizableStrings.strings; sourceTree = "<group>"; };
 		42BBDD3B22D378CB00BF25D4 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		42BBDD3C22D378CB00BF25D4 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		42DFD41422D31BBA00275B98 /* MoneySplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneySplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +109,7 @@
 		4276BC0222D32C2A00FAD007 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				42DFD42022D31BBA00275B98 /* LaunchScreen.storyboard */,
 				42DFD41B22D31BBA00275B98 /* Main.storyboard */,
 				42BBDD3C22D378CB00BF25D4 /* ListTableViewCell.xib */,
 				4213217F22D4758E00E0C47B /* TableViewCell.xib */,
@@ -173,10 +175,9 @@
 				4276BC0222D32C2A00FAD007 /* View */,
 				4276BC0122D32C2200FAD007 /* Model */,
 				42DFD41722D31BBA00275B98 /* AppDelegate.swift */,
-				42DFD42022D31BBA00275B98 /* LaunchScreen.storyboard */,
+				42A3CCEB22E81B13008E8D52 /* LocalizableStrings.strings */,
 				42EB23F922E7022F004ACA82 /* GoogleService-Info.plist */,
 				42DFD42322D31BBA00275B98 /* Info.plist */,
-				424F64D922E02D3E001441F3 /* Localization Strings.strings */,
 			);
 			path = MoneySplit;
 			sourceTree = "<group>";
@@ -242,6 +243,7 @@
 			knownRegions = (
 				en,
 				Base,
+				hi,
 			);
 			mainGroup = 42DFD40B22D31BBA00275B98;
 			productRefGroup = 42DFD41522D31BBA00275B98 /* Products */;
@@ -260,12 +262,12 @@
 			files = (
 				42DFD42222D31BBA00275B98 /* LaunchScreen.storyboard in Resources */,
 				4213218122D4758F00E0C47B /* TableViewCell.xib in Resources */,
-				424F64DA22E02D3E001441F3 /* Localization Strings.strings in Resources */,
 				4290B5C422DD93EF0041D789 /* Poppins-SemiBold.otf in Resources */,
 				4259C4A222D8A492003D8158 /* FriendTableViewCell.xib in Resources */,
 				42DFD41F22D31BBA00275B98 /* Assets.xcassets in Resources */,
 				42DFD41D22D31BBA00275B98 /* Main.storyboard in Resources */,
 				42BBDD3E22D378CB00BF25D4 /* ListTableViewCell.xib in Resources */,
+				42A3CCE922E81B13008E8D52 /* LocalizableStrings.strings in Resources */,
 				42EB23FA22E7022F004ACA82 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +347,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		42A3CCEB22E81B13008E8D52 /* LocalizableStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42A3CCEA22E81B13008E8D52 /* en */,
+				42A3CCEC22E81B16008E8D52 /* hi */,
+			);
+			name = LocalizableStrings.strings;
+			sourceTree = "<group>";
+		};
 		42DFD41B22D31BBA00275B98 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

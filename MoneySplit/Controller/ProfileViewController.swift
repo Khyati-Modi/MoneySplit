@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController {
         currencyLabel.text = UserDefaults.standard.string(forKey: "currency")
         getData()
     }
-    
+   
     @IBAction func editProfile(_ sender: UIBarButtonItem) {
         
       if profileImageView.image == nil {
@@ -63,7 +63,6 @@ class ProfileViewController: UIViewController {
     }
     
     func getData(){
-        
         activityIndicator.center = self.profileImageView.center
         activityIndicator.hidesWhenStopped = true
         self.activityIndicator.style = UIActivityIndicatorView.Style.gray

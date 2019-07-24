@@ -15,11 +15,9 @@ class ListTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBAction func amountButton(_ sender: UIButton) {
-        
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = 35
     }
@@ -27,5 +25,4 @@ class ListTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
 }

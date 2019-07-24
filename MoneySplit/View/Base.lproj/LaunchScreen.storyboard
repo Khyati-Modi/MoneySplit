@@ -18,12 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cash" translatesAutoresizingMaskIntoConstraints="NO" id="nMO-NJ-Jnq">
-                                <rect key="frame" x="0.0" y="169.5" width="375" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="nMO-NJ-Jnq" secondAttribute="height" multiplier="375:128" id="rQ1-WQ-8kW"/>
-                                </constraints>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tj6-jG-dPt">
                                 <rect key="frame" x="87.5" y="382.5" width="200" height="35"/>
                                 <subviews>
@@ -45,15 +39,20 @@
                                     <constraint firstAttribute="width" constant="200" id="qBM-Ck-p7Y"/>
                                 </constraints>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cash" translatesAutoresizingMaskIntoConstraints="NO" id="nMO-NJ-Jnq">
+                                <rect key="frame" x="60.5" y="192" width="254" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="8sb-6j-Kqn"/>
+                                    <constraint firstAttribute="height" constant="150" id="ocw-bE-zqY"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="nMO-NJ-Jnq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" id="FDe-La-Low"/>
                             <constraint firstItem="tj6-jG-dPt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="1.2" id="LbA-cg-VqE"/>
-                            <constraint firstItem="nMO-NJ-Jnq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="RUj-UM-CIy"/>
-                            <constraint firstItem="nMO-NJ-Jnq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="caK-RA-PIx"/>
+                            <constraint firstItem="nMO-NJ-Jnq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dsV-ZB-Qf8"/>
                             <constraint firstItem="tj6-jG-dPt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gaT-oO-Jia"/>
-                            <constraint firstItem="nMO-NJ-Jnq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.7" id="qIO-Uf-zCE"/>
-                            <constraint firstItem="nMO-NJ-Jnq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uOh-fQ-UZS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

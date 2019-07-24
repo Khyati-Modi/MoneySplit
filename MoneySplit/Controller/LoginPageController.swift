@@ -146,6 +146,4 @@ class LoginPageController: UIViewController {
         signInButtonOutlet.layer.backgroundColor = UIColor.white.cgColor
         signInButtonOutlet.layer.cornerRadius = 30
     }
-    
 }
-

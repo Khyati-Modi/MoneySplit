@@ -17,6 +17,8 @@ class BillDataViewController: UIViewController {
     var sender = ""
     var paidby = ""
     var addedByUserName = ""
+    var a = 0
+    var addedby : String = ""
 
     @IBOutlet weak var subjectOfBill: UILabel!
     @IBOutlet weak var amountOfBill: UILabel!
@@ -27,12 +29,47 @@ class BillDataViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
         db = Firestore.firestore()
-        
-        
+        getaddName()
+    }
+    
+    func getaddName() {
+        self.db.collection("userInfo").document(self.addedByUserName).collection("billInfo").getDocuments { (QuerySnapShot, err) in
+            if let err = err{
+                print(err.localizedDescription)
+            }
+            else{
+                for document in (QuerySnapShot!.documents) {
+                    if self.selectedItem == (document.data()["subjectOfBill"] as! String) {
+                        let add = Auth.auth().currentUser?.email!
+                        if Auth.auth().currentUser?.email! == (document.data()["currentUser"] as! String){
+                            self.addedby = "You"
+                            self.data()
+                        }
+                        else {
+                            self.db.collection("UserSignUp").getDocuments(completion: { (QuerySnapshot, Error) in
+                                if let Error = Error{
+                                    print(Error.localizedDescription)
+                                }
+                                else {
+                                    for document in (QuerySnapshot?.documents)!{
+                                        if add == document.documentID {
+                                            self.addedby = (document.data()["userName"] as! String)
+                                            self.data()
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func data(){
         self.db.collection("userInfo").document(self.addedByUserName).collection("billInfo").getDocuments { (QuerySnapShot, err) in
             if let err = err{
                 print(err.localizedDescription)
@@ -56,12 +93,12 @@ class BillDataViewController: UIViewController {
                             amt =  ("\(document.data()["totalAmountOfBill"] as! Int) $")
                         }
                         self.amountOfBill.text = "\(amt)"
-                        self.addedByDate.text = ("Added by \(user) on \(document.data()["Time"] as! String)")
+                        self.addedByDate.text = ("Added by \(String(describing: self.addedby)) on \(document.data()["Time"] as! String)")
                         self.paidBy.text = ("Paid by \(user)")
                         self.paidFor.text = ("For \(document.data()["paidFor"] as! String)")
-
+                        
                         if (document.data()["splitManner"] as! String) == "Split Equally"{
-                             self.splittedType.text = "Splitted equally"
+                            self.splittedType.text = "Splitted equally"
                         }
                         else{
                             self.splittedType.text = "Splitted unequally"
